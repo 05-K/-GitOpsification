@@ -1,0 +1,1089 @@
+apiVersion: v1
+items:
+- apiVersion: v1
+  kind: Service
+  metadata:
+    annotations:
+      kubectl.kubernetes.io/last-applied-configuration: |
+        {"apiVersion":"v1","kind":"Service","metadata":{"annotations":{},"labels":{"app.kubernetes.io/component":"ad","app.kubernetes.io/name":"ad","app.kubernetes.io/part-of":"opentelemetry-demo","app.kubernetes.io/version":"2.1.3","opentelemetry.io/name":"ad"},"name":"ad","namespace":"otel-demo"},"spec":{"ports":[{"name":"tcp-service","port":8080,"targetPort":8080}],"selector":{"opentelemetry.io/name":"ad"},"type":"ClusterIP"}}
+    creationTimestamp: "2026-03-31T11:46:24Z"
+    labels:
+      app.kubernetes.io/component: ad
+      app.kubernetes.io/name: ad
+      app.kubernetes.io/part-of: opentelemetry-demo
+      app.kubernetes.io/version: 2.1.3
+      opentelemetry.io/name: ad
+    name: ad
+    namespace: otel-demo
+    resourceVersion: "33402"
+    uid: c79cec55-0d79-43c8-b8ac-0b949944bfc0
+  spec:
+    clusterIP: 172.20.170.26
+    clusterIPs:
+    - 172.20.170.26
+    internalTrafficPolicy: Cluster
+    ipFamilies:
+    - IPv4
+    ipFamilyPolicy: SingleStack
+    ports:
+    - name: tcp-service
+      port: 8080
+      protocol: TCP
+      targetPort: 8080
+    selector:
+      opentelemetry.io/name: ad
+    sessionAffinity: None
+    type: ClusterIP
+  status:
+    loadBalancer: {}
+- apiVersion: v1
+  kind: Service
+  metadata:
+    annotations:
+      kubectl.kubernetes.io/last-applied-configuration: |
+        {"apiVersion":"v1","kind":"Service","metadata":{"annotations":{},"labels":{"app.kubernetes.io/component":"cart","app.kubernetes.io/name":"cart","app.kubernetes.io/part-of":"opentelemetry-demo","app.kubernetes.io/version":"2.1.3","opentelemetry.io/name":"cart"},"name":"cart","namespace":"otel-demo"},"spec":{"ports":[{"name":"tcp-service","port":8080,"targetPort":8080}],"selector":{"opentelemetry.io/name":"cart"},"type":"ClusterIP"}}
+    creationTimestamp: "2026-03-31T11:46:26Z"
+    labels:
+      app.kubernetes.io/component: cart
+      app.kubernetes.io/name: cart
+      app.kubernetes.io/part-of: opentelemetry-demo
+      app.kubernetes.io/version: 2.1.3
+      opentelemetry.io/name: cart
+    name: cart
+    namespace: otel-demo
+    resourceVersion: "33410"
+    uid: d5eb918a-b584-42d4-a88c-911c9f28bacf
+  spec:
+    clusterIP: 172.20.156.229
+    clusterIPs:
+    - 172.20.156.229
+    internalTrafficPolicy: Cluster
+    ipFamilies:
+    - IPv4
+    ipFamilyPolicy: SingleStack
+    ports:
+    - name: tcp-service
+      port: 8080
+      protocol: TCP
+      targetPort: 8080
+    selector:
+      opentelemetry.io/name: cart
+    sessionAffinity: None
+    type: ClusterIP
+  status:
+    loadBalancer: {}
+- apiVersion: v1
+  kind: Service
+  metadata:
+    annotations:
+      kubectl.kubernetes.io/last-applied-configuration: |
+        {"apiVersion":"v1","kind":"Service","metadata":{"annotations":{},"labels":{"app.kubernetes.io/component":"checkout","app.kubernetes.io/name":"checkout","app.kubernetes.io/part-of":"opentelemetry-demo","app.kubernetes.io/version":"2.1.3","opentelemetry.io/name":"checkout"},"name":"checkout","namespace":"otel-demo"},"spec":{"ports":[{"name":"tcp-service","port":8080,"targetPort":8080}],"selector":{"opentelemetry.io/name":"checkout"},"type":"ClusterIP"}}
+    creationTimestamp: "2026-03-31T11:46:28Z"
+    labels:
+      app.kubernetes.io/component: checkout
+      app.kubernetes.io/name: checkout
+      app.kubernetes.io/part-of: opentelemetry-demo
+      app.kubernetes.io/version: 2.1.3
+      opentelemetry.io/name: checkout
+    name: checkout
+    namespace: otel-demo
+    resourceVersion: "33419"
+    uid: 9c44c0ed-ff1d-47d1-a611-0d25eb958199
+  spec:
+    clusterIP: 172.20.108.121
+    clusterIPs:
+    - 172.20.108.121
+    internalTrafficPolicy: Cluster
+    ipFamilies:
+    - IPv4
+    ipFamilyPolicy: SingleStack
+    ports:
+    - name: tcp-service
+      port: 8080
+      protocol: TCP
+      targetPort: 8080
+    selector:
+      opentelemetry.io/name: checkout
+    sessionAffinity: None
+    type: ClusterIP
+  status:
+    loadBalancer: {}
+- apiVersion: v1
+  kind: Service
+  metadata:
+    annotations:
+      kubectl.kubernetes.io/last-applied-configuration: |
+        {"apiVersion":"v1","kind":"Service","metadata":{"annotations":{},"labels":{"app.kubernetes.io/component":"currency","app.kubernetes.io/name":"currency","app.kubernetes.io/part-of":"opentelemetry-demo","app.kubernetes.io/version":"2.1.3","opentelemetry.io/name":"currency"},"name":"currency","namespace":"otel-demo"},"spec":{"ports":[{"name":"tcp-service","port":8080,"targetPort":8080}],"selector":{"opentelemetry.io/name":"currency"},"type":"ClusterIP"}}
+    creationTimestamp: "2026-03-31T11:46:30Z"
+    labels:
+      app.kubernetes.io/component: currency
+      app.kubernetes.io/name: currency
+      app.kubernetes.io/part-of: opentelemetry-demo
+      app.kubernetes.io/version: 2.1.3
+      opentelemetry.io/name: currency
+    name: currency
+    namespace: otel-demo
+    resourceVersion: "33429"
+    uid: d17a1184-0977-4c76-a138-e27a04507a6d
+  spec:
+    clusterIP: 172.20.204.139
+    clusterIPs:
+    - 172.20.204.139
+    internalTrafficPolicy: Cluster
+    ipFamilies:
+    - IPv4
+    ipFamilyPolicy: SingleStack
+    ports:
+    - name: tcp-service
+      port: 8080
+      protocol: TCP
+      targetPort: 8080
+    selector:
+      opentelemetry.io/name: currency
+    sessionAffinity: None
+    type: ClusterIP
+  status:
+    loadBalancer: {}
+- apiVersion: v1
+  kind: Service
+  metadata:
+    annotations:
+      kubectl.kubernetes.io/last-applied-configuration: |
+        {"apiVersion":"v1","kind":"Service","metadata":{"annotations":{},"labels":{"app.kubernetes.io/component":"email","app.kubernetes.io/name":"email","app.kubernetes.io/part-of":"opentelemetry-demo","app.kubernetes.io/version":"2.1.3","opentelemetry.io/name":"email"},"name":"email","namespace":"otel-demo"},"spec":{"ports":[{"name":"tcp-service","port":8080,"targetPort":8080}],"selector":{"opentelemetry.io/name":"email"},"type":"ClusterIP"}}
+    creationTimestamp: "2026-03-31T11:46:31Z"
+    labels:
+      app.kubernetes.io/component: email
+      app.kubernetes.io/name: email
+      app.kubernetes.io/part-of: opentelemetry-demo
+      app.kubernetes.io/version: 2.1.3
+      opentelemetry.io/name: email
+    name: email
+    namespace: otel-demo
+    resourceVersion: "33438"
+    uid: b962b78e-8678-42d8-84f6-a6d43208c151
+  spec:
+    clusterIP: 172.20.71.72
+    clusterIPs:
+    - 172.20.71.72
+    internalTrafficPolicy: Cluster
+    ipFamilies:
+    - IPv4
+    ipFamilyPolicy: SingleStack
+    ports:
+    - name: tcp-service
+      port: 8080
+      protocol: TCP
+      targetPort: 8080
+    selector:
+      opentelemetry.io/name: email
+    sessionAffinity: None
+    type: ClusterIP
+  status:
+    loadBalancer: {}
+- apiVersion: v1
+  kind: Service
+  metadata:
+    annotations:
+      kubectl.kubernetes.io/last-applied-configuration: |
+        {"apiVersion":"v1","kind":"Service","metadata":{"annotations":{},"labels":{"app.kubernetes.io/component":"flagd","app.kubernetes.io/name":"flagd","app.kubernetes.io/part-of":"opentelemetry-demo","app.kubernetes.io/version":"2.1.3","opentelemetry.io/name":"flagd"},"name":"flagd","namespace":"otel-demo"},"spec":{"ports":[{"name":"rpc","port":8013,"targetPort":8013},{"name":"ofrep","port":8016,"targetPort":8016},{"name":"tcp-service-0","port":4000,"targetPort":4000}],"selector":{"opentelemetry.io/name":"flagd"},"type":"ClusterIP"}}
+    creationTimestamp: "2026-03-31T11:46:33Z"
+    labels:
+      app.kubernetes.io/component: flagd
+      app.kubernetes.io/name: flagd
+      app.kubernetes.io/part-of: opentelemetry-demo
+      app.kubernetes.io/version: 2.1.3
+      opentelemetry.io/name: flagd
+    name: flagd
+    namespace: otel-demo
+    resourceVersion: "33447"
+    uid: 6d73b4cb-b50f-4ce0-9946-a8919e1464c2
+  spec:
+    clusterIP: 172.20.190.23
+    clusterIPs:
+    - 172.20.190.23
+    internalTrafficPolicy: Cluster
+    ipFamilies:
+    - IPv4
+    ipFamilyPolicy: SingleStack
+    ports:
+    - name: rpc
+      port: 8013
+      protocol: TCP
+      targetPort: 8013
+    - name: ofrep
+      port: 8016
+      protocol: TCP
+      targetPort: 8016
+    - name: tcp-service-0
+      port: 4000
+      protocol: TCP
+      targetPort: 4000
+    selector:
+      opentelemetry.io/name: flagd
+    sessionAffinity: None
+    type: ClusterIP
+  status:
+    loadBalancer: {}
+- apiVersion: v1
+  kind: Service
+  metadata:
+    annotations:
+      kubectl.kubernetes.io/last-applied-configuration: |
+        {"apiVersion":"v1","kind":"Service","metadata":{"annotations":{},"labels":{"app.kubernetes.io/component":"frontend","app.kubernetes.io/name":"frontend","app.kubernetes.io/part-of":"opentelemetry-demo","app.kubernetes.io/version":"2.1.3","opentelemetry.io/name":"frontend"},"name":"frontend","namespace":"otel-demo"},"spec":{"ports":[{"name":"tcp-service","port":8080,"targetPort":8080}],"selector":{"opentelemetry.io/name":"frontend"},"type":"ClusterIP"}}
+    creationTimestamp: "2026-03-31T11:46:35Z"
+    labels:
+      app.kubernetes.io/component: frontend
+      app.kubernetes.io/name: frontend
+      app.kubernetes.io/part-of: opentelemetry-demo
+      app.kubernetes.io/version: 2.1.3
+      opentelemetry.io/name: frontend
+    name: frontend
+    namespace: otel-demo
+    resourceVersion: "33455"
+    uid: 65c7bb34-a55f-44fe-afef-a813c3311ede
+  spec:
+    clusterIP: 172.20.137.76
+    clusterIPs:
+    - 172.20.137.76
+    internalTrafficPolicy: Cluster
+    ipFamilies:
+    - IPv4
+    ipFamilyPolicy: SingleStack
+    ports:
+    - name: tcp-service
+      port: 8080
+      protocol: TCP
+      targetPort: 8080
+    selector:
+      opentelemetry.io/name: frontend
+    sessionAffinity: None
+    type: ClusterIP
+  status:
+    loadBalancer: {}
+- apiVersion: v1
+  kind: Service
+  metadata:
+    annotations:
+      kubectl.kubernetes.io/last-applied-configuration: |
+        {"apiVersion":"v1","kind":"Service","metadata":{"annotations":{},"labels":{"app.kubernetes.io/component":"frontend-proxy","app.kubernetes.io/name":"frontend-proxy","app.kubernetes.io/part-of":"opentelemetry-demo","app.kubernetes.io/version":"2.1.3","opentelemetry.io/name":"frontend-proxy"},"name":"frontend-proxy","namespace":"otel-demo"},"spec":{"ports":[{"name":"tcp-service","port":8080,"targetPort":8080}],"selector":{"opentelemetry.io/name":"frontend-proxy"},"type":"ClusterIP"}}
+    creationTimestamp: "2026-03-31T11:46:36Z"
+    labels:
+      app.kubernetes.io/component: frontend-proxy
+      app.kubernetes.io/name: frontend-proxy
+      app.kubernetes.io/part-of: opentelemetry-demo
+      app.kubernetes.io/version: 2.1.3
+      opentelemetry.io/name: frontend-proxy
+    name: frontend-proxy
+    namespace: otel-demo
+    resourceVersion: "65151"
+    uid: cf17c9b2-ef74-41a6-8f0c-139a2d788f87
+  spec:
+    clusterIP: 172.20.139.149
+    clusterIPs:
+    - 172.20.139.149
+    internalTrafficPolicy: Cluster
+    ipFamilies:
+    - IPv4
+    ipFamilyPolicy: SingleStack
+    ports:
+    - name: http
+      port: 80
+      protocol: TCP
+      targetPort: 8080
+    - name: tcp-service
+      port: 8080
+      protocol: TCP
+      targetPort: 8080
+    selector:
+      opentelemetry.io/name: frontend-proxy
+    sessionAffinity: None
+    type: ClusterIP
+  status:
+    loadBalancer: {}
+- apiVersion: v1
+  kind: Service
+  metadata:
+    annotations:
+      kubectl.kubernetes.io/last-applied-configuration: |
+        {"apiVersion":"v1","kind":"Service","metadata":{"annotations":{"service.beta.kubernetes.io/aws-load-balancer-healthcheck-path":"/","service.beta.kubernetes.io/aws-load-balancer-healthcheck-protocol":"HTTP","service.beta.kubernetes.io/aws-load-balancer-scheme":"internet-facing","service.beta.kubernetes.io/aws-load-balancer-type":"nlb"},"name":"frontend-proxy-public","namespace":"otel-demo"},"spec":{"ports":[{"name":"http","port":80,"protocol":"TCP","targetPort":8080}],"selector":{"opentelemetry.io/name":"frontend-proxy"},"type":"LoadBalancer"}}
+      service.beta.kubernetes.io/aws-load-balancer-healthcheck-path: /
+      service.beta.kubernetes.io/aws-load-balancer-healthcheck-protocol: HTTP
+      service.beta.kubernetes.io/aws-load-balancer-scheme: internet-facing
+      service.beta.kubernetes.io/aws-load-balancer-type: nlb
+    creationTimestamp: "2026-03-31T15:27:11Z"
+    finalizers:
+    - service.kubernetes.io/load-balancer-cleanup
+    name: frontend-proxy-public
+    namespace: otel-demo
+    resourceVersion: "81592"
+    uid: 217f192b-9db2-4105-ad19-4efd92d528b0
+  spec:
+    allocateLoadBalancerNodePorts: true
+    clusterIP: 172.20.4.44
+    clusterIPs:
+    - 172.20.4.44
+    externalTrafficPolicy: Cluster
+    internalTrafficPolicy: Cluster
+    ipFamilies:
+    - IPv4
+    ipFamilyPolicy: SingleStack
+    ports:
+    - name: http
+      nodePort: 31194
+      port: 80
+      protocol: TCP
+      targetPort: 8080
+    selector:
+      opentelemetry.io/name: frontend-proxy
+    sessionAffinity: None
+    type: LoadBalancer
+  status:
+    loadBalancer:
+      ingress:
+      - hostname: a217f192b9db24105ad194efd92d528b-21c0ac4859cdfe9f.elb.us-east-1.amazonaws.com
+- apiVersion: v1
+  kind: Service
+  metadata:
+    annotations:
+      kubectl.kubernetes.io/last-applied-configuration: |
+        {"apiVersion":"v1","kind":"Service","metadata":{"annotations":{},"labels":{"app.kubernetes.io/instance":"opentelemetry-demo","app.kubernetes.io/name":"grafana","app.kubernetes.io/version":"12.1.1"},"name":"grafana","namespace":"otel-demo"},"spec":{"ports":[{"name":"service","port":80,"protocol":"TCP","targetPort":"grafana"}],"selector":{"app.kubernetes.io/instance":"opentelemetry-demo","app.kubernetes.io/name":"grafana"},"type":"ClusterIP"}}
+    creationTimestamp: "2026-03-31T11:46:04Z"
+    labels:
+      app.kubernetes.io/instance: opentelemetry-demo
+      app.kubernetes.io/name: grafana
+      app.kubernetes.io/version: 12.1.1
+    name: grafana
+    namespace: otel-demo
+    resourceVersion: "33317"
+    uid: a768c448-ca33-42d8-9b9e-441871b5e09d
+  spec:
+    clusterIP: 172.20.15.119
+    clusterIPs:
+    - 172.20.15.119
+    internalTrafficPolicy: Cluster
+    ipFamilies:
+    - IPv4
+    ipFamilyPolicy: SingleStack
+    ports:
+    - name: service
+      port: 80
+      protocol: TCP
+      targetPort: grafana
+    selector:
+      app.kubernetes.io/instance: opentelemetry-demo
+      app.kubernetes.io/name: grafana
+    sessionAffinity: None
+    type: ClusterIP
+  status:
+    loadBalancer: {}
+- apiVersion: v1
+  kind: Service
+  metadata:
+    annotations:
+      kubectl.kubernetes.io/last-applied-configuration: |
+        {"apiVersion":"v1","kind":"Service","metadata":{"annotations":{},"labels":{"app.kubernetes.io/component":"image-provider","app.kubernetes.io/name":"image-provider","app.kubernetes.io/part-of":"opentelemetry-demo","app.kubernetes.io/version":"2.1.3","opentelemetry.io/name":"image-provider"},"name":"image-provider","namespace":"otel-demo"},"spec":{"ports":[{"name":"tcp-service","port":8081,"targetPort":8081}],"selector":{"opentelemetry.io/name":"image-provider"},"type":"ClusterIP"}}
+    creationTimestamp: "2026-03-31T11:46:38Z"
+    labels:
+      app.kubernetes.io/component: image-provider
+      app.kubernetes.io/name: image-provider
+      app.kubernetes.io/part-of: opentelemetry-demo
+      app.kubernetes.io/version: 2.1.3
+      opentelemetry.io/name: image-provider
+    name: image-provider
+    namespace: otel-demo
+    resourceVersion: "33474"
+    uid: 277bc560-f71d-4446-a7e6-c3c91354960b
+  spec:
+    clusterIP: 172.20.110.60
+    clusterIPs:
+    - 172.20.110.60
+    internalTrafficPolicy: Cluster
+    ipFamilies:
+    - IPv4
+    ipFamilyPolicy: SingleStack
+    ports:
+    - name: tcp-service
+      port: 8081
+      protocol: TCP
+      targetPort: 8081
+    selector:
+      opentelemetry.io/name: image-provider
+    sessionAffinity: None
+    type: ClusterIP
+  status:
+    loadBalancer: {}
+- apiVersion: v1
+  kind: Service
+  metadata:
+    annotations:
+      kubectl.kubernetes.io/last-applied-configuration: |
+        {"apiVersion":"v1","kind":"Service","metadata":{"annotations":{},"labels":{"app.kubernetes.io/component":"service-agent","app.kubernetes.io/instance":"opentelemetry-demo","app.kubernetes.io/name":"jaeger","app.kubernetes.io/version":"1.53.0"},"name":"jaeger-agent","namespace":"otel-demo"},"spec":{"clusterIP":"None","ports":[{"name":"zk-compact-trft","port":5775,"protocol":"UDP","targetPort":0},{"name":"config-rest","port":5778,"targetPort":0},{"name":"jg-compact-trft","port":6831,"protocol":"UDP","targetPort":0},{"name":"jg-binary-trft","port":6832,"protocol":"UDP","targetPort":0}],"selector":{"app.kubernetes.io/component":"all-in-one","app.kubernetes.io/instance":"opentelemetry-demo","app.kubernetes.io/name":"jaeger"}}}
+    creationTimestamp: "2026-03-31T11:46:06Z"
+    labels:
+      app.kubernetes.io/component: service-agent
+      app.kubernetes.io/instance: opentelemetry-demo
+      app.kubernetes.io/name: jaeger
+      app.kubernetes.io/version: 1.53.0
+    name: jaeger-agent
+    namespace: otel-demo
+    resourceVersion: "33323"
+    uid: 86b3517c-9ef9-4d09-a65c-b810441dcc32
+  spec:
+    clusterIP: None
+    clusterIPs:
+    - None
+    internalTrafficPolicy: Cluster
+    ipFamilies:
+    - IPv4
+    ipFamilyPolicy: SingleStack
+    ports:
+    - name: zk-compact-trft
+      port: 5775
+      protocol: UDP
+      targetPort: 5775
+    - name: config-rest
+      port: 5778
+      protocol: TCP
+      targetPort: 5778
+    - name: jg-compact-trft
+      port: 6831
+      protocol: UDP
+      targetPort: 6831
+    - name: jg-binary-trft
+      port: 6832
+      protocol: UDP
+      targetPort: 6832
+    selector:
+      app.kubernetes.io/component: all-in-one
+      app.kubernetes.io/instance: opentelemetry-demo
+      app.kubernetes.io/name: jaeger
+    sessionAffinity: None
+    type: ClusterIP
+  status:
+    loadBalancer: {}
+- apiVersion: v1
+  kind: Service
+  metadata:
+    annotations:
+      kubectl.kubernetes.io/last-applied-configuration: |
+        {"apiVersion":"v1","kind":"Service","metadata":{"annotations":{},"labels":{"app.kubernetes.io/component":"service-collector","app.kubernetes.io/instance":"opentelemetry-demo","app.kubernetes.io/name":"jaeger","app.kubernetes.io/version":"1.53.0"},"name":"jaeger-collector","namespace":"otel-demo"},"spec":{"clusterIP":"None","ports":[{"appProtocol":"http","name":"http-zipkin","port":9411,"targetPort":0},{"appProtocol":"grpc","name":"grpc-http","port":14250,"targetPort":0},{"name":"c-tchan-trft","port":14267,"targetPort":0},{"appProtocol":"http","name":"http-c-binary-trft","port":14268,"targetPort":0},{"appProtocol":"grpc","name":"otlp-grpc","port":4317,"targetPort":0},{"appProtocol":"http","name":"otlp-http","port":4318,"targetPort":0}],"selector":{"app.kubernetes.io/component":"all-in-one","app.kubernetes.io/instance":"opentelemetry-demo","app.kubernetes.io/name":"jaeger"}}}
+    creationTimestamp: "2026-03-31T11:46:07Z"
+    labels:
+      app.kubernetes.io/component: service-collector
+      app.kubernetes.io/instance: opentelemetry-demo
+      app.kubernetes.io/name: jaeger
+      app.kubernetes.io/version: 1.53.0
+    name: jaeger-collector
+    namespace: otel-demo
+    resourceVersion: "33331"
+    uid: 34977359-c132-45da-84d0-d9ceaba08126
+  spec:
+    clusterIP: None
+    clusterIPs:
+    - None
+    internalTrafficPolicy: Cluster
+    ipFamilies:
+    - IPv4
+    ipFamilyPolicy: SingleStack
+    ports:
+    - appProtocol: http
+      name: http-zipkin
+      port: 9411
+      protocol: TCP
+      targetPort: 9411
+    - appProtocol: grpc
+      name: grpc-http
+      port: 14250
+      protocol: TCP
+      targetPort: 14250
+    - name: c-tchan-trft
+      port: 14267
+      protocol: TCP
+      targetPort: 14267
+    - appProtocol: http
+      name: http-c-binary-trft
+      port: 14268
+      protocol: TCP
+      targetPort: 14268
+    - appProtocol: grpc
+      name: otlp-grpc
+      port: 4317
+      protocol: TCP
+      targetPort: 4317
+    - appProtocol: http
+      name: otlp-http
+      port: 4318
+      protocol: TCP
+      targetPort: 4318
+    selector:
+      app.kubernetes.io/component: all-in-one
+      app.kubernetes.io/instance: opentelemetry-demo
+      app.kubernetes.io/name: jaeger
+    sessionAffinity: None
+    type: ClusterIP
+  status:
+    loadBalancer: {}
+- apiVersion: v1
+  kind: Service
+  metadata:
+    annotations:
+      kubectl.kubernetes.io/last-applied-configuration: |
+        {"apiVersion":"v1","kind":"Service","metadata":{"annotations":{},"labels":{"app.kubernetes.io/component":"service-query","app.kubernetes.io/instance":"opentelemetry-demo","app.kubernetes.io/name":"jaeger","app.kubernetes.io/version":"1.53.0"},"name":"jaeger-query","namespace":"otel-demo"},"spec":{"clusterIP":"None","ports":[{"name":"http-query","port":16686,"targetPort":16686},{"name":"grpc-query","port":16685,"targetPort":16685}],"selector":{"app.kubernetes.io/component":"all-in-one","app.kubernetes.io/instance":"opentelemetry-demo","app.kubernetes.io/name":"jaeger"}}}
+    creationTimestamp: "2026-03-31T11:46:08Z"
+    labels:
+      app.kubernetes.io/component: service-query
+      app.kubernetes.io/instance: opentelemetry-demo
+      app.kubernetes.io/name: jaeger
+      app.kubernetes.io/version: 1.53.0
+    name: jaeger-query
+    namespace: otel-demo
+    resourceVersion: "33339"
+    uid: fca27de8-9b0e-463c-912e-e8ac306349c6
+  spec:
+    clusterIP: None
+    clusterIPs:
+    - None
+    internalTrafficPolicy: Cluster
+    ipFamilies:
+    - IPv4
+    ipFamilyPolicy: SingleStack
+    ports:
+    - name: http-query
+      port: 16686
+      protocol: TCP
+      targetPort: 16686
+    - name: grpc-query
+      port: 16685
+      protocol: TCP
+      targetPort: 16685
+    selector:
+      app.kubernetes.io/component: all-in-one
+      app.kubernetes.io/instance: opentelemetry-demo
+      app.kubernetes.io/name: jaeger
+    sessionAffinity: None
+    type: ClusterIP
+  status:
+    loadBalancer: {}
+- apiVersion: v1
+  kind: Service
+  metadata:
+    annotations:
+      kubectl.kubernetes.io/last-applied-configuration: |
+        {"apiVersion":"v1","kind":"Service","metadata":{"annotations":{},"labels":{"app.kubernetes.io/component":"kafka","app.kubernetes.io/name":"kafka","app.kubernetes.io/part-of":"opentelemetry-demo","app.kubernetes.io/version":"2.1.3","opentelemetry.io/name":"kafka"},"name":"kafka","namespace":"otel-demo"},"spec":{"ports":[{"name":"plaintext","port":9092,"targetPort":9092},{"name":"controller","port":9093,"targetPort":9093}],"selector":{"opentelemetry.io/name":"kafka"},"type":"ClusterIP"}}
+    creationTimestamp: "2026-03-31T11:46:39Z"
+    labels:
+      app.kubernetes.io/component: kafka
+      app.kubernetes.io/name: kafka
+      app.kubernetes.io/part-of: opentelemetry-demo
+      app.kubernetes.io/version: 2.1.3
+      opentelemetry.io/name: kafka
+    name: kafka
+    namespace: otel-demo
+    resourceVersion: "33481"
+    uid: 2fe8716e-2982-4100-bd82-1e799d8644f0
+  spec:
+    clusterIP: 172.20.233.237
+    clusterIPs:
+    - 172.20.233.237
+    internalTrafficPolicy: Cluster
+    ipFamilies:
+    - IPv4
+    ipFamilyPolicy: SingleStack
+    ports:
+    - name: plaintext
+      port: 9092
+      protocol: TCP
+      targetPort: 9092
+    - name: controller
+      port: 9093
+      protocol: TCP
+      targetPort: 9093
+    selector:
+      opentelemetry.io/name: kafka
+    sessionAffinity: None
+    type: ClusterIP
+  status:
+    loadBalancer: {}
+- apiVersion: v1
+  kind: Service
+  metadata:
+    annotations:
+      kubectl.kubernetes.io/last-applied-configuration: |
+        {"apiVersion":"v1","kind":"Service","metadata":{"annotations":{},"labels":{"app.kubernetes.io/component":"load-generator","app.kubernetes.io/name":"load-generator","app.kubernetes.io/part-of":"opentelemetry-demo","app.kubernetes.io/version":"2.1.3","opentelemetry.io/name":"load-generator"},"name":"load-generator","namespace":"otel-demo"},"spec":{"ports":[{"name":"tcp-service","port":8089,"targetPort":8089}],"selector":{"opentelemetry.io/name":"load-generator"},"type":"ClusterIP"}}
+    creationTimestamp: "2026-03-31T11:46:41Z"
+    labels:
+      app.kubernetes.io/component: load-generator
+      app.kubernetes.io/name: load-generator
+      app.kubernetes.io/part-of: opentelemetry-demo
+      app.kubernetes.io/version: 2.1.3
+      opentelemetry.io/name: load-generator
+    name: load-generator
+    namespace: otel-demo
+    resourceVersion: "33490"
+    uid: dae53c2b-37e8-4a6e-98de-daf7058bd3e6
+  spec:
+    clusterIP: 172.20.27.197
+    clusterIPs:
+    - 172.20.27.197
+    internalTrafficPolicy: Cluster
+    ipFamilies:
+    - IPv4
+    ipFamilyPolicy: SingleStack
+    ports:
+    - name: tcp-service
+      port: 8089
+      protocol: TCP
+      targetPort: 8089
+    selector:
+      opentelemetry.io/name: load-generator
+    sessionAffinity: None
+    type: ClusterIP
+  status:
+    loadBalancer: {}
+- apiVersion: v1
+  kind: Service
+  metadata:
+    annotations:
+      kubectl.kubernetes.io/last-applied-configuration: |
+        {"apiVersion":"v1","kind":"Service","metadata":{"annotations":{},"labels":{"app.kubernetes.io/component":"opensearch","app.kubernetes.io/instance":"opentelemetry-demo","app.kubernetes.io/name":"opensearch","app.kubernetes.io/version":"3.2.0"},"name":"opensearch","namespace":"otel-demo"},"spec":{"ports":[{"name":"http","port":9200,"protocol":"TCP"},{"name":"transport","port":9300,"protocol":"TCP"},{"name":"metrics","port":9600,"protocol":"TCP"}],"selector":{"app.kubernetes.io/instance":"opentelemetry-demo","app.kubernetes.io/name":"opensearch"},"type":"ClusterIP"}}
+    creationTimestamp: "2026-03-31T11:46:09Z"
+    labels:
+      app.kubernetes.io/component: opensearch
+      app.kubernetes.io/instance: opentelemetry-demo
+      app.kubernetes.io/name: opensearch
+      app.kubernetes.io/version: 3.2.0
+    name: opensearch
+    namespace: otel-demo
+    resourceVersion: "33345"
+    uid: 896809e9-0eb8-4cfe-a5d2-f8085df57e64
+  spec:
+    clusterIP: 172.20.100.21
+    clusterIPs:
+    - 172.20.100.21
+    internalTrafficPolicy: Cluster
+    ipFamilies:
+    - IPv4
+    ipFamilyPolicy: SingleStack
+    ports:
+    - name: http
+      port: 9200
+      protocol: TCP
+      targetPort: 9200
+    - name: transport
+      port: 9300
+      protocol: TCP
+      targetPort: 9300
+    - name: metrics
+      port: 9600
+      protocol: TCP
+      targetPort: 9600
+    selector:
+      app.kubernetes.io/instance: opentelemetry-demo
+      app.kubernetes.io/name: opensearch
+    sessionAffinity: None
+    type: ClusterIP
+  status:
+    loadBalancer: {}
+- apiVersion: v1
+  kind: Service
+  metadata:
+    annotations:
+      kubectl.kubernetes.io/last-applied-configuration: |
+        {"apiVersion":"v1","kind":"Service","metadata":{"annotations":{"service.alpha.kubernetes.io/tolerate-unready-endpoints":"true"},"labels":{"app.kubernetes.io/component":"opensearch","app.kubernetes.io/instance":"opentelemetry-demo","app.kubernetes.io/name":"opensearch","app.kubernetes.io/version":"3.2.0"},"name":"opensearch-headless","namespace":"otel-demo"},"spec":{"clusterIP":"None","ports":[{"name":"http","port":9200},{"name":"transport","port":9300},{"name":"metrics","port":9600}],"publishNotReadyAddresses":true,"selector":{"app.kubernetes.io/instance":"opentelemetry-demo","app.kubernetes.io/name":"opensearch"}}}
+      service.alpha.kubernetes.io/tolerate-unready-endpoints: "true"
+    creationTimestamp: "2026-03-31T11:46:12Z"
+    labels:
+      app.kubernetes.io/component: opensearch
+      app.kubernetes.io/instance: opentelemetry-demo
+      app.kubernetes.io/name: opensearch
+      app.kubernetes.io/version: 3.2.0
+    name: opensearch-headless
+    namespace: otel-demo
+    resourceVersion: "33355"
+    uid: cdc7f3bb-45f2-4b51-a61a-54a75101893a
+  spec:
+    clusterIP: None
+    clusterIPs:
+    - None
+    internalTrafficPolicy: Cluster
+    ipFamilies:
+    - IPv4
+    ipFamilyPolicy: SingleStack
+    ports:
+    - name: http
+      port: 9200
+      protocol: TCP
+      targetPort: 9200
+    - name: transport
+      port: 9300
+      protocol: TCP
+      targetPort: 9300
+    - name: metrics
+      port: 9600
+      protocol: TCP
+      targetPort: 9600
+    publishNotReadyAddresses: true
+    selector:
+      app.kubernetes.io/instance: opentelemetry-demo
+      app.kubernetes.io/name: opensearch
+    sessionAffinity: None
+    type: ClusterIP
+  status:
+    loadBalancer: {}
+- apiVersion: v1
+  kind: Service
+  metadata:
+    annotations:
+      kubectl.kubernetes.io/last-applied-configuration: |
+        {"apiVersion":"v1","kind":"Service","metadata":{"annotations":{},"labels":{"app.kubernetes.io/component":"standalone-collector","app.kubernetes.io/instance":"opentelemetry-demo","app.kubernetes.io/name":"opentelemetry-collector","app.kubernetes.io/part-of":"opentelemetry-collector","app.kubernetes.io/version":"0.135.0","component":"standalone-collector"},"name":"otel-collector","namespace":"otel-demo"},"spec":{"internalTrafficPolicy":"Cluster","ports":[{"name":"jaeger-compact","port":6831,"protocol":"UDP","targetPort":6831},{"name":"jaeger-grpc","port":14250,"protocol":"TCP","targetPort":14250},{"name":"jaeger-thrift","port":14268,"protocol":"TCP","targetPort":14268},{"name":"metrics","port":8888,"protocol":"TCP","targetPort":8888},{"appProtocol":"grpc","name":"otlp","port":4317,"protocol":"TCP","targetPort":4317},{"name":"otlp-http","port":4318,"protocol":"TCP","targetPort":4318},{"name":"zipkin","port":9411,"protocol":"TCP","targetPort":9411}],"selector":{"app.kubernetes.io/instance":"opentelemetry-demo","app.kubernetes.io/name":"opentelemetry-collector","component":"standalone-collector"},"type":"ClusterIP"}}
+    creationTimestamp: "2026-03-31T11:46:15Z"
+    labels:
+      app.kubernetes.io/component: standalone-collector
+      app.kubernetes.io/instance: opentelemetry-demo
+      app.kubernetes.io/name: opentelemetry-collector
+      app.kubernetes.io/part-of: opentelemetry-collector
+      app.kubernetes.io/version: 0.135.0
+      component: standalone-collector
+    name: otel-collector
+    namespace: otel-demo
+    resourceVersion: "33367"
+    uid: 39d5c6fe-a73d-4e6c-98a2-4c32c089ea58
+  spec:
+    clusterIP: 172.20.210.42
+    clusterIPs:
+    - 172.20.210.42
+    internalTrafficPolicy: Cluster
+    ipFamilies:
+    - IPv4
+    ipFamilyPolicy: SingleStack
+    ports:
+    - name: jaeger-compact
+      port: 6831
+      protocol: UDP
+      targetPort: 6831
+    - name: jaeger-grpc
+      port: 14250
+      protocol: TCP
+      targetPort: 14250
+    - name: jaeger-thrift
+      port: 14268
+      protocol: TCP
+      targetPort: 14268
+    - name: metrics
+      port: 8888
+      protocol: TCP
+      targetPort: 8888
+    - appProtocol: grpc
+      name: otlp
+      port: 4317
+      protocol: TCP
+      targetPort: 4317
+    - name: otlp-http
+      port: 4318
+      protocol: TCP
+      targetPort: 4318
+    - name: zipkin
+      port: 9411
+      protocol: TCP
+      targetPort: 9411
+    selector:
+      app.kubernetes.io/instance: opentelemetry-demo
+      app.kubernetes.io/name: opentelemetry-collector
+      component: standalone-collector
+    sessionAffinity: None
+    type: ClusterIP
+  status:
+    loadBalancer: {}
+- apiVersion: v1
+  kind: Service
+  metadata:
+    annotations:
+      kubectl.kubernetes.io/last-applied-configuration: |
+        {"apiVersion":"v1","kind":"Service","metadata":{"annotations":{},"labels":{"app.kubernetes.io/component":"payment","app.kubernetes.io/name":"payment","app.kubernetes.io/part-of":"opentelemetry-demo","app.kubernetes.io/version":"2.1.3","opentelemetry.io/name":"payment"},"name":"payment","namespace":"otel-demo"},"spec":{"ports":[{"name":"tcp-service","port":8080,"targetPort":8080}],"selector":{"opentelemetry.io/name":"payment"},"type":"ClusterIP"}}
+    creationTimestamp: "2026-03-31T11:46:43Z"
+    labels:
+      app.kubernetes.io/component: payment
+      app.kubernetes.io/name: payment
+      app.kubernetes.io/part-of: opentelemetry-demo
+      app.kubernetes.io/version: 2.1.3
+      opentelemetry.io/name: payment
+    name: payment
+    namespace: otel-demo
+    resourceVersion: "33500"
+    uid: 926cb04f-f01e-4388-b423-fb3cd900373c
+  spec:
+    clusterIP: 172.20.181.142
+    clusterIPs:
+    - 172.20.181.142
+    internalTrafficPolicy: Cluster
+    ipFamilies:
+    - IPv4
+    ipFamilyPolicy: SingleStack
+    ports:
+    - name: tcp-service
+      port: 8080
+      protocol: TCP
+      targetPort: 8080
+    selector:
+      opentelemetry.io/name: payment
+    sessionAffinity: None
+    type: ClusterIP
+  status:
+    loadBalancer: {}
+- apiVersion: v1
+  kind: Service
+  metadata:
+    annotations:
+      kubectl.kubernetes.io/last-applied-configuration: |
+        {"apiVersion":"v1","kind":"Service","metadata":{"annotations":{},"labels":{"app.kubernetes.io/component":"postgresql","app.kubernetes.io/name":"postgresql","app.kubernetes.io/part-of":"opentelemetry-demo","app.kubernetes.io/version":"2.1.3","opentelemetry.io/name":"postgresql"},"name":"postgresql","namespace":"otel-demo"},"spec":{"ports":[{"name":"tcp-service","port":5432,"targetPort":5432}],"selector":{"opentelemetry.io/name":"postgresql"},"type":"ClusterIP"}}
+    creationTimestamp: "2026-03-31T11:46:45Z"
+    labels:
+      app.kubernetes.io/component: postgresql
+      app.kubernetes.io/name: postgresql
+      app.kubernetes.io/part-of: opentelemetry-demo
+      app.kubernetes.io/version: 2.1.3
+      opentelemetry.io/name: postgresql
+    name: postgresql
+    namespace: otel-demo
+    resourceVersion: "33508"
+    uid: 48d261ba-5f8c-4757-bdb2-012db31e0ea3
+  spec:
+    clusterIP: 172.20.153.64
+    clusterIPs:
+    - 172.20.153.64
+    internalTrafficPolicy: Cluster
+    ipFamilies:
+    - IPv4
+    ipFamilyPolicy: SingleStack
+    ports:
+    - name: tcp-service
+      port: 5432
+      protocol: TCP
+      targetPort: 5432
+    selector:
+      opentelemetry.io/name: postgresql
+    sessionAffinity: None
+    type: ClusterIP
+  status:
+    loadBalancer: {}
+- apiVersion: v1
+  kind: Service
+  metadata:
+    annotations:
+      kubectl.kubernetes.io/last-applied-configuration: |
+        {"apiVersion":"v1","kind":"Service","metadata":{"annotations":{},"labels":{"app.kubernetes.io/component":"product-catalog","app.kubernetes.io/name":"product-catalog","app.kubernetes.io/part-of":"opentelemetry-demo","app.kubernetes.io/version":"2.1.3","opentelemetry.io/name":"product-catalog"},"name":"product-catalog","namespace":"otel-demo"},"spec":{"ports":[{"name":"tcp-service","port":8080,"targetPort":8080}],"selector":{"opentelemetry.io/name":"product-catalog"},"type":"ClusterIP"}}
+    creationTimestamp: "2026-03-31T11:46:51Z"
+    labels:
+      app.kubernetes.io/component: product-catalog
+      app.kubernetes.io/name: product-catalog
+      app.kubernetes.io/part-of: opentelemetry-demo
+      app.kubernetes.io/version: 2.1.3
+      opentelemetry.io/name: product-catalog
+    name: product-catalog
+    namespace: otel-demo
+    resourceVersion: "33531"
+    uid: 850c8a1a-5c1c-4995-a8ee-936356ece9e4
+  spec:
+    clusterIP: 172.20.15.128
+    clusterIPs:
+    - 172.20.15.128
+    internalTrafficPolicy: Cluster
+    ipFamilies:
+    - IPv4
+    ipFamilyPolicy: SingleStack
+    ports:
+    - name: tcp-service
+      port: 8080
+      protocol: TCP
+      targetPort: 8080
+    selector:
+      opentelemetry.io/name: product-catalog
+    sessionAffinity: None
+    type: ClusterIP
+  status:
+    loadBalancer: {}
+- apiVersion: v1
+  kind: Service
+  metadata:
+    annotations:
+      kubectl.kubernetes.io/last-applied-configuration: |
+        {"apiVersion":"v1","kind":"Service","metadata":{"annotations":{},"labels":{"app.kubernetes.io/component":"server","app.kubernetes.io/instance":"opentelemetry-demo","app.kubernetes.io/name":"prometheus","app.kubernetes.io/part-of":"prometheus","app.kubernetes.io/version":"v3.6.0"},"name":"prometheus","namespace":"otel-demo"},"spec":{"ports":[{"name":"http","port":9090,"protocol":"TCP","targetPort":9090}],"selector":{"app.kubernetes.io/component":"server","app.kubernetes.io/instance":"opentelemetry-demo","app.kubernetes.io/name":"prometheus"},"sessionAffinity":"None","type":"ClusterIP"}}
+    creationTimestamp: "2026-03-31T11:46:20Z"
+    labels:
+      app.kubernetes.io/component: server
+      app.kubernetes.io/instance: opentelemetry-demo
+      app.kubernetes.io/name: prometheus
+      app.kubernetes.io/part-of: prometheus
+      app.kubernetes.io/version: v3.6.0
+    name: prometheus
+    namespace: otel-demo
+    resourceVersion: "33389"
+    uid: cc2ef080-feb1-49a4-bc18-a7e38b3d7c37
+  spec:
+    clusterIP: 172.20.195.4
+    clusterIPs:
+    - 172.20.195.4
+    internalTrafficPolicy: Cluster
+    ipFamilies:
+    - IPv4
+    ipFamilyPolicy: SingleStack
+    ports:
+    - name: http
+      port: 9090
+      protocol: TCP
+      targetPort: 9090
+    selector:
+      app.kubernetes.io/component: server
+      app.kubernetes.io/instance: opentelemetry-demo
+      app.kubernetes.io/name: prometheus
+    sessionAffinity: None
+    type: ClusterIP
+  status:
+    loadBalancer: {}
+- apiVersion: v1
+  kind: Service
+  metadata:
+    annotations:
+      kubectl.kubernetes.io/last-applied-configuration: |
+        {"apiVersion":"v1","kind":"Service","metadata":{"annotations":{},"labels":{"app.kubernetes.io/component":"quote","app.kubernetes.io/name":"quote","app.kubernetes.io/part-of":"opentelemetry-demo","app.kubernetes.io/version":"2.1.3","opentelemetry.io/name":"quote"},"name":"quote","namespace":"otel-demo"},"spec":{"ports":[{"name":"tcp-service","port":8080,"targetPort":8080}],"selector":{"opentelemetry.io/name":"quote"},"type":"ClusterIP"}}
+    creationTimestamp: "2026-03-31T11:47:00Z"
+    labels:
+      app.kubernetes.io/component: quote
+      app.kubernetes.io/name: quote
+      app.kubernetes.io/part-of: opentelemetry-demo
+      app.kubernetes.io/version: 2.1.3
+      opentelemetry.io/name: quote
+    name: quote
+    namespace: otel-demo
+    resourceVersion: "33558"
+    uid: 5239a836-b926-4223-90c2-e4c56d2c318a
+  spec:
+    clusterIP: 172.20.123.115
+    clusterIPs:
+    - 172.20.123.115
+    internalTrafficPolicy: Cluster
+    ipFamilies:
+    - IPv4
+    ipFamilyPolicy: SingleStack
+    ports:
+    - name: tcp-service
+      port: 8080
+      protocol: TCP
+      targetPort: 8080
+    selector:
+      opentelemetry.io/name: quote
+    sessionAffinity: None
+    type: ClusterIP
+  status:
+    loadBalancer: {}
+- apiVersion: v1
+  kind: Service
+  metadata:
+    annotations:
+      kubectl.kubernetes.io/last-applied-configuration: |
+        {"apiVersion":"v1","kind":"Service","metadata":{"annotations":{},"labels":{"app.kubernetes.io/component":"recommendation","app.kubernetes.io/name":"recommendation","app.kubernetes.io/part-of":"opentelemetry-demo","app.kubernetes.io/version":"2.1.3","opentelemetry.io/name":"recommendation"},"name":"recommendation","namespace":"otel-demo"},"spec":{"ports":[{"name":"tcp-service","port":8080,"targetPort":8080}],"selector":{"opentelemetry.io/name":"recommendation"},"type":"ClusterIP"}}
+    creationTimestamp: "2026-03-31T11:47:07Z"
+    labels:
+      app.kubernetes.io/component: recommendation
+      app.kubernetes.io/name: recommendation
+      app.kubernetes.io/part-of: opentelemetry-demo
+      app.kubernetes.io/version: 2.1.3
+      opentelemetry.io/name: recommendation
+    name: recommendation
+    namespace: otel-demo
+    resourceVersion: "33584"
+    uid: 15f1dd43-9d84-4162-8803-5bc06565d815
+  spec:
+    clusterIP: 172.20.206.88
+    clusterIPs:
+    - 172.20.206.88
+    internalTrafficPolicy: Cluster
+    ipFamilies:
+    - IPv4
+    ipFamilyPolicy: SingleStack
+    ports:
+    - name: tcp-service
+      port: 8080
+      protocol: TCP
+      targetPort: 8080
+    selector:
+      opentelemetry.io/name: recommendation
+    sessionAffinity: None
+    type: ClusterIP
+  status:
+    loadBalancer: {}
+- apiVersion: v1
+  kind: Service
+  metadata:
+    annotations:
+      kubectl.kubernetes.io/last-applied-configuration: |
+        {"apiVersion":"v1","kind":"Service","metadata":{"annotations":{},"labels":{"app.kubernetes.io/component":"shipping","app.kubernetes.io/name":"shipping","app.kubernetes.io/part-of":"opentelemetry-demo","app.kubernetes.io/version":"2.1.3","opentelemetry.io/name":"shipping"},"name":"shipping","namespace":"otel-demo"},"spec":{"ports":[{"name":"tcp-service","port":8080,"targetPort":8080}],"selector":{"opentelemetry.io/name":"shipping"},"type":"ClusterIP"}}
+    creationTimestamp: "2026-03-31T11:47:32Z"
+    labels:
+      app.kubernetes.io/component: shipping
+      app.kubernetes.io/name: shipping
+      app.kubernetes.io/part-of: opentelemetry-demo
+      app.kubernetes.io/version: 2.1.3
+      opentelemetry.io/name: shipping
+    name: shipping
+    namespace: otel-demo
+    resourceVersion: "33662"
+    uid: 2c7639d4-6e0d-404d-bcb5-e3259942676b
+  spec:
+    clusterIP: 172.20.192.82
+    clusterIPs:
+    - 172.20.192.82
+    internalTrafficPolicy: Cluster
+    ipFamilies:
+    - IPv4
+    ipFamilyPolicy: SingleStack
+    ports:
+    - name: tcp-service
+      port: 8080
+      protocol: TCP
+      targetPort: 8080
+    selector:
+      opentelemetry.io/name: shipping
+    sessionAffinity: None
+    type: ClusterIP
+  status:
+    loadBalancer: {}
+- apiVersion: v1
+  kind: Service
+  metadata:
+    annotations:
+      kubectl.kubernetes.io/last-applied-configuration: |
+        {"apiVersion":"v1","kind":"Service","metadata":{"annotations":{},"labels":{"app.kubernetes.io/component":"valkey-cart","app.kubernetes.io/name":"valkey-cart","app.kubernetes.io/part-of":"opentelemetry-demo","app.kubernetes.io/version":"2.1.3","opentelemetry.io/name":"valkey-cart"},"name":"valkey-cart","namespace":"otel-demo"},"spec":{"ports":[{"name":"valkey-cart","port":6379,"targetPort":6379}],"selector":{"opentelemetry.io/name":"valkey-cart"},"type":"ClusterIP"}}
+    creationTimestamp: "2026-03-31T11:47:34Z"
+    labels:
+      app.kubernetes.io/component: valkey-cart
+      app.kubernetes.io/name: valkey-cart
+      app.kubernetes.io/part-of: opentelemetry-demo
+      app.kubernetes.io/version: 2.1.3
+      opentelemetry.io/name: valkey-cart
+    name: valkey-cart
+    namespace: otel-demo
+    resourceVersion: "33668"
+    uid: e9561564-6771-41af-9a3d-5951e1fded9d
+  spec:
+    clusterIP: 172.20.88.75
+    clusterIPs:
+    - 172.20.88.75
+    internalTrafficPolicy: Cluster
+    ipFamilies:
+    - IPv4
+    ipFamilyPolicy: SingleStack
+    ports:
+    - name: valkey-cart
+      port: 6379
+      protocol: TCP
+      targetPort: 6379
+    selector:
+      opentelemetry.io/name: valkey-cart
+    sessionAffinity: None
+    type: ClusterIP
+  status:
+    loadBalancer: {}
+kind: List
+metadata:
+  resourceVersion: ""

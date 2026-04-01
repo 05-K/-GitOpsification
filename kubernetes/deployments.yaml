@@ -1,0 +1,2935 @@
+apiVersion: v1
+items:
+- apiVersion: apps/v1
+  kind: Deployment
+  metadata:
+    annotations:
+      deployment.kubernetes.io/revision: "1"
+      kubectl.kubernetes.io/last-applied-configuration: |
+        {"apiVersion":"apps/v1","kind":"Deployment","metadata":{"annotations":{},"labels":{"app.kubernetes.io/component":"accounting","app.kubernetes.io/name":"accounting","app.kubernetes.io/part-of":"opentelemetry-demo","app.kubernetes.io/version":"2.1.3","opentelemetry.io/name":"accounting"},"name":"accounting","namespace":"otel-demo"},"spec":{"replicas":1,"revisionHistoryLimit":10,"selector":{"matchLabels":{"opentelemetry.io/name":"accounting"}},"template":{"metadata":{"labels":{"app.kubernetes.io/component":"accounting","app.kubernetes.io/name":"accounting","opentelemetry.io/name":"accounting"}},"spec":{"containers":[{"env":[{"name":"OTEL_SERVICE_NAME","valueFrom":{"fieldRef":{"apiVersion":"v1","fieldPath":"metadata.labels['app.kubernetes.io/component']"}}},{"name":"OTEL_COLLECTOR_NAME","value":"otel-collector"},{"name":"OTEL_EXPORTER_OTLP_METRICS_TEMPORALITY_PREFERENCE","value":"cumulative"},{"name":"KAFKA_ADDR","value":"kafka:9092"},{"name":"OTEL_EXPORTER_OTLP_ENDPOINT","value":"http://$(OTEL_COLLECTOR_NAME):4318"},{"name":"DB_CONNECTION_STRING","value":"Host=postgresql;Username=otelu;Password=otelp;Database=otel"},{"name":"OTEL_DOTNET_AUTO_TRACES_ENTITYFRAMEWORKCORE_INSTRUMENTATION_ENABLED","value":"false"},{"name":"OTEL_RESOURCE_ATTRIBUTES","value":"service.name=$(OTEL_SERVICE_NAME),service.namespace=opentelemetry-demo,service.version=2.1.3"}],"image":"ghcr.io/open-telemetry/demo:2.1.3-accounting","imagePullPolicy":"IfNotPresent","name":"accounting","resources":{"limits":{"memory":"120Mi"}},"volumeMounts":null}],"initContainers":[{"command":["sh","-c","until nc -z -v -w30 kafka 9092; do echo waiting for kafka; sleep 2; done;"],"image":"busybox:latest","name":"wait-for-kafka"}],"serviceAccountName":"opentelemetry-demo","volumes":null}}}}
+    creationTimestamp: "2026-03-31T11:49:42Z"
+    generation: 1
+    labels:
+      app.kubernetes.io/component: accounting
+      app.kubernetes.io/name: accounting
+      app.kubernetes.io/part-of: opentelemetry-demo
+      app.kubernetes.io/version: 2.1.3
+      opentelemetry.io/name: accounting
+    name: accounting
+    namespace: otel-demo
+    resourceVersion: "230619"
+    uid: 5a86b41e-3405-4ac6-83bd-af0197a7d91e
+  spec:
+    progressDeadlineSeconds: 600
+    replicas: 1
+    revisionHistoryLimit: 10
+    selector:
+      matchLabels:
+        opentelemetry.io/name: accounting
+    strategy:
+      rollingUpdate:
+        maxSurge: 25%
+        maxUnavailable: 25%
+      type: RollingUpdate
+    template:
+      metadata:
+        creationTimestamp: null
+        labels:
+          app.kubernetes.io/component: accounting
+          app.kubernetes.io/name: accounting
+          opentelemetry.io/name: accounting
+      spec:
+        containers:
+        - env:
+          - name: OTEL_SERVICE_NAME
+            valueFrom:
+              fieldRef:
+                apiVersion: v1
+                fieldPath: metadata.labels['app.kubernetes.io/component']
+          - name: OTEL_COLLECTOR_NAME
+            value: otel-collector
+          - name: OTEL_EXPORTER_OTLP_METRICS_TEMPORALITY_PREFERENCE
+            value: cumulative
+          - name: KAFKA_ADDR
+            value: kafka:9092
+          - name: OTEL_EXPORTER_OTLP_ENDPOINT
+            value: http://$(OTEL_COLLECTOR_NAME):4318
+          - name: DB_CONNECTION_STRING
+            value: Host=postgresql;Username=otelu;Password=otelp;Database=otel
+          - name: OTEL_DOTNET_AUTO_TRACES_ENTITYFRAMEWORKCORE_INSTRUMENTATION_ENABLED
+            value: "false"
+          - name: OTEL_RESOURCE_ATTRIBUTES
+            value: service.name=$(OTEL_SERVICE_NAME),service.namespace=opentelemetry-demo,service.version=2.1.3
+          image: ghcr.io/open-telemetry/demo:2.1.3-accounting
+          imagePullPolicy: IfNotPresent
+          name: accounting
+          resources:
+            limits:
+              memory: 120Mi
+          terminationMessagePath: /dev/termination-log
+          terminationMessagePolicy: File
+        dnsPolicy: ClusterFirst
+        initContainers:
+        - command:
+          - sh
+          - -c
+          - until nc -z -v -w30 kafka 9092; do echo waiting for kafka; sleep 2; done;
+          image: busybox:latest
+          imagePullPolicy: Always
+          name: wait-for-kafka
+          resources: {}
+          terminationMessagePath: /dev/termination-log
+          terminationMessagePolicy: File
+        restartPolicy: Always
+        schedulerName: default-scheduler
+        securityContext: {}
+        serviceAccount: opentelemetry-demo
+        serviceAccountName: opentelemetry-demo
+        terminationGracePeriodSeconds: 30
+  status:
+    availableReplicas: 1
+    conditions:
+    - lastTransitionTime: "2026-03-31T11:49:42Z"
+      lastUpdateTime: "2026-03-31T11:53:08Z"
+      message: ReplicaSet "accounting-74c94c5c9b" has successfully progressed.
+      reason: NewReplicaSetAvailable
+      status: "True"
+      type: Progressing
+    - lastTransitionTime: "2026-04-01T06:38:59Z"
+      lastUpdateTime: "2026-04-01T06:38:59Z"
+      message: Deployment has minimum availability.
+      reason: MinimumReplicasAvailable
+      status: "True"
+      type: Available
+    observedGeneration: 1
+    readyReplicas: 1
+    replicas: 1
+    updatedReplicas: 1
+- apiVersion: apps/v1
+  kind: Deployment
+  metadata:
+    annotations:
+      deployment.kubernetes.io/revision: "1"
+      kubectl.kubernetes.io/last-applied-configuration: |
+        {"apiVersion":"apps/v1","kind":"Deployment","metadata":{"annotations":{},"labels":{"app.kubernetes.io/component":"ad","app.kubernetes.io/name":"ad","app.kubernetes.io/part-of":"opentelemetry-demo","app.kubernetes.io/version":"2.1.3","opentelemetry.io/name":"ad"},"name":"ad","namespace":"otel-demo"},"spec":{"replicas":1,"revisionHistoryLimit":10,"selector":{"matchLabels":{"opentelemetry.io/name":"ad"}},"template":{"metadata":{"labels":{"app.kubernetes.io/component":"ad","app.kubernetes.io/name":"ad","opentelemetry.io/name":"ad"}},"spec":{"containers":[{"env":[{"name":"OTEL_SERVICE_NAME","valueFrom":{"fieldRef":{"apiVersion":"v1","fieldPath":"metadata.labels['app.kubernetes.io/component']"}}},{"name":"OTEL_COLLECTOR_NAME","value":"otel-collector"},{"name":"OTEL_EXPORTER_OTLP_METRICS_TEMPORALITY_PREFERENCE","value":"cumulative"},{"name":"AD_PORT","value":"8080"},{"name":"FLAGD_HOST","value":"flagd"},{"name":"FLAGD_PORT","value":"8013"},{"name":"OTEL_EXPORTER_OTLP_ENDPOINT","value":"http://$(OTEL_COLLECTOR_NAME):4318"},{"name":"OTEL_LOGS_EXPORTER","value":"otlp"},{"name":"OTEL_RESOURCE_ATTRIBUTES","value":"service.name=$(OTEL_SERVICE_NAME),service.namespace=opentelemetry-demo,service.version=2.1.3"}],"image":"ghcr.io/open-telemetry/demo:2.1.3-ad","imagePullPolicy":"IfNotPresent","name":"ad","ports":[{"containerPort":8080,"name":"service"}],"resources":{"limits":{"memory":"300Mi"}},"volumeMounts":null}],"serviceAccountName":"opentelemetry-demo","volumes":null}}}}
+    creationTimestamp: "2026-03-31T11:50:22Z"
+    generation: 1
+    labels:
+      app.kubernetes.io/component: ad
+      app.kubernetes.io/name: ad
+      app.kubernetes.io/part-of: opentelemetry-demo
+      app.kubernetes.io/version: 2.1.3
+      opentelemetry.io/name: ad
+    name: ad
+    namespace: otel-demo
+    resourceVersion: "34332"
+    uid: dcb4cfb8-b945-40a5-821d-474006bb9a6a
+  spec:
+    progressDeadlineSeconds: 600
+    replicas: 1
+    revisionHistoryLimit: 10
+    selector:
+      matchLabels:
+        opentelemetry.io/name: ad
+    strategy:
+      rollingUpdate:
+        maxSurge: 25%
+        maxUnavailable: 25%
+      type: RollingUpdate
+    template:
+      metadata:
+        creationTimestamp: null
+        labels:
+          app.kubernetes.io/component: ad
+          app.kubernetes.io/name: ad
+          opentelemetry.io/name: ad
+      spec:
+        containers:
+        - env:
+          - name: OTEL_SERVICE_NAME
+            valueFrom:
+              fieldRef:
+                apiVersion: v1
+                fieldPath: metadata.labels['app.kubernetes.io/component']
+          - name: OTEL_COLLECTOR_NAME
+            value: otel-collector
+          - name: OTEL_EXPORTER_OTLP_METRICS_TEMPORALITY_PREFERENCE
+            value: cumulative
+          - name: AD_PORT
+            value: "8080"
+          - name: FLAGD_HOST
+            value: flagd
+          - name: FLAGD_PORT
+            value: "8013"
+          - name: OTEL_EXPORTER_OTLP_ENDPOINT
+            value: http://$(OTEL_COLLECTOR_NAME):4318
+          - name: OTEL_LOGS_EXPORTER
+            value: otlp
+          - name: OTEL_RESOURCE_ATTRIBUTES
+            value: service.name=$(OTEL_SERVICE_NAME),service.namespace=opentelemetry-demo,service.version=2.1.3
+          image: ghcr.io/open-telemetry/demo:2.1.3-ad
+          imagePullPolicy: IfNotPresent
+          name: ad
+          ports:
+          - containerPort: 8080
+            name: service
+            protocol: TCP
+          resources:
+            limits:
+              memory: 300Mi
+          terminationMessagePath: /dev/termination-log
+          terminationMessagePolicy: File
+        dnsPolicy: ClusterFirst
+        restartPolicy: Always
+        schedulerName: default-scheduler
+        securityContext: {}
+        serviceAccount: opentelemetry-demo
+        serviceAccountName: opentelemetry-demo
+        terminationGracePeriodSeconds: 30
+  status:
+    availableReplicas: 1
+    conditions:
+    - lastTransitionTime: "2026-03-31T11:50:28Z"
+      lastUpdateTime: "2026-03-31T11:50:28Z"
+      message: Deployment has minimum availability.
+      reason: MinimumReplicasAvailable
+      status: "True"
+      type: Available
+    - lastTransitionTime: "2026-03-31T11:50:22Z"
+      lastUpdateTime: "2026-03-31T11:50:28Z"
+      message: ReplicaSet "ad-79d97f96d7" has successfully progressed.
+      reason: NewReplicaSetAvailable
+      status: "True"
+      type: Progressing
+    observedGeneration: 1
+    readyReplicas: 1
+    replicas: 1
+    updatedReplicas: 1
+- apiVersion: apps/v1
+  kind: Deployment
+  metadata:
+    annotations:
+      deployment.kubernetes.io/revision: "1"
+      kubectl.kubernetes.io/last-applied-configuration: |
+        {"apiVersion":"apps/v1","kind":"Deployment","metadata":{"annotations":{},"labels":{"app.kubernetes.io/component":"cart","app.kubernetes.io/name":"cart","app.kubernetes.io/part-of":"opentelemetry-demo","app.kubernetes.io/version":"2.1.3","opentelemetry.io/name":"cart"},"name":"cart","namespace":"otel-demo"},"spec":{"replicas":1,"revisionHistoryLimit":10,"selector":{"matchLabels":{"opentelemetry.io/name":"cart"}},"template":{"metadata":{"labels":{"app.kubernetes.io/component":"cart","app.kubernetes.io/name":"cart","opentelemetry.io/name":"cart"}},"spec":{"containers":[{"env":[{"name":"OTEL_SERVICE_NAME","valueFrom":{"fieldRef":{"apiVersion":"v1","fieldPath":"metadata.labels['app.kubernetes.io/component']"}}},{"name":"OTEL_COLLECTOR_NAME","value":"otel-collector"},{"name":"OTEL_EXPORTER_OTLP_METRICS_TEMPORALITY_PREFERENCE","value":"cumulative"},{"name":"CART_PORT","value":"8080"},{"name":"ASPNETCORE_URLS","value":"http://*:$(CART_PORT)"},{"name":"VALKEY_ADDR","value":"valkey-cart:6379"},{"name":"FLAGD_HOST","value":"flagd"},{"name":"FLAGD_PORT","value":"8013"},{"name":"OTEL_EXPORTER_OTLP_ENDPOINT","value":"http://$(OTEL_COLLECTOR_NAME):4317"},{"name":"OTEL_RESOURCE_ATTRIBUTES","value":"service.name=$(OTEL_SERVICE_NAME),service.namespace=opentelemetry-demo,service.version=2.1.3"}],"image":"ghcr.io/open-telemetry/demo:2.1.3-cart","imagePullPolicy":"IfNotPresent","name":"cart","ports":[{"containerPort":8080,"name":"service"}],"resources":{"limits":{"memory":"160Mi"}},"volumeMounts":null}],"initContainers":[{"command":["sh","-c","until nc -z -v -w30 valkey-cart 6379; do echo waiting for valkey-cart; sleep 2; done;"],"image":"busybox:latest","name":"wait-for-valkey-cart"}],"serviceAccountName":"opentelemetry-demo","volumes":null}}}}
+    creationTimestamp: "2026-03-31T11:51:31Z"
+    generation: 1
+    labels:
+      app.kubernetes.io/component: cart
+      app.kubernetes.io/name: cart
+      app.kubernetes.io/part-of: opentelemetry-demo
+      app.kubernetes.io/version: 2.1.3
+      opentelemetry.io/name: cart
+    name: cart
+    namespace: otel-demo
+    resourceVersion: "35163"
+    uid: 37f0afc6-0559-4379-b369-a98b74aaa9ab
+  spec:
+    progressDeadlineSeconds: 600
+    replicas: 1
+    revisionHistoryLimit: 10
+    selector:
+      matchLabels:
+        opentelemetry.io/name: cart
+    strategy:
+      rollingUpdate:
+        maxSurge: 25%
+        maxUnavailable: 25%
+      type: RollingUpdate
+    template:
+      metadata:
+        creationTimestamp: null
+        labels:
+          app.kubernetes.io/component: cart
+          app.kubernetes.io/name: cart
+          opentelemetry.io/name: cart
+      spec:
+        containers:
+        - env:
+          - name: OTEL_SERVICE_NAME
+            valueFrom:
+              fieldRef:
+                apiVersion: v1
+                fieldPath: metadata.labels['app.kubernetes.io/component']
+          - name: OTEL_COLLECTOR_NAME
+            value: otel-collector
+          - name: OTEL_EXPORTER_OTLP_METRICS_TEMPORALITY_PREFERENCE
+            value: cumulative
+          - name: CART_PORT
+            value: "8080"
+          - name: ASPNETCORE_URLS
+            value: http://*:$(CART_PORT)
+          - name: VALKEY_ADDR
+            value: valkey-cart:6379
+          - name: FLAGD_HOST
+            value: flagd
+          - name: FLAGD_PORT
+            value: "8013"
+          - name: OTEL_EXPORTER_OTLP_ENDPOINT
+            value: http://$(OTEL_COLLECTOR_NAME):4317
+          - name: OTEL_RESOURCE_ATTRIBUTES
+            value: service.name=$(OTEL_SERVICE_NAME),service.namespace=opentelemetry-demo,service.version=2.1.3
+          image: ghcr.io/open-telemetry/demo:2.1.3-cart
+          imagePullPolicy: IfNotPresent
+          name: cart
+          ports:
+          - containerPort: 8080
+            name: service
+            protocol: TCP
+          resources:
+            limits:
+              memory: 160Mi
+          terminationMessagePath: /dev/termination-log
+          terminationMessagePolicy: File
+        dnsPolicy: ClusterFirst
+        initContainers:
+        - command:
+          - sh
+          - -c
+          - until nc -z -v -w30 valkey-cart 6379; do echo waiting for valkey-cart;
+            sleep 2; done;
+          image: busybox:latest
+          imagePullPolicy: Always
+          name: wait-for-valkey-cart
+          resources: {}
+          terminationMessagePath: /dev/termination-log
+          terminationMessagePolicy: File
+        restartPolicy: Always
+        schedulerName: default-scheduler
+        securityContext: {}
+        serviceAccount: opentelemetry-demo
+        serviceAccountName: opentelemetry-demo
+        terminationGracePeriodSeconds: 30
+  status:
+    availableReplicas: 1
+    conditions:
+    - lastTransitionTime: "2026-03-31T11:52:56Z"
+      lastUpdateTime: "2026-03-31T11:52:56Z"
+      message: Deployment has minimum availability.
+      reason: MinimumReplicasAvailable
+      status: "True"
+      type: Available
+    - lastTransitionTime: "2026-03-31T11:51:31Z"
+      lastUpdateTime: "2026-03-31T11:52:56Z"
+      message: ReplicaSet "cart-66f8579b76" has successfully progressed.
+      reason: NewReplicaSetAvailable
+      status: "True"
+      type: Progressing
+    observedGeneration: 1
+    readyReplicas: 1
+    replicas: 1
+    updatedReplicas: 1
+- apiVersion: apps/v1
+  kind: Deployment
+  metadata:
+    annotations:
+      deployment.kubernetes.io/revision: "1"
+      kubectl.kubernetes.io/last-applied-configuration: |
+        {"apiVersion":"apps/v1","kind":"Deployment","metadata":{"annotations":{},"labels":{"app.kubernetes.io/component":"checkout","app.kubernetes.io/name":"checkout","app.kubernetes.io/part-of":"opentelemetry-demo","app.kubernetes.io/version":"2.1.3","opentelemetry.io/name":"checkout"},"name":"checkout","namespace":"otel-demo"},"spec":{"replicas":1,"revisionHistoryLimit":10,"selector":{"matchLabels":{"opentelemetry.io/name":"checkout"}},"template":{"metadata":{"labels":{"app.kubernetes.io/component":"checkout","app.kubernetes.io/name":"checkout","opentelemetry.io/name":"checkout"}},"spec":{"containers":[{"env":[{"name":"OTEL_SERVICE_NAME","valueFrom":{"fieldRef":{"apiVersion":"v1","fieldPath":"metadata.labels['app.kubernetes.io/component']"}}},{"name":"OTEL_COLLECTOR_NAME","value":"otel-collector"},{"name":"OTEL_EXPORTER_OTLP_METRICS_TEMPORALITY_PREFERENCE","value":"cumulative"},{"name":"CHECKOUT_PORT","value":"8080"},{"name":"CART_ADDR","value":"cart:8080"},{"name":"CURRENCY_ADDR","value":"currency:8080"},{"name":"EMAIL_ADDR","value":"http://email:8080"},{"name":"PAYMENT_ADDR","value":"payment:8080"},{"name":"PRODUCT_CATALOG_ADDR","value":"product-catalog:8080"},{"name":"SHIPPING_ADDR","value":"http://shipping:8080"},{"name":"KAFKA_ADDR","value":"kafka:9092"},{"name":"FLAGD_HOST","value":"flagd"},{"name":"FLAGD_PORT","value":"8013"},{"name":"OTEL_EXPORTER_OTLP_ENDPOINT","value":"http://$(OTEL_COLLECTOR_NAME):4317"},{"name":"GOMEMLIMIT","value":"16MiB"},{"name":"OTEL_RESOURCE_ATTRIBUTES","value":"service.name=$(OTEL_SERVICE_NAME),service.namespace=opentelemetry-demo,service.version=2.1.3"}],"image":"ghcr.io/open-telemetry/demo:2.1.3-checkout","imagePullPolicy":"IfNotPresent","name":"checkout","ports":[{"containerPort":8080,"name":"service"}],"resources":{"limits":{"memory":"20Mi"}},"volumeMounts":null}],"initContainers":[{"command":["sh","-c","until nc -z -v -w30 kafka 9092; do echo waiting for kafka; sleep 2; done;"],"image":"busybox:latest","name":"wait-for-kafka"}],"serviceAccountName":"opentelemetry-demo","volumes":null}}}}
+    creationTimestamp: "2026-03-31T11:51:33Z"
+    generation: 1
+    labels:
+      app.kubernetes.io/component: checkout
+      app.kubernetes.io/name: checkout
+      app.kubernetes.io/part-of: opentelemetry-demo
+      app.kubernetes.io/version: 2.1.3
+      opentelemetry.io/name: checkout
+    name: checkout
+    namespace: otel-demo
+    resourceVersion: "35216"
+    uid: e7ce396b-5442-4c93-89b7-6dd3706c8594
+  spec:
+    progressDeadlineSeconds: 600
+    replicas: 1
+    revisionHistoryLimit: 10
+    selector:
+      matchLabels:
+        opentelemetry.io/name: checkout
+    strategy:
+      rollingUpdate:
+        maxSurge: 25%
+        maxUnavailable: 25%
+      type: RollingUpdate
+    template:
+      metadata:
+        creationTimestamp: null
+        labels:
+          app.kubernetes.io/component: checkout
+          app.kubernetes.io/name: checkout
+          opentelemetry.io/name: checkout
+      spec:
+        containers:
+        - env:
+          - name: OTEL_SERVICE_NAME
+            valueFrom:
+              fieldRef:
+                apiVersion: v1
+                fieldPath: metadata.labels['app.kubernetes.io/component']
+          - name: OTEL_COLLECTOR_NAME
+            value: otel-collector
+          - name: OTEL_EXPORTER_OTLP_METRICS_TEMPORALITY_PREFERENCE
+            value: cumulative
+          - name: CHECKOUT_PORT
+            value: "8080"
+          - name: CART_ADDR
+            value: cart:8080
+          - name: CURRENCY_ADDR
+            value: currency:8080
+          - name: EMAIL_ADDR
+            value: http://email:8080
+          - name: PAYMENT_ADDR
+            value: payment:8080
+          - name: PRODUCT_CATALOG_ADDR
+            value: product-catalog:8080
+          - name: SHIPPING_ADDR
+            value: http://shipping:8080
+          - name: KAFKA_ADDR
+            value: kafka:9092
+          - name: FLAGD_HOST
+            value: flagd
+          - name: FLAGD_PORT
+            value: "8013"
+          - name: OTEL_EXPORTER_OTLP_ENDPOINT
+            value: http://$(OTEL_COLLECTOR_NAME):4317
+          - name: GOMEMLIMIT
+            value: 16MiB
+          - name: OTEL_RESOURCE_ATTRIBUTES
+            value: service.name=$(OTEL_SERVICE_NAME),service.namespace=opentelemetry-demo,service.version=2.1.3
+          image: ghcr.io/open-telemetry/demo:2.1.3-checkout
+          imagePullPolicy: IfNotPresent
+          name: checkout
+          ports:
+          - containerPort: 8080
+            name: service
+            protocol: TCP
+          resources:
+            limits:
+              memory: 20Mi
+          terminationMessagePath: /dev/termination-log
+          terminationMessagePolicy: File
+        dnsPolicy: ClusterFirst
+        initContainers:
+        - command:
+          - sh
+          - -c
+          - until nc -z -v -w30 kafka 9092; do echo waiting for kafka; sleep 2; done;
+          image: busybox:latest
+          imagePullPolicy: Always
+          name: wait-for-kafka
+          resources: {}
+          terminationMessagePath: /dev/termination-log
+          terminationMessagePolicy: File
+        restartPolicy: Always
+        schedulerName: default-scheduler
+        securityContext: {}
+        serviceAccount: opentelemetry-demo
+        serviceAccountName: opentelemetry-demo
+        terminationGracePeriodSeconds: 30
+  status:
+    availableReplicas: 1
+    conditions:
+    - lastTransitionTime: "2026-03-31T11:53:05Z"
+      lastUpdateTime: "2026-03-31T11:53:05Z"
+      message: Deployment has minimum availability.
+      reason: MinimumReplicasAvailable
+      status: "True"
+      type: Available
+    - lastTransitionTime: "2026-03-31T11:51:33Z"
+      lastUpdateTime: "2026-03-31T11:53:05Z"
+      message: ReplicaSet "checkout-9685589bd" has successfully progressed.
+      reason: NewReplicaSetAvailable
+      status: "True"
+      type: Progressing
+    observedGeneration: 1
+    readyReplicas: 1
+    replicas: 1
+    updatedReplicas: 1
+- apiVersion: apps/v1
+  kind: Deployment
+  metadata:
+    annotations:
+      deployment.kubernetes.io/revision: "1"
+      kubectl.kubernetes.io/last-applied-configuration: |
+        {"apiVersion":"apps/v1","kind":"Deployment","metadata":{"annotations":{},"labels":{"app.kubernetes.io/component":"currency","app.kubernetes.io/name":"currency","app.kubernetes.io/part-of":"opentelemetry-demo","app.kubernetes.io/version":"2.1.3","opentelemetry.io/name":"currency"},"name":"currency","namespace":"otel-demo"},"spec":{"replicas":1,"revisionHistoryLimit":10,"selector":{"matchLabels":{"opentelemetry.io/name":"currency"}},"template":{"metadata":{"labels":{"app.kubernetes.io/component":"currency","app.kubernetes.io/name":"currency","opentelemetry.io/name":"currency"}},"spec":{"containers":[{"env":[{"name":"OTEL_SERVICE_NAME","valueFrom":{"fieldRef":{"apiVersion":"v1","fieldPath":"metadata.labels['app.kubernetes.io/component']"}}},{"name":"OTEL_COLLECTOR_NAME","value":"otel-collector"},{"name":"OTEL_EXPORTER_OTLP_METRICS_TEMPORALITY_PREFERENCE","value":"cumulative"},{"name":"CURRENCY_PORT","value":"8080"},{"name":"OTEL_EXPORTER_OTLP_ENDPOINT","value":"http://$(OTEL_COLLECTOR_NAME):4317"},{"name":"VERSION","value":"2.1.3"},{"name":"OTEL_RESOURCE_ATTRIBUTES","value":"service.name=$(OTEL_SERVICE_NAME),service.namespace=opentelemetry-demo,service.version=2.1.3"}],"image":"ghcr.io/open-telemetry/demo:2.1.3-currency","imagePullPolicy":"IfNotPresent","name":"currency","ports":[{"containerPort":8080,"name":"service"}],"resources":{"limits":{"memory":"20Mi"}},"volumeMounts":null}],"serviceAccountName":"opentelemetry-demo","volumes":null}}}}
+    creationTimestamp: "2026-03-31T11:51:35Z"
+    generation: 1
+    labels:
+      app.kubernetes.io/component: currency
+      app.kubernetes.io/name: currency
+      app.kubernetes.io/part-of: opentelemetry-demo
+      app.kubernetes.io/version: 2.1.3
+      opentelemetry.io/name: currency
+    name: currency
+    namespace: otel-demo
+    resourceVersion: "34621"
+    uid: 5c0f4c06-947a-4bee-a0a3-7d49ec364348
+  spec:
+    progressDeadlineSeconds: 600
+    replicas: 1
+    revisionHistoryLimit: 10
+    selector:
+      matchLabels:
+        opentelemetry.io/name: currency
+    strategy:
+      rollingUpdate:
+        maxSurge: 25%
+        maxUnavailable: 25%
+      type: RollingUpdate
+    template:
+      metadata:
+        creationTimestamp: null
+        labels:
+          app.kubernetes.io/component: currency
+          app.kubernetes.io/name: currency
+          opentelemetry.io/name: currency
+      spec:
+        containers:
+        - env:
+          - name: OTEL_SERVICE_NAME
+            valueFrom:
+              fieldRef:
+                apiVersion: v1
+                fieldPath: metadata.labels['app.kubernetes.io/component']
+          - name: OTEL_COLLECTOR_NAME
+            value: otel-collector
+          - name: OTEL_EXPORTER_OTLP_METRICS_TEMPORALITY_PREFERENCE
+            value: cumulative
+          - name: CURRENCY_PORT
+            value: "8080"
+          - name: OTEL_EXPORTER_OTLP_ENDPOINT
+            value: http://$(OTEL_COLLECTOR_NAME):4317
+          - name: VERSION
+            value: 2.1.3
+          - name: OTEL_RESOURCE_ATTRIBUTES
+            value: service.name=$(OTEL_SERVICE_NAME),service.namespace=opentelemetry-demo,service.version=2.1.3
+          image: ghcr.io/open-telemetry/demo:2.1.3-currency
+          imagePullPolicy: IfNotPresent
+          name: currency
+          ports:
+          - containerPort: 8080
+            name: service
+            protocol: TCP
+          resources:
+            limits:
+              memory: 20Mi
+          terminationMessagePath: /dev/termination-log
+          terminationMessagePolicy: File
+        dnsPolicy: ClusterFirst
+        restartPolicy: Always
+        schedulerName: default-scheduler
+        securityContext: {}
+        serviceAccount: opentelemetry-demo
+        serviceAccountName: opentelemetry-demo
+        terminationGracePeriodSeconds: 30
+  status:
+    availableReplicas: 1
+    conditions:
+    - lastTransitionTime: "2026-03-31T11:51:38Z"
+      lastUpdateTime: "2026-03-31T11:51:38Z"
+      message: Deployment has minimum availability.
+      reason: MinimumReplicasAvailable
+      status: "True"
+      type: Available
+    - lastTransitionTime: "2026-03-31T11:51:35Z"
+      lastUpdateTime: "2026-03-31T11:51:38Z"
+      message: ReplicaSet "currency-64577bd769" has successfully progressed.
+      reason: NewReplicaSetAvailable
+      status: "True"
+      type: Progressing
+    observedGeneration: 1
+    readyReplicas: 1
+    replicas: 1
+    updatedReplicas: 1
+- apiVersion: apps/v1
+  kind: Deployment
+  metadata:
+    annotations:
+      deployment.kubernetes.io/revision: "1"
+      kubectl.kubernetes.io/last-applied-configuration: |
+        {"apiVersion":"apps/v1","kind":"Deployment","metadata":{"annotations":{},"labels":{"app.kubernetes.io/component":"email","app.kubernetes.io/name":"email","app.kubernetes.io/part-of":"opentelemetry-demo","app.kubernetes.io/version":"2.1.3","opentelemetry.io/name":"email"},"name":"email","namespace":"otel-demo"},"spec":{"replicas":1,"revisionHistoryLimit":10,"selector":{"matchLabels":{"opentelemetry.io/name":"email"}},"template":{"metadata":{"labels":{"app.kubernetes.io/component":"email","app.kubernetes.io/name":"email","opentelemetry.io/name":"email"}},"spec":{"containers":[{"env":[{"name":"OTEL_SERVICE_NAME","valueFrom":{"fieldRef":{"apiVersion":"v1","fieldPath":"metadata.labels['app.kubernetes.io/component']"}}},{"name":"OTEL_COLLECTOR_NAME","value":"otel-collector"},{"name":"OTEL_EXPORTER_OTLP_METRICS_TEMPORALITY_PREFERENCE","value":"cumulative"},{"name":"EMAIL_PORT","value":"8080"},{"name":"APP_ENV","value":"production"},{"name":"OTEL_EXPORTER_OTLP_ENDPOINT","value":"http://$(OTEL_COLLECTOR_NAME):4318"},{"name":"FLAGD_HOST","value":"flagd"},{"name":"FLAGD_PORT","value":"8013"},{"name":"OTEL_RESOURCE_ATTRIBUTES","value":"service.name=$(OTEL_SERVICE_NAME),service.namespace=opentelemetry-demo,service.version=2.1.3"}],"image":"ghcr.io/open-telemetry/demo:2.1.3-email","imagePullPolicy":"IfNotPresent","name":"email","ports":[{"containerPort":8080,"name":"service"}],"resources":{"limits":{"memory":"100Mi"}},"volumeMounts":null}],"serviceAccountName":"opentelemetry-demo","volumes":null}}}}
+    creationTimestamp: "2026-03-31T11:51:37Z"
+    generation: 1
+    labels:
+      app.kubernetes.io/component: email
+      app.kubernetes.io/name: email
+      app.kubernetes.io/part-of: opentelemetry-demo
+      app.kubernetes.io/version: 2.1.3
+      opentelemetry.io/name: email
+    name: email
+    namespace: otel-demo
+    resourceVersion: "34651"
+    uid: e4c73ad7-85b1-4078-b08c-b4239827ab3e
+  spec:
+    progressDeadlineSeconds: 600
+    replicas: 1
+    revisionHistoryLimit: 10
+    selector:
+      matchLabels:
+        opentelemetry.io/name: email
+    strategy:
+      rollingUpdate:
+        maxSurge: 25%
+        maxUnavailable: 25%
+      type: RollingUpdate
+    template:
+      metadata:
+        creationTimestamp: null
+        labels:
+          app.kubernetes.io/component: email
+          app.kubernetes.io/name: email
+          opentelemetry.io/name: email
+      spec:
+        containers:
+        - env:
+          - name: OTEL_SERVICE_NAME
+            valueFrom:
+              fieldRef:
+                apiVersion: v1
+                fieldPath: metadata.labels['app.kubernetes.io/component']
+          - name: OTEL_COLLECTOR_NAME
+            value: otel-collector
+          - name: OTEL_EXPORTER_OTLP_METRICS_TEMPORALITY_PREFERENCE
+            value: cumulative
+          - name: EMAIL_PORT
+            value: "8080"
+          - name: APP_ENV
+            value: production
+          - name: OTEL_EXPORTER_OTLP_ENDPOINT
+            value: http://$(OTEL_COLLECTOR_NAME):4318
+          - name: FLAGD_HOST
+            value: flagd
+          - name: FLAGD_PORT
+            value: "8013"
+          - name: OTEL_RESOURCE_ATTRIBUTES
+            value: service.name=$(OTEL_SERVICE_NAME),service.namespace=opentelemetry-demo,service.version=2.1.3
+          image: ghcr.io/open-telemetry/demo:2.1.3-email
+          imagePullPolicy: IfNotPresent
+          name: email
+          ports:
+          - containerPort: 8080
+            name: service
+            protocol: TCP
+          resources:
+            limits:
+              memory: 100Mi
+          terminationMessagePath: /dev/termination-log
+          terminationMessagePolicy: File
+        dnsPolicy: ClusterFirst
+        restartPolicy: Always
+        schedulerName: default-scheduler
+        securityContext: {}
+        serviceAccount: opentelemetry-demo
+        serviceAccountName: opentelemetry-demo
+        terminationGracePeriodSeconds: 30
+  status:
+    availableReplicas: 1
+    conditions:
+    - lastTransitionTime: "2026-03-31T11:51:42Z"
+      lastUpdateTime: "2026-03-31T11:51:42Z"
+      message: Deployment has minimum availability.
+      reason: MinimumReplicasAvailable
+      status: "True"
+      type: Available
+    - lastTransitionTime: "2026-03-31T11:51:37Z"
+      lastUpdateTime: "2026-03-31T11:51:42Z"
+      message: ReplicaSet "email-745bdb4dd5" has successfully progressed.
+      reason: NewReplicaSetAvailable
+      status: "True"
+      type: Progressing
+    observedGeneration: 1
+    readyReplicas: 1
+    replicas: 1
+    updatedReplicas: 1
+- apiVersion: apps/v1
+  kind: Deployment
+  metadata:
+    annotations:
+      deployment.kubernetes.io/revision: "1"
+      kubectl.kubernetes.io/last-applied-configuration: |
+        {"apiVersion":"apps/v1","kind":"Deployment","metadata":{"annotations":{},"labels":{"app.kubernetes.io/component":"flagd","app.kubernetes.io/name":"flagd","app.kubernetes.io/part-of":"opentelemetry-demo","app.kubernetes.io/version":"2.1.3","opentelemetry.io/name":"flagd"},"name":"flagd","namespace":"otel-demo"},"spec":{"replicas":1,"revisionHistoryLimit":10,"selector":{"matchLabels":{"opentelemetry.io/name":"flagd"}},"template":{"metadata":{"labels":{"app.kubernetes.io/component":"flagd","app.kubernetes.io/name":"flagd","opentelemetry.io/name":"flagd"}},"spec":{"containers":[{"command":["/flagd-build","start","--port","8013","--ofrep-port","8016","--uri","file:./etc/flagd/demo.flagd.json"],"env":[{"name":"OTEL_SERVICE_NAME","valueFrom":{"fieldRef":{"apiVersion":"v1","fieldPath":"metadata.labels['app.kubernetes.io/component']"}}},{"name":"OTEL_COLLECTOR_NAME","value":"otel-collector"},{"name":"OTEL_EXPORTER_OTLP_METRICS_TEMPORALITY_PREFERENCE","value":"cumulative"},{"name":"FLAGD_METRICS_EXPORTER","value":"otel"},{"name":"FLAGD_OTEL_COLLECTOR_URI","value":"$(OTEL_COLLECTOR_NAME):4317"},{"name":"GOMEMLIMIT","value":"60MiB"},{"name":"OTEL_RESOURCE_ATTRIBUTES","value":"service.name=$(OTEL_SERVICE_NAME),service.namespace=opentelemetry-demo,service.version=2.1.3"}],"image":"ghcr.io/open-feature/flagd:v0.12.8","imagePullPolicy":"IfNotPresent","name":"flagd","ports":[{"containerPort":8013,"name":"rpc"},{"containerPort":8016,"name":"ofrep"}],"resources":{"limits":{"memory":"75Mi"}},"volumeMounts":[{"mountPath":"/etc/flagd","name":"config-rw"}]},{"env":[{"name":"OTEL_SERVICE_NAME","valueFrom":{"fieldRef":{"apiVersion":"v1","fieldPath":"metadata.labels['app.kubernetes.io/component']"}}},{"name":"OTEL_COLLECTOR_NAME","value":"otel-collector"},{"name":"OTEL_EXPORTER_OTLP_METRICS_TEMPORALITY_PREFERENCE","value":"cumulative"},{"name":"FLAGD_METRICS_EXPORTER","value":"otel"},{"name":"OTEL_EXPORTER_OTLP_ENDPOINT","value":"http://$(OTEL_COLLECTOR_NAME):4318"},{"name":"FLAGD_UI_PORT","value":"4000"},{"name":"SECRET_KEY_BASE","value":"yYrECL4qbNwleYInGJYvVnSkwJuSQJ4ijPTx5tirGUXrbznFIBFVJdPl5t6O9ASw"},{"name":"PHX_HOST","value":"localhost"},{"name":"OTEL_RESOURCE_ATTRIBUTES","value":"service.name=$(OTEL_SERVICE_NAME),service.namespace=opentelemetry-demo,service.version=2.1.3"}],"image":"ghcr.io/open-telemetry/demo:2.1.3-flagd-ui","imagePullPolicy":"IfNotPresent","name":"flagd-ui","ports":[{"containerPort":4000,"name":"service"}],"resources":{"limits":{"memory":"250Mi"}},"volumeMounts":[{"mountPath":"/app/data","name":"config-rw"}]}],"initContainers":[{"command":["sh","-c","cp /config-ro/demo.flagd.json /config-rw/demo.flagd.json \u0026\u0026 cat /config-rw/demo.flagd.json"],"image":"busybox","name":"init-config","volumeMounts":[{"mountPath":"/config-ro","name":"config-ro"},{"mountPath":"/config-rw","name":"config-rw"}]}],"serviceAccountName":"opentelemetry-demo","volumes":[{"emptyDir":{},"name":"config-rw"},{"configMap":{"name":"flagd-config"},"name":"config-ro"}]}}}}
+    creationTimestamp: "2026-03-31T11:51:38Z"
+    generation: 1
+    labels:
+      app.kubernetes.io/component: flagd
+      app.kubernetes.io/name: flagd
+      app.kubernetes.io/part-of: opentelemetry-demo
+      app.kubernetes.io/version: 2.1.3
+      opentelemetry.io/name: flagd
+    name: flagd
+    namespace: otel-demo
+    resourceVersion: "34669"
+    uid: 96c08894-e731-4500-8123-6b0c358e529e
+  spec:
+    progressDeadlineSeconds: 600
+    replicas: 1
+    revisionHistoryLimit: 10
+    selector:
+      matchLabels:
+        opentelemetry.io/name: flagd
+    strategy:
+      rollingUpdate:
+        maxSurge: 25%
+        maxUnavailable: 25%
+      type: RollingUpdate
+    template:
+      metadata:
+        creationTimestamp: null
+        labels:
+          app.kubernetes.io/component: flagd
+          app.kubernetes.io/name: flagd
+          opentelemetry.io/name: flagd
+      spec:
+        containers:
+        - command:
+          - /flagd-build
+          - start
+          - --port
+          - "8013"
+          - --ofrep-port
+          - "8016"
+          - --uri
+          - file:./etc/flagd/demo.flagd.json
+          env:
+          - name: OTEL_SERVICE_NAME
+            valueFrom:
+              fieldRef:
+                apiVersion: v1
+                fieldPath: metadata.labels['app.kubernetes.io/component']
+          - name: OTEL_COLLECTOR_NAME
+            value: otel-collector
+          - name: OTEL_EXPORTER_OTLP_METRICS_TEMPORALITY_PREFERENCE
+            value: cumulative
+          - name: FLAGD_METRICS_EXPORTER
+            value: otel
+          - name: FLAGD_OTEL_COLLECTOR_URI
+            value: $(OTEL_COLLECTOR_NAME):4317
+          - name: GOMEMLIMIT
+            value: 60MiB
+          - name: OTEL_RESOURCE_ATTRIBUTES
+            value: service.name=$(OTEL_SERVICE_NAME),service.namespace=opentelemetry-demo,service.version=2.1.3
+          image: ghcr.io/open-feature/flagd:v0.12.8
+          imagePullPolicy: IfNotPresent
+          name: flagd
+          ports:
+          - containerPort: 8013
+            name: rpc
+            protocol: TCP
+          - containerPort: 8016
+            name: ofrep
+            protocol: TCP
+          resources:
+            limits:
+              memory: 75Mi
+          terminationMessagePath: /dev/termination-log
+          terminationMessagePolicy: File
+          volumeMounts:
+          - mountPath: /etc/flagd
+            name: config-rw
+        - env:
+          - name: OTEL_SERVICE_NAME
+            valueFrom:
+              fieldRef:
+                apiVersion: v1
+                fieldPath: metadata.labels['app.kubernetes.io/component']
+          - name: OTEL_COLLECTOR_NAME
+            value: otel-collector
+          - name: OTEL_EXPORTER_OTLP_METRICS_TEMPORALITY_PREFERENCE
+            value: cumulative
+          - name: FLAGD_METRICS_EXPORTER
+            value: otel
+          - name: OTEL_EXPORTER_OTLP_ENDPOINT
+            value: http://$(OTEL_COLLECTOR_NAME):4318
+          - name: FLAGD_UI_PORT
+            value: "4000"
+          - name: SECRET_KEY_BASE
+            value: yYrECL4qbNwleYInGJYvVnSkwJuSQJ4ijPTx5tirGUXrbznFIBFVJdPl5t6O9ASw
+          - name: PHX_HOST
+            value: localhost
+          - name: OTEL_RESOURCE_ATTRIBUTES
+            value: service.name=$(OTEL_SERVICE_NAME),service.namespace=opentelemetry-demo,service.version=2.1.3
+          image: ghcr.io/open-telemetry/demo:2.1.3-flagd-ui
+          imagePullPolicy: IfNotPresent
+          name: flagd-ui
+          ports:
+          - containerPort: 4000
+            name: service
+            protocol: TCP
+          resources:
+            limits:
+              memory: 250Mi
+          terminationMessagePath: /dev/termination-log
+          terminationMessagePolicy: File
+          volumeMounts:
+          - mountPath: /app/data
+            name: config-rw
+        dnsPolicy: ClusterFirst
+        initContainers:
+        - command:
+          - sh
+          - -c
+          - cp /config-ro/demo.flagd.json /config-rw/demo.flagd.json && cat /config-rw/demo.flagd.json
+          image: busybox
+          imagePullPolicy: Always
+          name: init-config
+          resources: {}
+          terminationMessagePath: /dev/termination-log
+          terminationMessagePolicy: File
+          volumeMounts:
+          - mountPath: /config-ro
+            name: config-ro
+          - mountPath: /config-rw
+            name: config-rw
+        restartPolicy: Always
+        schedulerName: default-scheduler
+        securityContext: {}
+        serviceAccount: opentelemetry-demo
+        serviceAccountName: opentelemetry-demo
+        terminationGracePeriodSeconds: 30
+        volumes:
+        - emptyDir: {}
+          name: config-rw
+        - configMap:
+            defaultMode: 420
+            name: flagd-config
+          name: config-ro
+  status:
+    availableReplicas: 1
+    conditions:
+    - lastTransitionTime: "2026-03-31T11:51:45Z"
+      lastUpdateTime: "2026-03-31T11:51:45Z"
+      message: Deployment has minimum availability.
+      reason: MinimumReplicasAvailable
+      status: "True"
+      type: Available
+    - lastTransitionTime: "2026-03-31T11:51:38Z"
+      lastUpdateTime: "2026-03-31T11:51:45Z"
+      message: ReplicaSet "flagd-59c78fb658" has successfully progressed.
+      reason: NewReplicaSetAvailable
+      status: "True"
+      type: Progressing
+    observedGeneration: 1
+    readyReplicas: 1
+    replicas: 1
+    updatedReplicas: 1
+- apiVersion: apps/v1
+  kind: Deployment
+  metadata:
+    annotations:
+      deployment.kubernetes.io/revision: "1"
+      kubectl.kubernetes.io/last-applied-configuration: |
+        {"apiVersion":"apps/v1","kind":"Deployment","metadata":{"annotations":{},"labels":{"app.kubernetes.io/component":"fraud-detection","app.kubernetes.io/name":"fraud-detection","app.kubernetes.io/part-of":"opentelemetry-demo","app.kubernetes.io/version":"2.1.3","opentelemetry.io/name":"fraud-detection"},"name":"fraud-detection","namespace":"otel-demo"},"spec":{"replicas":1,"revisionHistoryLimit":10,"selector":{"matchLabels":{"opentelemetry.io/name":"fraud-detection"}},"template":{"metadata":{"labels":{"app.kubernetes.io/component":"fraud-detection","app.kubernetes.io/name":"fraud-detection","opentelemetry.io/name":"fraud-detection"}},"spec":{"containers":[{"env":[{"name":"OTEL_SERVICE_NAME","valueFrom":{"fieldRef":{"apiVersion":"v1","fieldPath":"metadata.labels['app.kubernetes.io/component']"}}},{"name":"OTEL_COLLECTOR_NAME","value":"otel-collector"},{"name":"OTEL_EXPORTER_OTLP_METRICS_TEMPORALITY_PREFERENCE","value":"cumulative"},{"name":"KAFKA_ADDR","value":"kafka:9092"},{"name":"FLAGD_HOST","value":"flagd"},{"name":"FLAGD_PORT","value":"8013"},{"name":"OTEL_EXPORTER_OTLP_ENDPOINT","value":"http://$(OTEL_COLLECTOR_NAME):4318"},{"name":"OTEL_INSTRUMENTATION_KAFKA_EXPERIMENTAL_SPAN_ATTRIBUTES","value":"true"},{"name":"OTEL_INSTRUMENTATION_MESSAGING_EXPERIMENTAL_RECEIVE_TELEMETRY_ENABLED","value":"true"},{"name":"OTEL_RESOURCE_ATTRIBUTES","value":"service.name=$(OTEL_SERVICE_NAME),service.namespace=opentelemetry-demo,service.version=2.1.3"}],"image":"ghcr.io/open-telemetry/demo:2.1.3-fraud-detection","imagePullPolicy":"IfNotPresent","name":"fraud-detection","resources":{"limits":{"memory":"300Mi"}},"volumeMounts":null}],"initContainers":[{"command":["sh","-c","until nc -z -v -w30 kafka 9092; do echo waiting for kafka; sleep 2; done;"],"image":"busybox:latest","name":"wait-for-kafka"}],"serviceAccountName":"opentelemetry-demo","volumes":null}}}}
+    creationTimestamp: "2026-03-31T11:52:26Z"
+    generation: 1
+    labels:
+      app.kubernetes.io/component: fraud-detection
+      app.kubernetes.io/name: fraud-detection
+      app.kubernetes.io/part-of: opentelemetry-demo
+      app.kubernetes.io/version: 2.1.3
+      opentelemetry.io/name: fraud-detection
+    name: fraud-detection
+    namespace: otel-demo
+    resourceVersion: "35236"
+    uid: fa29d5ad-944c-4d5e-ab0d-0243579414f1
+  spec:
+    progressDeadlineSeconds: 600
+    replicas: 1
+    revisionHistoryLimit: 10
+    selector:
+      matchLabels:
+        opentelemetry.io/name: fraud-detection
+    strategy:
+      rollingUpdate:
+        maxSurge: 25%
+        maxUnavailable: 25%
+      type: RollingUpdate
+    template:
+      metadata:
+        creationTimestamp: null
+        labels:
+          app.kubernetes.io/component: fraud-detection
+          app.kubernetes.io/name: fraud-detection
+          opentelemetry.io/name: fraud-detection
+      spec:
+        containers:
+        - env:
+          - name: OTEL_SERVICE_NAME
+            valueFrom:
+              fieldRef:
+                apiVersion: v1
+                fieldPath: metadata.labels['app.kubernetes.io/component']
+          - name: OTEL_COLLECTOR_NAME
+            value: otel-collector
+          - name: OTEL_EXPORTER_OTLP_METRICS_TEMPORALITY_PREFERENCE
+            value: cumulative
+          - name: KAFKA_ADDR
+            value: kafka:9092
+          - name: FLAGD_HOST
+            value: flagd
+          - name: FLAGD_PORT
+            value: "8013"
+          - name: OTEL_EXPORTER_OTLP_ENDPOINT
+            value: http://$(OTEL_COLLECTOR_NAME):4318
+          - name: OTEL_INSTRUMENTATION_KAFKA_EXPERIMENTAL_SPAN_ATTRIBUTES
+            value: "true"
+          - name: OTEL_INSTRUMENTATION_MESSAGING_EXPERIMENTAL_RECEIVE_TELEMETRY_ENABLED
+            value: "true"
+          - name: OTEL_RESOURCE_ATTRIBUTES
+            value: service.name=$(OTEL_SERVICE_NAME),service.namespace=opentelemetry-demo,service.version=2.1.3
+          image: ghcr.io/open-telemetry/demo:2.1.3-fraud-detection
+          imagePullPolicy: IfNotPresent
+          name: fraud-detection
+          resources:
+            limits:
+              memory: 300Mi
+          terminationMessagePath: /dev/termination-log
+          terminationMessagePolicy: File
+        dnsPolicy: ClusterFirst
+        initContainers:
+        - command:
+          - sh
+          - -c
+          - until nc -z -v -w30 kafka 9092; do echo waiting for kafka; sleep 2; done;
+          image: busybox:latest
+          imagePullPolicy: Always
+          name: wait-for-kafka
+          resources: {}
+          terminationMessagePath: /dev/termination-log
+          terminationMessagePolicy: File
+        restartPolicy: Always
+        schedulerName: default-scheduler
+        securityContext: {}
+        serviceAccount: opentelemetry-demo
+        serviceAccountName: opentelemetry-demo
+        terminationGracePeriodSeconds: 30
+  status:
+    availableReplicas: 1
+    conditions:
+    - lastTransitionTime: "2026-03-31T11:53:08Z"
+      lastUpdateTime: "2026-03-31T11:53:08Z"
+      message: Deployment has minimum availability.
+      reason: MinimumReplicasAvailable
+      status: "True"
+      type: Available
+    - lastTransitionTime: "2026-03-31T11:52:26Z"
+      lastUpdateTime: "2026-03-31T11:53:08Z"
+      message: ReplicaSet "fraud-detection-787694bbdd" has successfully progressed.
+      reason: NewReplicaSetAvailable
+      status: "True"
+      type: Progressing
+    observedGeneration: 1
+    readyReplicas: 1
+    replicas: 1
+    updatedReplicas: 1
+- apiVersion: apps/v1
+  kind: Deployment
+  metadata:
+    annotations:
+      deployment.kubernetes.io/revision: "1"
+      kubectl.kubernetes.io/last-applied-configuration: |
+        {"apiVersion":"apps/v1","kind":"Deployment","metadata":{"annotations":{},"labels":{"app.kubernetes.io/component":"frontend","app.kubernetes.io/name":"frontend","app.kubernetes.io/part-of":"opentelemetry-demo","app.kubernetes.io/version":"2.1.3","opentelemetry.io/name":"frontend"},"name":"frontend","namespace":"otel-demo"},"spec":{"replicas":1,"revisionHistoryLimit":10,"selector":{"matchLabels":{"opentelemetry.io/name":"frontend"}},"template":{"metadata":{"labels":{"app.kubernetes.io/component":"frontend","app.kubernetes.io/name":"frontend","opentelemetry.io/name":"frontend"}},"spec":{"containers":[{"env":[{"name":"OTEL_SERVICE_NAME","valueFrom":{"fieldRef":{"apiVersion":"v1","fieldPath":"metadata.labels['app.kubernetes.io/component']"}}},{"name":"OTEL_COLLECTOR_NAME","value":"otel-collector"},{"name":"OTEL_EXPORTER_OTLP_METRICS_TEMPORALITY_PREFERENCE","value":"cumulative"},{"name":"FRONTEND_PORT","value":"8080"},{"name":"PORT","value":"$(FRONTEND_PORT)"},{"name":"FRONTEND_ADDR","value":":8080"},{"name":"AD_ADDR","value":"ad:8080"},{"name":"CART_ADDR","value":"cart:8080"},{"name":"CHECKOUT_ADDR","value":"checkout:8080"},{"name":"CURRENCY_ADDR","value":"currency:8080"},{"name":"PRODUCT_CATALOG_ADDR","value":"product-catalog:8080"},{"name":"RECOMMENDATION_ADDR","value":"recommendation:8080"},{"name":"SHIPPING_ADDR","value":"http://shipping:8080"},{"name":"FLAGD_HOST","value":"flagd"},{"name":"FLAGD_PORT","value":"8013"},{"name":"ENV_PLATFORM","value":"kubernetes"},{"name":"OTEL_COLLECTOR_HOST","value":"$(OTEL_COLLECTOR_NAME)"},{"name":"OTEL_EXPORTER_OTLP_ENDPOINT","value":"http://$(OTEL_COLLECTOR_NAME):4317"},{"name":"WEB_OTEL_SERVICE_NAME","value":"frontend-web"},{"name":"PUBLIC_OTEL_EXPORTER_OTLP_TRACES_ENDPOINT","value":"http://localhost:8080/otlp-http/v1/traces"},{"name":"OTEL_RESOURCE_ATTRIBUTES","value":"service.name=$(OTEL_SERVICE_NAME),service.namespace=opentelemetry-demo,service.version=2.1.3"}],"image":"ghcr.io/open-telemetry/demo:2.1.3-frontend","imagePullPolicy":"IfNotPresent","name":"frontend","ports":[{"containerPort":8080,"name":"service"}],"resources":{"limits":{"memory":"250Mi"}},"securityContext":{"runAsGroup":1001,"runAsNonRoot":true,"runAsUser":1001},"volumeMounts":null}],"serviceAccountName":"opentelemetry-demo","volumes":null}}}}
+    creationTimestamp: "2026-03-31T11:52:27Z"
+    generation: 1
+    labels:
+      app.kubernetes.io/component: frontend
+      app.kubernetes.io/name: frontend
+      app.kubernetes.io/part-of: opentelemetry-demo
+      app.kubernetes.io/version: 2.1.3
+      opentelemetry.io/name: frontend
+    name: frontend
+    namespace: otel-demo
+    resourceVersion: "35134"
+    uid: 1ca31eb3-ad21-4d33-920a-377c47497a6c
+  spec:
+    progressDeadlineSeconds: 600
+    replicas: 1
+    revisionHistoryLimit: 10
+    selector:
+      matchLabels:
+        opentelemetry.io/name: frontend
+    strategy:
+      rollingUpdate:
+        maxSurge: 25%
+        maxUnavailable: 25%
+      type: RollingUpdate
+    template:
+      metadata:
+        creationTimestamp: null
+        labels:
+          app.kubernetes.io/component: frontend
+          app.kubernetes.io/name: frontend
+          opentelemetry.io/name: frontend
+      spec:
+        containers:
+        - env:
+          - name: OTEL_SERVICE_NAME
+            valueFrom:
+              fieldRef:
+                apiVersion: v1
+                fieldPath: metadata.labels['app.kubernetes.io/component']
+          - name: OTEL_COLLECTOR_NAME
+            value: otel-collector
+          - name: OTEL_EXPORTER_OTLP_METRICS_TEMPORALITY_PREFERENCE
+            value: cumulative
+          - name: FRONTEND_PORT
+            value: "8080"
+          - name: PORT
+            value: $(FRONTEND_PORT)
+          - name: FRONTEND_ADDR
+            value: :8080
+          - name: AD_ADDR
+            value: ad:8080
+          - name: CART_ADDR
+            value: cart:8080
+          - name: CHECKOUT_ADDR
+            value: checkout:8080
+          - name: CURRENCY_ADDR
+            value: currency:8080
+          - name: PRODUCT_CATALOG_ADDR
+            value: product-catalog:8080
+          - name: RECOMMENDATION_ADDR
+            value: recommendation:8080
+          - name: SHIPPING_ADDR
+            value: http://shipping:8080
+          - name: FLAGD_HOST
+            value: flagd
+          - name: FLAGD_PORT
+            value: "8013"
+          - name: ENV_PLATFORM
+            value: kubernetes
+          - name: OTEL_COLLECTOR_HOST
+            value: $(OTEL_COLLECTOR_NAME)
+          - name: OTEL_EXPORTER_OTLP_ENDPOINT
+            value: http://$(OTEL_COLLECTOR_NAME):4317
+          - name: WEB_OTEL_SERVICE_NAME
+            value: frontend-web
+          - name: PUBLIC_OTEL_EXPORTER_OTLP_TRACES_ENDPOINT
+            value: http://localhost:8080/otlp-http/v1/traces
+          - name: OTEL_RESOURCE_ATTRIBUTES
+            value: service.name=$(OTEL_SERVICE_NAME),service.namespace=opentelemetry-demo,service.version=2.1.3
+          image: ghcr.io/open-telemetry/demo:2.1.3-frontend
+          imagePullPolicy: IfNotPresent
+          name: frontend
+          ports:
+          - containerPort: 8080
+            name: service
+            protocol: TCP
+          resources:
+            limits:
+              memory: 250Mi
+          securityContext:
+            runAsGroup: 1001
+            runAsNonRoot: true
+            runAsUser: 1001
+          terminationMessagePath: /dev/termination-log
+          terminationMessagePolicy: File
+        dnsPolicy: ClusterFirst
+        restartPolicy: Always
+        schedulerName: default-scheduler
+        securityContext: {}
+        serviceAccount: opentelemetry-demo
+        serviceAccountName: opentelemetry-demo
+        terminationGracePeriodSeconds: 30
+  status:
+    availableReplicas: 1
+    conditions:
+    - lastTransitionTime: "2026-03-31T11:52:50Z"
+      lastUpdateTime: "2026-03-31T11:52:50Z"
+      message: Deployment has minimum availability.
+      reason: MinimumReplicasAvailable
+      status: "True"
+      type: Available
+    - lastTransitionTime: "2026-03-31T11:52:27Z"
+      lastUpdateTime: "2026-03-31T11:52:50Z"
+      message: ReplicaSet "frontend-5cb9f7d5cf" has successfully progressed.
+      reason: NewReplicaSetAvailable
+      status: "True"
+      type: Progressing
+    observedGeneration: 1
+    readyReplicas: 1
+    replicas: 1
+    updatedReplicas: 1
+- apiVersion: apps/v1
+  kind: Deployment
+  metadata:
+    annotations:
+      deployment.kubernetes.io/revision: "3"
+      kubectl.kubernetes.io/last-applied-configuration: |
+        {"apiVersion":"apps/v1","kind":"Deployment","metadata":{"annotations":{},"labels":{"app.kubernetes.io/component":"frontend-proxy","app.kubernetes.io/name":"frontend-proxy","app.kubernetes.io/part-of":"opentelemetry-demo","app.kubernetes.io/version":"2.1.3","opentelemetry.io/name":"frontend-proxy"},"name":"frontend-proxy","namespace":"otel-demo"},"spec":{"replicas":1,"revisionHistoryLimit":10,"selector":{"matchLabels":{"opentelemetry.io/name":"frontend-proxy"}},"template":{"metadata":{"labels":{"app.kubernetes.io/component":"frontend-proxy","app.kubernetes.io/name":"frontend-proxy","opentelemetry.io/name":"frontend-proxy"}},"spec":{"containers":[{"env":[{"name":"OTEL_SERVICE_NAME","valueFrom":{"fieldRef":{"apiVersion":"v1","fieldPath":"metadata.labels['app.kubernetes.io/component']"}}},{"name":"OTEL_COLLECTOR_NAME","value":"otel-collector"},{"name":"OTEL_EXPORTER_OTLP_METRICS_TEMPORALITY_PREFERENCE","value":"cumulative"},{"name":"ENVOY_PORT","value":"8080"},{"name":"ENVOY_ADMIN_PORT","value":"10000"},{"name":"FLAGD_HOST","value":"flagd"},{"name":"FLAGD_PORT","value":"8013"},{"name":"FLAGD_UI_HOST","value":"flagd-ui"},{"name":"FLAGD_UI_PORT","value":"4000"},{"name":"FRONTEND_HOST","value":"frontend"},{"name":"FRONTEND_PORT","value":"8080"},{"name":"GRAFANA_HOST","value":"grafana"},{"name":"GRAFANA_PORT","value":"80"},{"name":"IMAGE_PROVIDER_HOST","value":"image-provider"},{"name":"IMAGE_PROVIDER_PORT","value":"8081"},{"name":"JAEGER_HOST","value":"jaeger-query"},{"name":"JAEGER_UI_PORT","value":"16686"},{"name":"LOCUST_WEB_HOST","value":"load-generator"},{"name":"LOCUST_WEB_PORT","value":"8089"},{"name":"OTEL_COLLECTOR_HOST","value":"$(OTEL_COLLECTOR_NAME)"},{"name":"OTEL_COLLECTOR_PORT_GRPC","value":"4317"},{"name":"OTEL_COLLECTOR_PORT_HTTP","value":"4318"},{"name":"OTEL_RESOURCE_ATTRIBUTES","value":"service.name=$(OTEL_SERVICE_NAME),service.namespace=opentelemetry-demo,service.version=2.1.3"}],"image":"ghcr.io/open-telemetry/demo:2.1.3-frontend-proxy","imagePullPolicy":"IfNotPresent","name":"frontend-proxy","ports":[{"containerPort":8080,"name":"service"}],"resources":{"limits":{"memory":"65Mi"}},"securityContext":{"runAsGroup":101,"runAsNonRoot":true,"runAsUser":101},"volumeMounts":null}],"serviceAccountName":"opentelemetry-demo","volumes":null}}}}
+    creationTimestamp: "2026-03-31T11:52:28Z"
+    generation: 3
+    labels:
+      app.kubernetes.io/component: frontend-proxy
+      app.kubernetes.io/name: frontend-proxy
+      app.kubernetes.io/part-of: opentelemetry-demo
+      app.kubernetes.io/version: 2.1.3
+      opentelemetry.io/name: frontend-proxy
+    name: frontend-proxy
+    namespace: otel-demo
+    resourceVersion: "56179"
+    uid: 22cc956f-3cb4-4b9f-b8ec-ef2a4b3a1f61
+  spec:
+    progressDeadlineSeconds: 600
+    replicas: 1
+    revisionHistoryLimit: 10
+    selector:
+      matchLabels:
+        opentelemetry.io/name: frontend-proxy
+    strategy:
+      rollingUpdate:
+        maxSurge: 25%
+        maxUnavailable: 25%
+      type: RollingUpdate
+    template:
+      metadata:
+        annotations:
+          kubectl.kubernetes.io/restartedAt: "2026-03-31T17:52:08+04:00"
+        creationTimestamp: null
+        labels:
+          app.kubernetes.io/component: frontend-proxy
+          app.kubernetes.io/name: frontend-proxy
+          opentelemetry.io/name: frontend-proxy
+      spec:
+        containers:
+        - env:
+          - name: OTEL_SERVICE_NAME
+            valueFrom:
+              fieldRef:
+                apiVersion: v1
+                fieldPath: metadata.labels['app.kubernetes.io/component']
+          - name: OTEL_COLLECTOR_NAME
+            value: otel-collector
+          - name: OTEL_EXPORTER_OTLP_METRICS_TEMPORALITY_PREFERENCE
+            value: cumulative
+          - name: ENVOY_PORT
+            value: "8080"
+          - name: ENVOY_ADMIN_PORT
+            value: "10000"
+          - name: FLAGD_HOST
+            value: flagd
+          - name: FLAGD_PORT
+            value: "8013"
+          - name: FLAGD_UI_HOST
+            value: flagd-ui
+          - name: FLAGD_UI_PORT
+            value: "4000"
+          - name: FRONTEND_HOST
+            value: frontend
+          - name: FRONTEND_PORT
+            value: "8080"
+          - name: GRAFANA_HOST
+            value: grafana
+          - name: GRAFANA_PORT
+            value: "80"
+          - name: IMAGE_PROVIDER_HOST
+            value: image-provider
+          - name: IMAGE_PROVIDER_PORT
+            value: "8081"
+          - name: JAEGER_HOST
+            value: jaeger-query
+          - name: JAEGER_UI_PORT
+            value: "16686"
+          - name: LOCUST_WEB_HOST
+            value: load-generator
+          - name: LOCUST_WEB_PORT
+            value: "8089"
+          - name: OTEL_COLLECTOR_HOST
+            value: $(OTEL_COLLECTOR_NAME)
+          - name: OTEL_COLLECTOR_PORT_GRPC
+            value: "4317"
+          - name: OTEL_COLLECTOR_PORT_HTTP
+            value: "4318"
+          - name: OTEL_RESOURCE_ATTRIBUTES
+            value: service.name=$(OTEL_SERVICE_NAME),service.namespace=opentelemetry-demo,service.version=2.1.3
+          image: ghcr.io/open-telemetry/demo:2.1.3-frontend-proxy
+          imagePullPolicy: IfNotPresent
+          name: frontend-proxy
+          ports:
+          - containerPort: 8080
+            name: service
+            protocol: TCP
+          resources:
+            limits:
+              memory: 65Mi
+          securityContext:
+            runAsGroup: 101
+            runAsNonRoot: true
+            runAsUser: 101
+          terminationMessagePath: /dev/termination-log
+          terminationMessagePolicy: File
+        dnsPolicy: ClusterFirst
+        restartPolicy: Always
+        schedulerName: default-scheduler
+        securityContext: {}
+        serviceAccount: opentelemetry-demo
+        serviceAccountName: opentelemetry-demo
+        terminationGracePeriodSeconds: 30
+  status:
+    availableReplicas: 1
+    conditions:
+    - lastTransitionTime: "2026-03-31T11:52:35Z"
+      lastUpdateTime: "2026-03-31T11:52:35Z"
+      message: Deployment has minimum availability.
+      reason: MinimumReplicasAvailable
+      status: "True"
+      type: Available
+    - lastTransitionTime: "2026-03-31T11:52:28Z"
+      lastUpdateTime: "2026-03-31T13:52:10Z"
+      message: ReplicaSet "frontend-proxy-796746c858" has successfully progressed.
+      reason: NewReplicaSetAvailable
+      status: "True"
+      type: Progressing
+    observedGeneration: 3
+    readyReplicas: 1
+    replicas: 1
+    updatedReplicas: 1
+- apiVersion: apps/v1
+  kind: Deployment
+  metadata:
+    annotations:
+      deployment.kubernetes.io/revision: "1"
+      kubectl.kubernetes.io/last-applied-configuration: |
+        {"apiVersion":"apps/v1","kind":"Deployment","metadata":{"annotations":{},"labels":{"app.kubernetes.io/instance":"opentelemetry-demo","app.kubernetes.io/name":"grafana","app.kubernetes.io/version":"12.1.1"},"name":"grafana","namespace":"otel-demo"},"spec":{"replicas":1,"revisionHistoryLimit":10,"selector":{"matchLabels":{"app.kubernetes.io/instance":"opentelemetry-demo","app.kubernetes.io/name":"grafana"}},"strategy":{"type":"RollingUpdate"},"template":{"metadata":{"annotations":{"checksum/config":"3aef97dc43bb7f320b3d3f00d79efff7580bf83005ec5574a0619b42268584cf","checksum/sc-dashboard-provider-config":"e70bf6a851099d385178a76de9757bb0bef8299da6d8443602590e44f05fdf24","checksum/secret":"bed677784356b2af7fb0d87455db21f077853059b594101a4f6532bfbd962a7f","kubectl.kubernetes.io/default-container":"grafana"},"labels":{"app.kubernetes.io/instance":"opentelemetry-demo","app.kubernetes.io/name":"grafana","app.kubernetes.io/version":"12.1.1"}},"spec":{"automountServiceAccountToken":true,"containers":[{"env":[{"name":"METHOD","value":"WATCH"},{"name":"LABEL","value":"grafana_alert"},{"name":"FOLDER","value":"/etc/grafana/provisioning/alerting"},{"name":"RESOURCE","value":"both"},{"name":"REQ_USERNAME","valueFrom":{"secretKeyRef":{"key":"admin-user","name":"grafana"}}},{"name":"REQ_PASSWORD","valueFrom":{"secretKeyRef":{"key":"admin-password","name":"grafana"}}},{"name":"REQ_URL","value":"http://localhost:3000/api/admin/provisioning/alerting/reload"},{"name":"REQ_METHOD","value":"POST"}],"image":"quay.io/kiwigrid/k8s-sidecar:1.30.10","imagePullPolicy":"IfNotPresent","name":"grafana-sc-alerts","resources":{"limits":{"cpu":"100m","memory":"100Mi"}},"securityContext":{"allowPrivilegeEscalation":false,"capabilities":{"drop":["ALL"]},"seccompProfile":{"type":"RuntimeDefault"}},"volumeMounts":[{"mountPath":"/etc/grafana/provisioning/alerting","name":"sc-alerts-volume"}]},{"env":[{"name":"METHOD","value":"WATCH"},{"name":"LABEL","value":"grafana_dashboard"},{"name":"FOLDER","value":"/tmp/dashboards"},{"name":"RESOURCE","value":"both"},{"name":"REQ_USERNAME","valueFrom":{"secretKeyRef":{"key":"admin-user","name":"grafana"}}},{"name":"REQ_PASSWORD","valueFrom":{"secretKeyRef":{"key":"admin-password","name":"grafana"}}},{"name":"REQ_URL","value":"http://localhost:3000/api/admin/provisioning/dashboards/reload"},{"name":"REQ_METHOD","value":"POST"}],"image":"quay.io/kiwigrid/k8s-sidecar:1.30.10","imagePullPolicy":"IfNotPresent","name":"grafana-sc-dashboard","resources":{"limits":{"cpu":"100m","memory":"100Mi"}},"securityContext":{"allowPrivilegeEscalation":false,"capabilities":{"drop":["ALL"]},"seccompProfile":{"type":"RuntimeDefault"}},"volumeMounts":[{"mountPath":"/tmp/dashboards","name":"sc-dashboard-volume"}]},{"env":[{"name":"METHOD","value":"WATCH"},{"name":"LABEL","value":"grafana_datasource"},{"name":"FOLDER","value":"/etc/grafana/provisioning/datasources"},{"name":"RESOURCE","value":"both"},{"name":"REQ_USERNAME","valueFrom":{"secretKeyRef":{"key":"admin-user","name":"grafana"}}},{"name":"REQ_PASSWORD","valueFrom":{"secretKeyRef":{"key":"admin-password","name":"grafana"}}},{"name":"REQ_URL","value":"http://localhost:3000/api/admin/provisioning/datasources/reload"},{"name":"REQ_METHOD","value":"POST"}],"image":"quay.io/kiwigrid/k8s-sidecar:1.30.10","imagePullPolicy":"IfNotPresent","name":"grafana-sc-datasources","resources":{"limits":{"cpu":"100m","memory":"100Mi"}},"securityContext":{"allowPrivilegeEscalation":false,"capabilities":{"drop":["ALL"]},"seccompProfile":{"type":"RuntimeDefault"}},"volumeMounts":[{"mountPath":"/etc/grafana/provisioning/datasources","name":"sc-datasources-volume"}]},{"env":[{"name":"POD_IP","valueFrom":{"fieldRef":{"fieldPath":"status.podIP"}}},{"name":"GF_SECURITY_ADMIN_USER","valueFrom":{"secretKeyRef":{"key":"admin-user","name":"grafana"}}},{"name":"GF_SECURITY_ADMIN_PASSWORD","valueFrom":{"secretKeyRef":{"key":"admin-password","name":"grafana"}}},{"name":"GF_INSTALL_PLUGINS","valueFrom":{"configMapKeyRef":{"key":"plugins","name":"grafana"}}},{"name":"GF_PATHS_DATA","value":"/var/lib/grafana/"},{"name":"GF_PATHS_LOGS","value":"/var/log/grafana"},{"name":"GF_PATHS_PLUGINS","value":"/var/lib/grafana/plugins"},{"name":"GF_PATHS_PROVISIONING","value":"/etc/grafana/provisioning"},{"name":"GOMEMLIMIT","valueFrom":{"resourceFieldRef":{"divisor":"1","resource":"limits.memory"}}}],"image":"docker.io/grafana/grafana:12.1.1","imagePullPolicy":"IfNotPresent","livenessProbe":{"failureThreshold":10,"httpGet":{"path":"/api/health","port":3000},"initialDelaySeconds":60,"timeoutSeconds":30},"name":"grafana","ports":[{"containerPort":3000,"name":"grafana","protocol":"TCP"},{"containerPort":9094,"name":"gossip-tcp","protocol":"TCP"},{"containerPort":9094,"name":"gossip-udp","protocol":"UDP"},{"containerPort":6060,"name":"profiling","protocol":"TCP"}],"readinessProbe":{"httpGet":{"path":"/api/health","port":3000}},"resources":{"limits":{"memory":"150Mi"}},"securityContext":{"allowPrivilegeEscalation":false,"capabilities":{"drop":["ALL"]},"seccompProfile":{"type":"RuntimeDefault"}},"volumeMounts":[{"mountPath":"/etc/grafana/grafana.ini","name":"config","subPath":"grafana.ini"},{"mountPath":"/var/lib/grafana","name":"storage"},{"mountPath":"/etc/grafana/provisioning/alerting","name":"sc-alerts-volume"},{"mountPath":"/tmp/dashboards","name":"sc-dashboard-volume"},{"mountPath":"/etc/grafana/provisioning/dashboards/sc-dashboardproviders.yaml","name":"sc-dashboard-provider","subPath":"provider.yaml"},{"mountPath":"/etc/grafana/provisioning/datasources","name":"sc-datasources-volume"}]}],"enableServiceLinks":true,"securityContext":{"fsGroup":472,"runAsGroup":472,"runAsNonRoot":true,"runAsUser":472},"serviceAccountName":"grafana","shareProcessNamespace":false,"volumes":[{"configMap":{"name":"grafana"},"name":"config"},{"emptyDir":{},"name":"storage"},{"emptyDir":{},"name":"sc-alerts-volume"},{"emptyDir":{},"name":"sc-dashboard-volume"},{"configMap":{"name":"grafana-config-dashboards"},"name":"sc-dashboard-provider"},{"emptyDir":{},"name":"sc-datasources-volume"}]}}}}
+    creationTimestamp: "2026-03-31T11:47:55Z"
+    generation: 1
+    labels:
+      app.kubernetes.io/instance: opentelemetry-demo
+      app.kubernetes.io/name: grafana
+      app.kubernetes.io/version: 12.1.1
+    name: grafana
+    namespace: otel-demo
+    resourceVersion: "33856"
+    uid: bc971c8b-5f8c-487b-a29d-01e384c82133
+  spec:
+    progressDeadlineSeconds: 600
+    replicas: 1
+    revisionHistoryLimit: 10
+    selector:
+      matchLabels:
+        app.kubernetes.io/instance: opentelemetry-demo
+        app.kubernetes.io/name: grafana
+    strategy:
+      rollingUpdate:
+        maxSurge: 25%
+        maxUnavailable: 25%
+      type: RollingUpdate
+    template:
+      metadata:
+        annotations:
+          checksum/config: 3aef97dc43bb7f320b3d3f00d79efff7580bf83005ec5574a0619b42268584cf
+          checksum/sc-dashboard-provider-config: e70bf6a851099d385178a76de9757bb0bef8299da6d8443602590e44f05fdf24
+          checksum/secret: bed677784356b2af7fb0d87455db21f077853059b594101a4f6532bfbd962a7f
+          kubectl.kubernetes.io/default-container: grafana
+        creationTimestamp: null
+        labels:
+          app.kubernetes.io/instance: opentelemetry-demo
+          app.kubernetes.io/name: grafana
+          app.kubernetes.io/version: 12.1.1
+      spec:
+        automountServiceAccountToken: true
+        containers:
+        - env:
+          - name: METHOD
+            value: WATCH
+          - name: LABEL
+            value: grafana_alert
+          - name: FOLDER
+            value: /etc/grafana/provisioning/alerting
+          - name: RESOURCE
+            value: both
+          - name: REQ_USERNAME
+            valueFrom:
+              secretKeyRef:
+                key: admin-user
+                name: grafana
+          - name: REQ_PASSWORD
+            valueFrom:
+              secretKeyRef:
+                key: admin-password
+                name: grafana
+          - name: REQ_URL
+            value: http://localhost:3000/api/admin/provisioning/alerting/reload
+          - name: REQ_METHOD
+            value: POST
+          image: quay.io/kiwigrid/k8s-sidecar:1.30.10
+          imagePullPolicy: IfNotPresent
+          name: grafana-sc-alerts
+          resources:
+            limits:
+              cpu: 100m
+              memory: 100Mi
+          securityContext:
+            allowPrivilegeEscalation: false
+            capabilities:
+              drop:
+              - ALL
+            seccompProfile:
+              type: RuntimeDefault
+          terminationMessagePath: /dev/termination-log
+          terminationMessagePolicy: File
+          volumeMounts:
+          - mountPath: /etc/grafana/provisioning/alerting
+            name: sc-alerts-volume
+        - env:
+          - name: METHOD
+            value: WATCH
+          - name: LABEL
+            value: grafana_dashboard
+          - name: FOLDER
+            value: /tmp/dashboards
+          - name: RESOURCE
+            value: both
+          - name: REQ_USERNAME
+            valueFrom:
+              secretKeyRef:
+                key: admin-user
+                name: grafana
+          - name: REQ_PASSWORD
+            valueFrom:
+              secretKeyRef:
+                key: admin-password
+                name: grafana
+          - name: REQ_URL
+            value: http://localhost:3000/api/admin/provisioning/dashboards/reload
+          - name: REQ_METHOD
+            value: POST
+          image: quay.io/kiwigrid/k8s-sidecar:1.30.10
+          imagePullPolicy: IfNotPresent
+          name: grafana-sc-dashboard
+          resources:
+            limits:
+              cpu: 100m
+              memory: 100Mi
+          securityContext:
+            allowPrivilegeEscalation: false
+            capabilities:
+              drop:
+              - ALL
+            seccompProfile:
+              type: RuntimeDefault
+          terminationMessagePath: /dev/termination-log
+          terminationMessagePolicy: File
+          volumeMounts:
+          - mountPath: /tmp/dashboards
+            name: sc-dashboard-volume
+        - env:
+          - name: METHOD
+            value: WATCH
+          - name: LABEL
+            value: grafana_datasource
+          - name: FOLDER
+            value: /etc/grafana/provisioning/datasources
+          - name: RESOURCE
+            value: both
+          - name: REQ_USERNAME
+            valueFrom:
+              secretKeyRef:
+                key: admin-user
+                name: grafana
+          - name: REQ_PASSWORD
+            valueFrom:
+              secretKeyRef:
+                key: admin-password
+                name: grafana
+          - name: REQ_URL
+            value: http://localhost:3000/api/admin/provisioning/datasources/reload
+          - name: REQ_METHOD
+            value: POST
+          image: quay.io/kiwigrid/k8s-sidecar:1.30.10
+          imagePullPolicy: IfNotPresent
+          name: grafana-sc-datasources
+          resources:
+            limits:
+              cpu: 100m
+              memory: 100Mi
+          securityContext:
+            allowPrivilegeEscalation: false
+            capabilities:
+              drop:
+              - ALL
+            seccompProfile:
+              type: RuntimeDefault
+          terminationMessagePath: /dev/termination-log
+          terminationMessagePolicy: File
+          volumeMounts:
+          - mountPath: /etc/grafana/provisioning/datasources
+            name: sc-datasources-volume
+        - env:
+          - name: POD_IP
+            valueFrom:
+              fieldRef:
+                apiVersion: v1
+                fieldPath: status.podIP
+          - name: GF_SECURITY_ADMIN_USER
+            valueFrom:
+              secretKeyRef:
+                key: admin-user
+                name: grafana
+          - name: GF_SECURITY_ADMIN_PASSWORD
+            valueFrom:
+              secretKeyRef:
+                key: admin-password
+                name: grafana
+          - name: GF_INSTALL_PLUGINS
+            valueFrom:
+              configMapKeyRef:
+                key: plugins
+                name: grafana
+          - name: GF_PATHS_DATA
+            value: /var/lib/grafana/
+          - name: GF_PATHS_LOGS
+            value: /var/log/grafana
+          - name: GF_PATHS_PLUGINS
+            value: /var/lib/grafana/plugins
+          - name: GF_PATHS_PROVISIONING
+            value: /etc/grafana/provisioning
+          - name: GOMEMLIMIT
+            valueFrom:
+              resourceFieldRef:
+                divisor: "1"
+                resource: limits.memory
+          image: docker.io/grafana/grafana:12.1.1
+          imagePullPolicy: IfNotPresent
+          livenessProbe:
+            failureThreshold: 10
+            httpGet:
+              path: /api/health
+              port: 3000
+              scheme: HTTP
+            initialDelaySeconds: 60
+            periodSeconds: 10
+            successThreshold: 1
+            timeoutSeconds: 30
+          name: grafana
+          ports:
+          - containerPort: 3000
+            name: grafana
+            protocol: TCP
+          - containerPort: 9094
+            name: gossip-tcp
+            protocol: TCP
+          - containerPort: 9094
+            name: gossip-udp
+            protocol: UDP
+          - containerPort: 6060
+            name: profiling
+            protocol: TCP
+          readinessProbe:
+            failureThreshold: 3
+            httpGet:
+              path: /api/health
+              port: 3000
+              scheme: HTTP
+            periodSeconds: 10
+            successThreshold: 1
+            timeoutSeconds: 1
+          resources:
+            limits:
+              memory: 150Mi
+          securityContext:
+            allowPrivilegeEscalation: false
+            capabilities:
+              drop:
+              - ALL
+            seccompProfile:
+              type: RuntimeDefault
+          terminationMessagePath: /dev/termination-log
+          terminationMessagePolicy: File
+          volumeMounts:
+          - mountPath: /etc/grafana/grafana.ini
+            name: config
+            subPath: grafana.ini
+          - mountPath: /var/lib/grafana
+            name: storage
+          - mountPath: /etc/grafana/provisioning/alerting
+            name: sc-alerts-volume
+          - mountPath: /tmp/dashboards
+            name: sc-dashboard-volume
+          - mountPath: /etc/grafana/provisioning/dashboards/sc-dashboardproviders.yaml
+            name: sc-dashboard-provider
+            subPath: provider.yaml
+          - mountPath: /etc/grafana/provisioning/datasources
+            name: sc-datasources-volume
+        dnsPolicy: ClusterFirst
+        enableServiceLinks: true
+        restartPolicy: Always
+        schedulerName: default-scheduler
+        securityContext:
+          fsGroup: 472
+          runAsGroup: 472
+          runAsNonRoot: true
+          runAsUser: 472
+        serviceAccount: grafana
+        serviceAccountName: grafana
+        shareProcessNamespace: false
+        terminationGracePeriodSeconds: 30
+        volumes:
+        - configMap:
+            defaultMode: 420
+            name: grafana
+          name: config
+        - emptyDir: {}
+          name: storage
+        - emptyDir: {}
+          name: sc-alerts-volume
+        - emptyDir: {}
+          name: sc-dashboard-volume
+        - configMap:
+            defaultMode: 420
+            name: grafana-config-dashboards
+          name: sc-dashboard-provider
+        - emptyDir: {}
+          name: sc-datasources-volume
+  status:
+    availableReplicas: 1
+    conditions:
+    - lastTransitionTime: "2026-03-31T11:48:25Z"
+      lastUpdateTime: "2026-03-31T11:48:25Z"
+      message: Deployment has minimum availability.
+      reason: MinimumReplicasAvailable
+      status: "True"
+      type: Available
+    - lastTransitionTime: "2026-03-31T11:47:55Z"
+      lastUpdateTime: "2026-03-31T11:48:25Z"
+      message: ReplicaSet "grafana-75c7dcf544" has successfully progressed.
+      reason: NewReplicaSetAvailable
+      status: "True"
+      type: Progressing
+    observedGeneration: 1
+    readyReplicas: 1
+    replicas: 1
+    updatedReplicas: 1
+- apiVersion: apps/v1
+  kind: Deployment
+  metadata:
+    annotations:
+      deployment.kubernetes.io/revision: "1"
+      kubectl.kubernetes.io/last-applied-configuration: |
+        {"apiVersion":"apps/v1","kind":"Deployment","metadata":{"annotations":{},"labels":{"app.kubernetes.io/component":"image-provider","app.kubernetes.io/name":"image-provider","app.kubernetes.io/part-of":"opentelemetry-demo","app.kubernetes.io/version":"2.1.3","opentelemetry.io/name":"image-provider"},"name":"image-provider","namespace":"otel-demo"},"spec":{"replicas":1,"revisionHistoryLimit":10,"selector":{"matchLabels":{"opentelemetry.io/name":"image-provider"}},"template":{"metadata":{"labels":{"app.kubernetes.io/component":"image-provider","app.kubernetes.io/name":"image-provider","opentelemetry.io/name":"image-provider"}},"spec":{"containers":[{"env":[{"name":"OTEL_SERVICE_NAME","valueFrom":{"fieldRef":{"apiVersion":"v1","fieldPath":"metadata.labels['app.kubernetes.io/component']"}}},{"name":"OTEL_COLLECTOR_NAME","value":"otel-collector"},{"name":"OTEL_EXPORTER_OTLP_METRICS_TEMPORALITY_PREFERENCE","value":"cumulative"},{"name":"IMAGE_PROVIDER_PORT","value":"8081"},{"name":"OTEL_COLLECTOR_PORT_GRPC","value":"4317"},{"name":"OTEL_COLLECTOR_HOST","value":"$(OTEL_COLLECTOR_NAME)"},{"name":"OTEL_RESOURCE_ATTRIBUTES","value":"service.name=$(OTEL_SERVICE_NAME),service.namespace=opentelemetry-demo,service.version=2.1.3"}],"image":"ghcr.io/open-telemetry/demo:2.1.3-image-provider","imagePullPolicy":"IfNotPresent","name":"image-provider","ports":[{"containerPort":8081,"name":"service"}],"resources":{"limits":{"memory":"50Mi"}},"volumeMounts":null}],"serviceAccountName":"opentelemetry-demo","volumes":null}}}}
+    creationTimestamp: "2026-03-31T11:52:29Z"
+    generation: 1
+    labels:
+      app.kubernetes.io/component: image-provider
+      app.kubernetes.io/name: image-provider
+      app.kubernetes.io/part-of: opentelemetry-demo
+      app.kubernetes.io/version: 2.1.3
+      opentelemetry.io/name: image-provider
+    name: image-provider
+    namespace: otel-demo
+    resourceVersion: "34915"
+    uid: f38a14ba-3d5e-4ecd-b921-12db3cef46aa
+  spec:
+    progressDeadlineSeconds: 600
+    replicas: 1
+    revisionHistoryLimit: 10
+    selector:
+      matchLabels:
+        opentelemetry.io/name: image-provider
+    strategy:
+      rollingUpdate:
+        maxSurge: 25%
+        maxUnavailable: 25%
+      type: RollingUpdate
+    template:
+      metadata:
+        creationTimestamp: null
+        labels:
+          app.kubernetes.io/component: image-provider
+          app.kubernetes.io/name: image-provider
+          opentelemetry.io/name: image-provider
+      spec:
+        containers:
+        - env:
+          - name: OTEL_SERVICE_NAME
+            valueFrom:
+              fieldRef:
+                apiVersion: v1
+                fieldPath: metadata.labels['app.kubernetes.io/component']
+          - name: OTEL_COLLECTOR_NAME
+            value: otel-collector
+          - name: OTEL_EXPORTER_OTLP_METRICS_TEMPORALITY_PREFERENCE
+            value: cumulative
+          - name: IMAGE_PROVIDER_PORT
+            value: "8081"
+          - name: OTEL_COLLECTOR_PORT_GRPC
+            value: "4317"
+          - name: OTEL_COLLECTOR_HOST
+            value: $(OTEL_COLLECTOR_NAME)
+          - name: OTEL_RESOURCE_ATTRIBUTES
+            value: service.name=$(OTEL_SERVICE_NAME),service.namespace=opentelemetry-demo,service.version=2.1.3
+          image: ghcr.io/open-telemetry/demo:2.1.3-image-provider
+          imagePullPolicy: IfNotPresent
+          name: image-provider
+          ports:
+          - containerPort: 8081
+            name: service
+            protocol: TCP
+          resources:
+            limits:
+              memory: 50Mi
+          terminationMessagePath: /dev/termination-log
+          terminationMessagePolicy: File
+        dnsPolicy: ClusterFirst
+        restartPolicy: Always
+        schedulerName: default-scheduler
+        securityContext: {}
+        serviceAccount: opentelemetry-demo
+        serviceAccountName: opentelemetry-demo
+        terminationGracePeriodSeconds: 30
+  status:
+    availableReplicas: 1
+    conditions:
+    - lastTransitionTime: "2026-03-31T11:52:32Z"
+      lastUpdateTime: "2026-03-31T11:52:32Z"
+      message: Deployment has minimum availability.
+      reason: MinimumReplicasAvailable
+      status: "True"
+      type: Available
+    - lastTransitionTime: "2026-03-31T11:52:29Z"
+      lastUpdateTime: "2026-03-31T11:52:32Z"
+      message: ReplicaSet "image-provider-6cc64fc477" has successfully progressed.
+      reason: NewReplicaSetAvailable
+      status: "True"
+      type: Progressing
+    observedGeneration: 1
+    readyReplicas: 1
+    replicas: 1
+    updatedReplicas: 1
+- apiVersion: apps/v1
+  kind: Deployment
+  metadata:
+    annotations:
+      deployment.kubernetes.io/revision: "1"
+      kubectl.kubernetes.io/last-applied-configuration: |
+        {"apiVersion":"apps/v1","kind":"Deployment","metadata":{"annotations":{},"labels":{"app.kubernetes.io/component":"all-in-one","app.kubernetes.io/instance":"opentelemetry-demo","app.kubernetes.io/name":"jaeger","app.kubernetes.io/version":"1.53.0","prometheus.io/port":"14269","prometheus.io/scrape":"true"},"name":"jaeger","namespace":"otel-demo"},"spec":{"replicas":1,"selector":{"matchLabels":{"app.kubernetes.io/component":"all-in-one","app.kubernetes.io/instance":"opentelemetry-demo","app.kubernetes.io/name":"jaeger"}},"strategy":{"type":"Recreate"},"template":{"metadata":{"annotations":{"prometheus.io/port":"14269","prometheus.io/scrape":"true"},"labels":{"app.kubernetes.io/component":"all-in-one","app.kubernetes.io/instance":"opentelemetry-demo","app.kubernetes.io/name":"jaeger"}},"spec":{"containers":[{"args":["--memory.max-traces=5000","--query.base-path=/jaeger/ui","--prometheus.server-url=http://prometheus:9090","--prometheus.query.normalize-calls=true","--prometheus.query.normalize-duration=true"],"env":[{"name":"METRICS_STORAGE_TYPE","value":"prometheus"},{"name":"COLLECTOR_OTLP_GRPC_HOST_PORT","value":"0.0.0.0:4317"},{"name":"COLLECTOR_OTLP_HTTP_HOST_PORT","value":"0.0.0.0:4318"},{"name":"SPAN_STORAGE_TYPE","value":"memory"},{"name":"COLLECTOR_ZIPKIN_HOST_PORT","value":":9411"},{"name":"JAEGER_DISABLED","value":"false"},{"name":"COLLECTOR_OTLP_ENABLED","value":"true"}],"image":"jaegertracing/all-in-one:1.53.0","imagePullPolicy":"IfNotPresent","livenessProbe":{"failureThreshold":5,"httpGet":{"path":"/","port":14269,"scheme":"HTTP"},"initialDelaySeconds":5,"periodSeconds":15,"successThreshold":1,"timeoutSeconds":1},"name":"jaeger","ports":[{"containerPort":5775,"protocol":"UDP"},{"containerPort":6831,"protocol":"UDP"},{"containerPort":6832,"protocol":"UDP"},{"containerPort":5778,"protocol":"TCP"},{"containerPort":16686,"protocol":"TCP"},{"containerPort":16685,"protocol":"TCP"},{"containerPort":9411,"protocol":"TCP"},{"containerPort":4317,"protocol":"TCP"},{"containerPort":4318,"protocol":"TCP"}],"readinessProbe":{"failureThreshold":3,"httpGet":{"path":"/","port":14269,"scheme":"HTTP"},"initialDelaySeconds":1,"periodSeconds":10,"successThreshold":1,"timeoutSeconds":1},"resources":{"limits":{"memory":"400Mi"}},"securityContext":{},"volumeMounts":null}],"securityContext":{"fsGroup":10001,"runAsGroup":10001,"runAsUser":10001},"serviceAccountName":"jaeger","volumes":null}}}}
+    creationTimestamp: "2026-03-31T11:48:50Z"
+    generation: 1
+    labels:
+      app.kubernetes.io/component: all-in-one
+      app.kubernetes.io/instance: opentelemetry-demo
+      app.kubernetes.io/name: jaeger
+      app.kubernetes.io/version: 1.53.0
+      prometheus.io/port: "14269"
+      prometheus.io/scrape: "true"
+    name: jaeger
+    namespace: otel-demo
+    resourceVersion: "33970"
+    uid: 752baa26-7b1a-44a5-ba96-76a3acdaa832
+  spec:
+    progressDeadlineSeconds: 600
+    replicas: 1
+    revisionHistoryLimit: 10
+    selector:
+      matchLabels:
+        app.kubernetes.io/component: all-in-one
+        app.kubernetes.io/instance: opentelemetry-demo
+        app.kubernetes.io/name: jaeger
+    strategy:
+      type: Recreate
+    template:
+      metadata:
+        annotations:
+          prometheus.io/port: "14269"
+          prometheus.io/scrape: "true"
+        creationTimestamp: null
+        labels:
+          app.kubernetes.io/component: all-in-one
+          app.kubernetes.io/instance: opentelemetry-demo
+          app.kubernetes.io/name: jaeger
+      spec:
+        containers:
+        - args:
+          - --memory.max-traces=5000
+          - --query.base-path=/jaeger/ui
+          - --prometheus.server-url=http://prometheus:9090
+          - --prometheus.query.normalize-calls=true
+          - --prometheus.query.normalize-duration=true
+          env:
+          - name: METRICS_STORAGE_TYPE
+            value: prometheus
+          - name: COLLECTOR_OTLP_GRPC_HOST_PORT
+            value: 0.0.0.0:4317
+          - name: COLLECTOR_OTLP_HTTP_HOST_PORT
+            value: 0.0.0.0:4318
+          - name: SPAN_STORAGE_TYPE
+            value: memory
+          - name: COLLECTOR_ZIPKIN_HOST_PORT
+            value: :9411
+          - name: JAEGER_DISABLED
+            value: "false"
+          - name: COLLECTOR_OTLP_ENABLED
+            value: "true"
+          image: jaegertracing/all-in-one:1.53.0
+          imagePullPolicy: IfNotPresent
+          livenessProbe:
+            failureThreshold: 5
+            httpGet:
+              path: /
+              port: 14269
+              scheme: HTTP
+            initialDelaySeconds: 5
+            periodSeconds: 15
+            successThreshold: 1
+            timeoutSeconds: 1
+          name: jaeger
+          ports:
+          - containerPort: 5775
+            protocol: UDP
+          - containerPort: 6831
+            protocol: UDP
+          - containerPort: 6832
+            protocol: UDP
+          - containerPort: 5778
+            protocol: TCP
+          - containerPort: 16686
+            protocol: TCP
+          - containerPort: 16685
+            protocol: TCP
+          - containerPort: 9411
+            protocol: TCP
+          - containerPort: 4317
+            protocol: TCP
+          - containerPort: 4318
+            protocol: TCP
+          readinessProbe:
+            failureThreshold: 3
+            httpGet:
+              path: /
+              port: 14269
+              scheme: HTTP
+            initialDelaySeconds: 1
+            periodSeconds: 10
+            successThreshold: 1
+            timeoutSeconds: 1
+          resources:
+            limits:
+              memory: 400Mi
+          securityContext: {}
+          terminationMessagePath: /dev/termination-log
+          terminationMessagePolicy: File
+        dnsPolicy: ClusterFirst
+        restartPolicy: Always
+        schedulerName: default-scheduler
+        securityContext:
+          fsGroup: 10001
+          runAsGroup: 10001
+          runAsUser: 10001
+        serviceAccount: jaeger
+        serviceAccountName: jaeger
+        terminationGracePeriodSeconds: 30
+  status:
+    availableReplicas: 1
+    conditions:
+    - lastTransitionTime: "2026-03-31T11:48:53Z"
+      lastUpdateTime: "2026-03-31T11:48:53Z"
+      message: Deployment has minimum availability.
+      reason: MinimumReplicasAvailable
+      status: "True"
+      type: Available
+    - lastTransitionTime: "2026-03-31T11:48:50Z"
+      lastUpdateTime: "2026-03-31T11:48:53Z"
+      message: ReplicaSet "jaeger-5755b987dd" has successfully progressed.
+      reason: NewReplicaSetAvailable
+      status: "True"
+      type: Progressing
+    observedGeneration: 1
+    readyReplicas: 1
+    replicas: 1
+    updatedReplicas: 1
+- apiVersion: apps/v1
+  kind: Deployment
+  metadata:
+    annotations:
+      deployment.kubernetes.io/revision: "1"
+      kubectl.kubernetes.io/last-applied-configuration: |
+        {"apiVersion":"apps/v1","kind":"Deployment","metadata":{"annotations":{},"labels":{"app.kubernetes.io/component":"kafka","app.kubernetes.io/name":"kafka","app.kubernetes.io/part-of":"opentelemetry-demo","app.kubernetes.io/version":"2.1.3","opentelemetry.io/name":"kafka"},"name":"kafka","namespace":"otel-demo"},"spec":{"replicas":1,"revisionHistoryLimit":10,"selector":{"matchLabels":{"opentelemetry.io/name":"kafka"}},"template":{"metadata":{"labels":{"app.kubernetes.io/component":"kafka","app.kubernetes.io/name":"kafka","opentelemetry.io/name":"kafka"}},"spec":{"containers":[{"env":[{"name":"OTEL_SERVICE_NAME","valueFrom":{"fieldRef":{"apiVersion":"v1","fieldPath":"metadata.labels['app.kubernetes.io/component']"}}},{"name":"OTEL_COLLECTOR_NAME","value":"otel-collector"},{"name":"OTEL_EXPORTER_OTLP_METRICS_TEMPORALITY_PREFERENCE","value":"cumulative"},{"name":"KAFKA_ADVERTISED_LISTENERS","value":"PLAINTEXT://kafka:9092"},{"name":"OTEL_EXPORTER_OTLP_ENDPOINT","value":"http://$(OTEL_COLLECTOR_NAME):4318"},{"name":"KAFKA_HEAP_OPTS","value":"-Xmx400M -Xms400M"},{"name":"KAFKA_LISTENERS","value":"PLAINTEXT://:9092,CONTROLLER://:9093"},{"name":"KAFKA_CONTROLLER_LISTENER_NAMES","value":"CONTROLLER"},{"name":"KAFKA_CONTROLLER_QUORUM_VOTERS","value":"1@kafka:9093"},{"name":"OTEL_RESOURCE_ATTRIBUTES","value":"service.name=$(OTEL_SERVICE_NAME),service.namespace=opentelemetry-demo,service.version=2.1.3"}],"image":"ghcr.io/open-telemetry/demo:2.1.3-kafka","imagePullPolicy":"IfNotPresent","name":"kafka","ports":[{"containerPort":9092,"name":"plaintext"},{"containerPort":9093,"name":"controller"}],"resources":{"limits":{"memory":"600Mi"}},"securityContext":{"runAsGroup":1000,"runAsNonRoot":true,"runAsUser":1000},"volumeMounts":null}],"serviceAccountName":"opentelemetry-demo","volumes":null}}}}
+    creationTimestamp: "2026-03-31T11:52:30Z"
+    generation: 1
+    labels:
+      app.kubernetes.io/component: kafka
+      app.kubernetes.io/name: kafka
+      app.kubernetes.io/part-of: opentelemetry-demo
+      app.kubernetes.io/version: 2.1.3
+      opentelemetry.io/name: kafka
+    name: kafka
+    namespace: otel-demo
+    resourceVersion: "35018"
+    uid: 853b5f41-6b81-4181-a3ec-9d1aae746c22
+  spec:
+    progressDeadlineSeconds: 600
+    replicas: 1
+    revisionHistoryLimit: 10
+    selector:
+      matchLabels:
+        opentelemetry.io/name: kafka
+    strategy:
+      rollingUpdate:
+        maxSurge: 25%
+        maxUnavailable: 25%
+      type: RollingUpdate
+    template:
+      metadata:
+        creationTimestamp: null
+        labels:
+          app.kubernetes.io/component: kafka
+          app.kubernetes.io/name: kafka
+          opentelemetry.io/name: kafka
+      spec:
+        containers:
+        - env:
+          - name: OTEL_SERVICE_NAME
+            valueFrom:
+              fieldRef:
+                apiVersion: v1
+                fieldPath: metadata.labels['app.kubernetes.io/component']
+          - name: OTEL_COLLECTOR_NAME
+            value: otel-collector
+          - name: OTEL_EXPORTER_OTLP_METRICS_TEMPORALITY_PREFERENCE
+            value: cumulative
+          - name: KAFKA_ADVERTISED_LISTENERS
+            value: PLAINTEXT://kafka:9092
+          - name: OTEL_EXPORTER_OTLP_ENDPOINT
+            value: http://$(OTEL_COLLECTOR_NAME):4318
+          - name: KAFKA_HEAP_OPTS
+            value: -Xmx400M -Xms400M
+          - name: KAFKA_LISTENERS
+            value: PLAINTEXT://:9092,CONTROLLER://:9093
+          - name: KAFKA_CONTROLLER_LISTENER_NAMES
+            value: CONTROLLER
+          - name: KAFKA_CONTROLLER_QUORUM_VOTERS
+            value: 1@kafka:9093
+          - name: OTEL_RESOURCE_ATTRIBUTES
+            value: service.name=$(OTEL_SERVICE_NAME),service.namespace=opentelemetry-demo,service.version=2.1.3
+          image: ghcr.io/open-telemetry/demo:2.1.3-kafka
+          imagePullPolicy: IfNotPresent
+          name: kafka
+          ports:
+          - containerPort: 9092
+            name: plaintext
+            protocol: TCP
+          - containerPort: 9093
+            name: controller
+            protocol: TCP
+          resources:
+            limits:
+              memory: 600Mi
+          securityContext:
+            runAsGroup: 1000
+            runAsNonRoot: true
+            runAsUser: 1000
+          terminationMessagePath: /dev/termination-log
+          terminationMessagePolicy: File
+        dnsPolicy: ClusterFirst
+        restartPolicy: Always
+        schedulerName: default-scheduler
+        securityContext: {}
+        serviceAccount: opentelemetry-demo
+        serviceAccountName: opentelemetry-demo
+        terminationGracePeriodSeconds: 30
+  status:
+    availableReplicas: 1
+    conditions:
+    - lastTransitionTime: "2026-03-31T11:52:38Z"
+      lastUpdateTime: "2026-03-31T11:52:38Z"
+      message: Deployment has minimum availability.
+      reason: MinimumReplicasAvailable
+      status: "True"
+      type: Available
+    - lastTransitionTime: "2026-03-31T11:52:30Z"
+      lastUpdateTime: "2026-03-31T11:52:38Z"
+      message: ReplicaSet "kafka-6d78bd57f7" has successfully progressed.
+      reason: NewReplicaSetAvailable
+      status: "True"
+      type: Progressing
+    observedGeneration: 1
+    readyReplicas: 1
+    replicas: 1
+    updatedReplicas: 1
+- apiVersion: apps/v1
+  kind: Deployment
+  metadata:
+    annotations:
+      deployment.kubernetes.io/revision: "1"
+      kubectl.kubernetes.io/last-applied-configuration: |
+        {"apiVersion":"apps/v1","kind":"Deployment","metadata":{"annotations":{},"labels":{"app.kubernetes.io/component":"load-generator","app.kubernetes.io/name":"load-generator","app.kubernetes.io/part-of":"opentelemetry-demo","app.kubernetes.io/version":"2.1.3","opentelemetry.io/name":"load-generator"},"name":"load-generator","namespace":"otel-demo"},"spec":{"replicas":1,"revisionHistoryLimit":10,"selector":{"matchLabels":{"opentelemetry.io/name":"load-generator"}},"template":{"metadata":{"labels":{"app.kubernetes.io/component":"load-generator","app.kubernetes.io/name":"load-generator","opentelemetry.io/name":"load-generator"}},"spec":{"containers":[{"env":[{"name":"OTEL_SERVICE_NAME","valueFrom":{"fieldRef":{"apiVersion":"v1","fieldPath":"metadata.labels['app.kubernetes.io/component']"}}},{"name":"OTEL_COLLECTOR_NAME","value":"otel-collector"},{"name":"OTEL_EXPORTER_OTLP_METRICS_TEMPORALITY_PREFERENCE","value":"cumulative"},{"name":"LOCUST_WEB_HOST","value":"0.0.0.0"},{"name":"LOCUST_WEB_PORT","value":"8089"},{"name":"LOCUST_USERS","value":"10"},{"name":"LOCUST_SPAWN_RATE","value":"1"},{"name":"LOCUST_HOST","value":"http://frontend-proxy:8080"},{"name":"LOCUST_HEADLESS","value":"false"},{"name":"LOCUST_AUTOSTART","value":"true"},{"name":"LOCUST_BROWSER_TRAFFIC_ENABLED","value":"true"},{"name":"PROTOCOL_BUFFERS_PYTHON_IMPLEMENTATION","value":"python"},{"name":"FLAGD_HOST","value":"flagd"},{"name":"FLAGD_PORT","value":"8013"},{"name":"FLAGD_OFREP_PORT","value":"8016"},{"name":"OTEL_EXPORTER_OTLP_ENDPOINT","value":"http://$(OTEL_COLLECTOR_NAME):4317"},{"name":"OTEL_RESOURCE_ATTRIBUTES","value":"service.name=$(OTEL_SERVICE_NAME),service.namespace=opentelemetry-demo,service.version=2.1.3"}],"image":"ghcr.io/open-telemetry/demo:2.1.3-load-generator","imagePullPolicy":"IfNotPresent","name":"load-generator","ports":[{"containerPort":8089,"name":"service"}],"resources":{"limits":{"memory":"1500Mi"}},"volumeMounts":null}],"serviceAccountName":"opentelemetry-demo","volumes":null}}}}
+    creationTimestamp: "2026-03-31T11:52:31Z"
+    generation: 1
+    labels:
+      app.kubernetes.io/component: load-generator
+      app.kubernetes.io/name: load-generator
+      app.kubernetes.io/part-of: opentelemetry-demo
+      app.kubernetes.io/version: 2.1.3
+      opentelemetry.io/name: load-generator
+    name: load-generator
+    namespace: otel-demo
+    resourceVersion: "35194"
+    uid: d1650377-06cd-4dff-85f9-01d25dfa871a
+  spec:
+    progressDeadlineSeconds: 600
+    replicas: 1
+    revisionHistoryLimit: 10
+    selector:
+      matchLabels:
+        opentelemetry.io/name: load-generator
+    strategy:
+      rollingUpdate:
+        maxSurge: 25%
+        maxUnavailable: 25%
+      type: RollingUpdate
+    template:
+      metadata:
+        creationTimestamp: null
+        labels:
+          app.kubernetes.io/component: load-generator
+          app.kubernetes.io/name: load-generator
+          opentelemetry.io/name: load-generator
+      spec:
+        containers:
+        - env:
+          - name: OTEL_SERVICE_NAME
+            valueFrom:
+              fieldRef:
+                apiVersion: v1
+                fieldPath: metadata.labels['app.kubernetes.io/component']
+          - name: OTEL_COLLECTOR_NAME
+            value: otel-collector
+          - name: OTEL_EXPORTER_OTLP_METRICS_TEMPORALITY_PREFERENCE
+            value: cumulative
+          - name: LOCUST_WEB_HOST
+            value: 0.0.0.0
+          - name: LOCUST_WEB_PORT
+            value: "8089"
+          - name: LOCUST_USERS
+            value: "10"
+          - name: LOCUST_SPAWN_RATE
+            value: "1"
+          - name: LOCUST_HOST
+            value: http://frontend-proxy:8080
+          - name: LOCUST_HEADLESS
+            value: "false"
+          - name: LOCUST_AUTOSTART
+            value: "true"
+          - name: LOCUST_BROWSER_TRAFFIC_ENABLED
+            value: "true"
+          - name: PROTOCOL_BUFFERS_PYTHON_IMPLEMENTATION
+            value: python
+          - name: FLAGD_HOST
+            value: flagd
+          - name: FLAGD_PORT
+            value: "8013"
+          - name: FLAGD_OFREP_PORT
+            value: "8016"
+          - name: OTEL_EXPORTER_OTLP_ENDPOINT
+            value: http://$(OTEL_COLLECTOR_NAME):4317
+          - name: OTEL_RESOURCE_ATTRIBUTES
+            value: service.name=$(OTEL_SERVICE_NAME),service.namespace=opentelemetry-demo,service.version=2.1.3
+          image: ghcr.io/open-telemetry/demo:2.1.3-load-generator
+          imagePullPolicy: IfNotPresent
+          name: load-generator
+          ports:
+          - containerPort: 8089
+            name: service
+            protocol: TCP
+          resources:
+            limits:
+              memory: 1500Mi
+          terminationMessagePath: /dev/termination-log
+          terminationMessagePolicy: File
+        dnsPolicy: ClusterFirst
+        restartPolicy: Always
+        schedulerName: default-scheduler
+        securityContext: {}
+        serviceAccount: opentelemetry-demo
+        serviceAccountName: opentelemetry-demo
+        terminationGracePeriodSeconds: 30
+  status:
+    availableReplicas: 1
+    conditions:
+    - lastTransitionTime: "2026-03-31T11:53:01Z"
+      lastUpdateTime: "2026-03-31T11:53:01Z"
+      message: Deployment has minimum availability.
+      reason: MinimumReplicasAvailable
+      status: "True"
+      type: Available
+    - lastTransitionTime: "2026-03-31T11:52:31Z"
+      lastUpdateTime: "2026-03-31T11:53:01Z"
+      message: ReplicaSet "load-generator-5dbcbdcbd4" has successfully progressed.
+      reason: NewReplicaSetAvailable
+      status: "True"
+      type: Progressing
+    observedGeneration: 1
+    readyReplicas: 1
+    replicas: 1
+    updatedReplicas: 1
+- apiVersion: apps/v1
+  kind: Deployment
+  metadata:
+    annotations:
+      deployment.kubernetes.io/revision: "1"
+      kubectl.kubernetes.io/last-applied-configuration: |
+        {"apiVersion":"apps/v1","kind":"Deployment","metadata":{"annotations":{},"labels":{"app.kubernetes.io/component":"standalone-collector","app.kubernetes.io/instance":"opentelemetry-demo","app.kubernetes.io/name":"opentelemetry-collector","app.kubernetes.io/part-of":"opentelemetry-collector","app.kubernetes.io/version":"0.135.0"},"name":"otel-collector","namespace":"otel-demo"},"spec":{"replicas":1,"revisionHistoryLimit":10,"selector":{"matchLabels":{"app.kubernetes.io/instance":"opentelemetry-demo","app.kubernetes.io/name":"opentelemetry-collector","component":"standalone-collector"}},"strategy":{"type":"RollingUpdate"},"template":{"metadata":{"annotations":{"checksum/config":"b23c30f9b89a34910edbfdafc7072ff305d9e8bb93ca26ffaed9ac1a8872cefb","opentelemetry_community_demo":"true","prometheus.io/scrape":"true"},"labels":{"app.kubernetes.io/instance":"opentelemetry-demo","app.kubernetes.io/name":"opentelemetry-collector","component":"standalone-collector"}},"spec":{"automountServiceAccountToken":true,"containers":[{"args":["--config=/conf/relay.yaml"],"env":[{"name":"MY_POD_IP","valueFrom":{"fieldRef":{"apiVersion":"v1","fieldPath":"status.podIP"}}},{"name":"GOMEMLIMIT","value":"160MiB"}],"image":"otel/opentelemetry-collector-contrib:0.135.0","imagePullPolicy":"IfNotPresent","livenessProbe":{"httpGet":{"path":"/","port":13133}},"name":"opentelemetry-collector","ports":[{"containerPort":6831,"name":"jaeger-compact","protocol":"UDP"},{"containerPort":14250,"name":"jaeger-grpc","protocol":"TCP"},{"containerPort":14268,"name":"jaeger-thrift","protocol":"TCP"},{"containerPort":8888,"name":"metrics","protocol":"TCP"},{"containerPort":4317,"name":"otlp","protocol":"TCP"},{"containerPort":4318,"name":"otlp-http","protocol":"TCP"},{"containerPort":9411,"name":"zipkin","protocol":"TCP"}],"readinessProbe":{"httpGet":{"path":"/","port":13133}},"resources":{"limits":{"memory":"200Mi"}},"securityContext":{},"volumeMounts":[{"mountPath":"/conf","name":"opentelemetry-collector-configmap"}]}],"hostNetwork":false,"securityContext":{},"serviceAccountName":"otel-collector","volumes":[{"configMap":{"items":[{"key":"relay","path":"relay.yaml"}],"name":"otel-collector"},"name":"opentelemetry-collector-configmap"}]}}}}
+    creationTimestamp: "2026-03-31T11:49:23Z"
+    generation: 1
+    labels:
+      app.kubernetes.io/component: standalone-collector
+      app.kubernetes.io/instance: opentelemetry-demo
+      app.kubernetes.io/name: opentelemetry-collector
+      app.kubernetes.io/part-of: opentelemetry-collector
+      app.kubernetes.io/version: 0.135.0
+    name: otel-collector
+    namespace: otel-demo
+    resourceVersion: "34106"
+    uid: dd1fc9ae-4f3f-4c4f-8143-ebaf85f0314a
+  spec:
+    progressDeadlineSeconds: 600
+    replicas: 1
+    revisionHistoryLimit: 10
+    selector:
+      matchLabels:
+        app.kubernetes.io/instance: opentelemetry-demo
+        app.kubernetes.io/name: opentelemetry-collector
+        component: standalone-collector
+    strategy:
+      rollingUpdate:
+        maxSurge: 25%
+        maxUnavailable: 25%
+      type: RollingUpdate
+    template:
+      metadata:
+        annotations:
+          checksum/config: b23c30f9b89a34910edbfdafc7072ff305d9e8bb93ca26ffaed9ac1a8872cefb
+          opentelemetry_community_demo: "true"
+          prometheus.io/scrape: "true"
+        creationTimestamp: null
+        labels:
+          app.kubernetes.io/instance: opentelemetry-demo
+          app.kubernetes.io/name: opentelemetry-collector
+          component: standalone-collector
+      spec:
+        automountServiceAccountToken: true
+        containers:
+        - args:
+          - --config=/conf/relay.yaml
+          env:
+          - name: MY_POD_IP
+            valueFrom:
+              fieldRef:
+                apiVersion: v1
+                fieldPath: status.podIP
+          - name: GOMEMLIMIT
+            value: 160MiB
+          image: otel/opentelemetry-collector-contrib:0.135.0
+          imagePullPolicy: IfNotPresent
+          livenessProbe:
+            failureThreshold: 3
+            httpGet:
+              path: /
+              port: 13133
+              scheme: HTTP
+            periodSeconds: 10
+            successThreshold: 1
+            timeoutSeconds: 1
+          name: opentelemetry-collector
+          ports:
+          - containerPort: 6831
+            name: jaeger-compact
+            protocol: UDP
+          - containerPort: 14250
+            name: jaeger-grpc
+            protocol: TCP
+          - containerPort: 14268
+            name: jaeger-thrift
+            protocol: TCP
+          - containerPort: 8888
+            name: metrics
+            protocol: TCP
+          - containerPort: 4317
+            name: otlp
+            protocol: TCP
+          - containerPort: 4318
+            name: otlp-http
+            protocol: TCP
+          - containerPort: 9411
+            name: zipkin
+            protocol: TCP
+          readinessProbe:
+            failureThreshold: 3
+            httpGet:
+              path: /
+              port: 13133
+              scheme: HTTP
+            periodSeconds: 10
+            successThreshold: 1
+            timeoutSeconds: 1
+          resources:
+            limits:
+              memory: 200Mi
+          securityContext: {}
+          terminationMessagePath: /dev/termination-log
+          terminationMessagePolicy: File
+          volumeMounts:
+          - mountPath: /conf
+            name: opentelemetry-collector-configmap
+        dnsPolicy: ClusterFirst
+        restartPolicy: Always
+        schedulerName: default-scheduler
+        securityContext: {}
+        serviceAccount: otel-collector
+        serviceAccountName: otel-collector
+        terminationGracePeriodSeconds: 30
+        volumes:
+        - configMap:
+            defaultMode: 420
+            items:
+            - key: relay
+              path: relay.yaml
+            name: otel-collector
+          name: opentelemetry-collector-configmap
+  status:
+    availableReplicas: 1
+    conditions:
+    - lastTransitionTime: "2026-03-31T11:49:28Z"
+      lastUpdateTime: "2026-03-31T11:49:28Z"
+      message: Deployment has minimum availability.
+      reason: MinimumReplicasAvailable
+      status: "True"
+      type: Available
+    - lastTransitionTime: "2026-03-31T11:49:23Z"
+      lastUpdateTime: "2026-03-31T11:49:28Z"
+      message: ReplicaSet "otel-collector-6c7ffc848f" has successfully progressed.
+      reason: NewReplicaSetAvailable
+      status: "True"
+      type: Progressing
+    observedGeneration: 1
+    readyReplicas: 1
+    replicas: 1
+    updatedReplicas: 1
+- apiVersion: apps/v1
+  kind: Deployment
+  metadata:
+    annotations:
+      deployment.kubernetes.io/revision: "1"
+      kubectl.kubernetes.io/last-applied-configuration: |
+        {"apiVersion":"apps/v1","kind":"Deployment","metadata":{"annotations":{},"labels":{"app.kubernetes.io/component":"payment","app.kubernetes.io/name":"payment","app.kubernetes.io/part-of":"opentelemetry-demo","app.kubernetes.io/version":"2.1.3","opentelemetry.io/name":"payment"},"name":"payment","namespace":"otel-demo"},"spec":{"replicas":1,"revisionHistoryLimit":10,"selector":{"matchLabels":{"opentelemetry.io/name":"payment"}},"template":{"metadata":{"labels":{"app.kubernetes.io/component":"payment","app.kubernetes.io/name":"payment","opentelemetry.io/name":"payment"}},"spec":{"containers":[{"env":[{"name":"OTEL_SERVICE_NAME","valueFrom":{"fieldRef":{"apiVersion":"v1","fieldPath":"metadata.labels['app.kubernetes.io/component']"}}},{"name":"OTEL_COLLECTOR_NAME","value":"otel-collector"},{"name":"OTEL_EXPORTER_OTLP_METRICS_TEMPORALITY_PREFERENCE","value":"cumulative"},{"name":"PAYMENT_PORT","value":"8080"},{"name":"FLAGD_HOST","value":"flagd"},{"name":"FLAGD_PORT","value":"8013"},{"name":"OTEL_EXPORTER_OTLP_ENDPOINT","value":"http://$(OTEL_COLLECTOR_NAME):4317"},{"name":"OTEL_RESOURCE_ATTRIBUTES","value":"service.name=$(OTEL_SERVICE_NAME),service.namespace=opentelemetry-demo,service.version=2.1.3"}],"image":"ghcr.io/open-telemetry/demo:2.1.3-payment","imagePullPolicy":"IfNotPresent","name":"payment","ports":[{"containerPort":8080,"name":"service"}],"resources":{"limits":{"memory":"120Mi"}},"securityContext":{"runAsGroup":1000,"runAsNonRoot":true,"runAsUser":1000},"volumeMounts":null}],"serviceAccountName":"opentelemetry-demo","volumes":null}}}}
+    creationTimestamp: "2026-03-31T11:52:32Z"
+    generation: 1
+    labels:
+      app.kubernetes.io/component: payment
+      app.kubernetes.io/name: payment
+      app.kubernetes.io/part-of: opentelemetry-demo
+      app.kubernetes.io/version: 2.1.3
+      opentelemetry.io/name: payment
+    name: payment
+    namespace: otel-demo
+    resourceVersion: "35140"
+    uid: 7103cc23-6eac-4975-b0f2-28f957542a6b
+  spec:
+    progressDeadlineSeconds: 600
+    replicas: 1
+    revisionHistoryLimit: 10
+    selector:
+      matchLabels:
+        opentelemetry.io/name: payment
+    strategy:
+      rollingUpdate:
+        maxSurge: 25%
+        maxUnavailable: 25%
+      type: RollingUpdate
+    template:
+      metadata:
+        creationTimestamp: null
+        labels:
+          app.kubernetes.io/component: payment
+          app.kubernetes.io/name: payment
+          opentelemetry.io/name: payment
+      spec:
+        containers:
+        - env:
+          - name: OTEL_SERVICE_NAME
+            valueFrom:
+              fieldRef:
+                apiVersion: v1
+                fieldPath: metadata.labels['app.kubernetes.io/component']
+          - name: OTEL_COLLECTOR_NAME
+            value: otel-collector
+          - name: OTEL_EXPORTER_OTLP_METRICS_TEMPORALITY_PREFERENCE
+            value: cumulative
+          - name: PAYMENT_PORT
+            value: "8080"
+          - name: FLAGD_HOST
+            value: flagd
+          - name: FLAGD_PORT
+            value: "8013"
+          - name: OTEL_EXPORTER_OTLP_ENDPOINT
+            value: http://$(OTEL_COLLECTOR_NAME):4317
+          - name: OTEL_RESOURCE_ATTRIBUTES
+            value: service.name=$(OTEL_SERVICE_NAME),service.namespace=opentelemetry-demo,service.version=2.1.3
+          image: ghcr.io/open-telemetry/demo:2.1.3-payment
+          imagePullPolicy: IfNotPresent
+          name: payment
+          ports:
+          - containerPort: 8080
+            name: service
+            protocol: TCP
+          resources:
+            limits:
+              memory: 120Mi
+          securityContext:
+            runAsGroup: 1000
+            runAsNonRoot: true
+            runAsUser: 1000
+          terminationMessagePath: /dev/termination-log
+          terminationMessagePolicy: File
+        dnsPolicy: ClusterFirst
+        restartPolicy: Always
+        schedulerName: default-scheduler
+        securityContext: {}
+        serviceAccount: opentelemetry-demo
+        serviceAccountName: opentelemetry-demo
+        terminationGracePeriodSeconds: 30
+  status:
+    availableReplicas: 1
+    conditions:
+    - lastTransitionTime: "2026-03-31T11:52:51Z"
+      lastUpdateTime: "2026-03-31T11:52:51Z"
+      message: Deployment has minimum availability.
+      reason: MinimumReplicasAvailable
+      status: "True"
+      type: Available
+    - lastTransitionTime: "2026-03-31T11:52:32Z"
+      lastUpdateTime: "2026-03-31T11:52:51Z"
+      message: ReplicaSet "payment-55b4745977" has successfully progressed.
+      reason: NewReplicaSetAvailable
+      status: "True"
+      type: Progressing
+    observedGeneration: 1
+    readyReplicas: 1
+    replicas: 1
+    updatedReplicas: 1
+- apiVersion: apps/v1
+  kind: Deployment
+  metadata:
+    annotations:
+      deployment.kubernetes.io/revision: "1"
+      kubectl.kubernetes.io/last-applied-configuration: |
+        {"apiVersion":"apps/v1","kind":"Deployment","metadata":{"annotations":{},"labels":{"app.kubernetes.io/component":"postgresql","app.kubernetes.io/name":"postgresql","app.kubernetes.io/part-of":"opentelemetry-demo","app.kubernetes.io/version":"2.1.3","opentelemetry.io/name":"postgresql"},"name":"postgresql","namespace":"otel-demo"},"spec":{"replicas":1,"revisionHistoryLimit":10,"selector":{"matchLabels":{"opentelemetry.io/name":"postgresql"}},"template":{"metadata":{"labels":{"app.kubernetes.io/component":"postgresql","app.kubernetes.io/name":"postgresql","opentelemetry.io/name":"postgresql"}},"spec":{"containers":[{"env":[{"name":"OTEL_SERVICE_NAME","valueFrom":{"fieldRef":{"apiVersion":"v1","fieldPath":"metadata.labels['app.kubernetes.io/component']"}}},{"name":"OTEL_COLLECTOR_NAME","value":"otel-collector"},{"name":"OTEL_EXPORTER_OTLP_METRICS_TEMPORALITY_PREFERENCE","value":"cumulative"},{"name":"POSTGRES_USER","value":"root"},{"name":"POSTGRES_PASSWORD","value":"otel"},{"name":"POSTGRES_DB","value":"otel"},{"name":"OTEL_RESOURCE_ATTRIBUTES","value":"service.name=$(OTEL_SERVICE_NAME),service.namespace=opentelemetry-demo,service.version=2.1.3"}],"image":"ghcr.io/open-telemetry/demo:2.1.3-postgresql","imagePullPolicy":"IfNotPresent","name":"postgresql","ports":[{"containerPort":5432,"name":"service"}],"resources":{"limits":{"memory":"100Mi"}},"volumeMounts":null}],"serviceAccountName":"opentelemetry-demo","volumes":null}}}}
+    creationTimestamp: "2026-03-31T11:52:33Z"
+    generation: 1
+    labels:
+      app.kubernetes.io/component: postgresql
+      app.kubernetes.io/name: postgresql
+      app.kubernetes.io/part-of: opentelemetry-demo
+      app.kubernetes.io/version: 2.1.3
+      opentelemetry.io/name: postgresql
+    name: postgresql
+    namespace: otel-demo
+    resourceVersion: "35179"
+    uid: 80eca823-7f5d-45d3-ac2a-8c19eecd89d8
+  spec:
+    progressDeadlineSeconds: 600
+    replicas: 1
+    revisionHistoryLimit: 10
+    selector:
+      matchLabels:
+        opentelemetry.io/name: postgresql
+    strategy:
+      rollingUpdate:
+        maxSurge: 25%
+        maxUnavailable: 25%
+      type: RollingUpdate
+    template:
+      metadata:
+        creationTimestamp: null
+        labels:
+          app.kubernetes.io/component: postgresql
+          app.kubernetes.io/name: postgresql
+          opentelemetry.io/name: postgresql
+      spec:
+        containers:
+        - env:
+          - name: OTEL_SERVICE_NAME
+            valueFrom:
+              fieldRef:
+                apiVersion: v1
+                fieldPath: metadata.labels['app.kubernetes.io/component']
+          - name: OTEL_COLLECTOR_NAME
+            value: otel-collector
+          - name: OTEL_EXPORTER_OTLP_METRICS_TEMPORALITY_PREFERENCE
+            value: cumulative
+          - name: POSTGRES_USER
+            value: root
+          - name: POSTGRES_PASSWORD
+            value: otel
+          - name: POSTGRES_DB
+            value: otel
+          - name: OTEL_RESOURCE_ATTRIBUTES
+            value: service.name=$(OTEL_SERVICE_NAME),service.namespace=opentelemetry-demo,service.version=2.1.3
+          image: ghcr.io/open-telemetry/demo:2.1.3-postgresql
+          imagePullPolicy: IfNotPresent
+          name: postgresql
+          ports:
+          - containerPort: 5432
+            name: service
+            protocol: TCP
+          resources:
+            limits:
+              memory: 100Mi
+          terminationMessagePath: /dev/termination-log
+          terminationMessagePolicy: File
+        dnsPolicy: ClusterFirst
+        restartPolicy: Always
+        schedulerName: default-scheduler
+        securityContext: {}
+        serviceAccount: opentelemetry-demo
+        serviceAccountName: opentelemetry-demo
+        terminationGracePeriodSeconds: 30
+  status:
+    availableReplicas: 1
+    conditions:
+    - lastTransitionTime: "2026-03-31T11:52:59Z"
+      lastUpdateTime: "2026-03-31T11:52:59Z"
+      message: Deployment has minimum availability.
+      reason: MinimumReplicasAvailable
+      status: "True"
+      type: Available
+    - lastTransitionTime: "2026-03-31T11:52:33Z"
+      lastUpdateTime: "2026-03-31T11:52:59Z"
+      message: ReplicaSet "postgresql-57679676b5" has successfully progressed.
+      reason: NewReplicaSetAvailable
+      status: "True"
+      type: Progressing
+    observedGeneration: 1
+    readyReplicas: 1
+    replicas: 1
+    updatedReplicas: 1
+- apiVersion: apps/v1
+  kind: Deployment
+  metadata:
+    annotations:
+      deployment.kubernetes.io/revision: "1"
+      kubectl.kubernetes.io/last-applied-configuration: |
+        {"apiVersion":"apps/v1","kind":"Deployment","metadata":{"annotations":{},"labels":{"app.kubernetes.io/component":"product-catalog","app.kubernetes.io/name":"product-catalog","app.kubernetes.io/part-of":"opentelemetry-demo","app.kubernetes.io/version":"2.1.3","opentelemetry.io/name":"product-catalog"},"name":"product-catalog","namespace":"otel-demo"},"spec":{"replicas":1,"revisionHistoryLimit":10,"selector":{"matchLabels":{"opentelemetry.io/name":"product-catalog"}},"template":{"metadata":{"labels":{"app.kubernetes.io/component":"product-catalog","app.kubernetes.io/name":"product-catalog","opentelemetry.io/name":"product-catalog"}},"spec":{"containers":[{"env":[{"name":"OTEL_SERVICE_NAME","valueFrom":{"fieldRef":{"apiVersion":"v1","fieldPath":"metadata.labels['app.kubernetes.io/component']"}}},{"name":"OTEL_COLLECTOR_NAME","value":"otel-collector"},{"name":"OTEL_EXPORTER_OTLP_METRICS_TEMPORALITY_PREFERENCE","value":"cumulative"},{"name":"PRODUCT_CATALOG_PORT","value":"8080"},{"name":"PRODUCT_CATALOG_RELOAD_INTERVAL","value":"10"},{"name":"FLAGD_HOST","value":"flagd"},{"name":"FLAGD_PORT","value":"8013"},{"name":"OTEL_EXPORTER_OTLP_ENDPOINT","value":"http://$(OTEL_COLLECTOR_NAME):4317"},{"name":"GOMEMLIMIT","value":"16MiB"},{"name":"OTEL_RESOURCE_ATTRIBUTES","value":"service.name=$(OTEL_SERVICE_NAME),service.namespace=opentelemetry-demo,service.version=2.1.3"}],"image":"ghcr.io/open-telemetry/demo:2.1.3-product-catalog","imagePullPolicy":"IfNotPresent","name":"product-catalog","ports":[{"containerPort":8080,"name":"service"}],"resources":{"limits":{"memory":"20Mi"}},"volumeMounts":[{"mountPath":"/usr/src/app/products","name":"product-catalog-products"}]}],"serviceAccountName":"opentelemetry-demo","volumes":[{"configMap":{"name":"product-catalog-products"},"name":"product-catalog-products"}]}}}}
+    creationTimestamp: "2026-03-31T11:52:34Z"
+    generation: 1
+    labels:
+      app.kubernetes.io/component: product-catalog
+      app.kubernetes.io/name: product-catalog
+      app.kubernetes.io/part-of: opentelemetry-demo
+      app.kubernetes.io/version: 2.1.3
+      opentelemetry.io/name: product-catalog
+    name: product-catalog
+    namespace: otel-demo
+    resourceVersion: "35041"
+    uid: f49d1b79-5d88-45bf-a3fa-4cb969a4bca7
+  spec:
+    progressDeadlineSeconds: 600
+    replicas: 1
+    revisionHistoryLimit: 10
+    selector:
+      matchLabels:
+        opentelemetry.io/name: product-catalog
+    strategy:
+      rollingUpdate:
+        maxSurge: 25%
+        maxUnavailable: 25%
+      type: RollingUpdate
+    template:
+      metadata:
+        creationTimestamp: null
+        labels:
+          app.kubernetes.io/component: product-catalog
+          app.kubernetes.io/name: product-catalog
+          opentelemetry.io/name: product-catalog
+      spec:
+        containers:
+        - env:
+          - name: OTEL_SERVICE_NAME
+            valueFrom:
+              fieldRef:
+                apiVersion: v1
+                fieldPath: metadata.labels['app.kubernetes.io/component']
+          - name: OTEL_COLLECTOR_NAME
+            value: otel-collector
+          - name: OTEL_EXPORTER_OTLP_METRICS_TEMPORALITY_PREFERENCE
+            value: cumulative
+          - name: PRODUCT_CATALOG_PORT
+            value: "8080"
+          - name: PRODUCT_CATALOG_RELOAD_INTERVAL
+            value: "10"
+          - name: FLAGD_HOST
+            value: flagd
+          - name: FLAGD_PORT
+            value: "8013"
+          - name: OTEL_EXPORTER_OTLP_ENDPOINT
+            value: http://$(OTEL_COLLECTOR_NAME):4317
+          - name: GOMEMLIMIT
+            value: 16MiB
+          - name: OTEL_RESOURCE_ATTRIBUTES
+            value: service.name=$(OTEL_SERVICE_NAME),service.namespace=opentelemetry-demo,service.version=2.1.3
+          image: ghcr.io/open-telemetry/demo:2.1.3-product-catalog
+          imagePullPolicy: IfNotPresent
+          name: product-catalog
+          ports:
+          - containerPort: 8080
+            name: service
+            protocol: TCP
+          resources:
+            limits:
+              memory: 20Mi
+          terminationMessagePath: /dev/termination-log
+          terminationMessagePolicy: File
+          volumeMounts:
+          - mountPath: /usr/src/app/products
+            name: product-catalog-products
+        dnsPolicy: ClusterFirst
+        restartPolicy: Always
+        schedulerName: default-scheduler
+        securityContext: {}
+        serviceAccount: opentelemetry-demo
+        serviceAccountName: opentelemetry-demo
+        terminationGracePeriodSeconds: 30
+        volumes:
+        - configMap:
+            defaultMode: 420
+            name: product-catalog-products
+          name: product-catalog-products
+  status:
+    availableReplicas: 1
+    conditions:
+    - lastTransitionTime: "2026-03-31T11:52:38Z"
+      lastUpdateTime: "2026-03-31T11:52:38Z"
+      message: Deployment has minimum availability.
+      reason: MinimumReplicasAvailable
+      status: "True"
+      type: Available
+    - lastTransitionTime: "2026-03-31T11:52:34Z"
+      lastUpdateTime: "2026-03-31T11:52:38Z"
+      message: ReplicaSet "product-catalog-5b97445599" has successfully progressed.
+      reason: NewReplicaSetAvailable
+      status: "True"
+      type: Progressing
+    observedGeneration: 1
+    readyReplicas: 1
+    replicas: 1
+    updatedReplicas: 1
+- apiVersion: apps/v1
+  kind: Deployment
+  metadata:
+    annotations:
+      deployment.kubernetes.io/revision: "1"
+      kubectl.kubernetes.io/last-applied-configuration: |
+        {"apiVersion":"apps/v1","kind":"Deployment","metadata":{"annotations":{},"labels":{"app.kubernetes.io/component":"server","app.kubernetes.io/instance":"opentelemetry-demo","app.kubernetes.io/name":"prometheus","app.kubernetes.io/part-of":"prometheus","app.kubernetes.io/version":"v3.6.0"},"name":"prometheus","namespace":"otel-demo"},"spec":{"replicas":1,"revisionHistoryLimit":10,"selector":{"matchLabels":{"app.kubernetes.io/component":"server","app.kubernetes.io/instance":"opentelemetry-demo","app.kubernetes.io/name":"prometheus"}},"strategy":{"rollingUpdate":null,"type":"Recreate"},"template":{"metadata":{"labels":{"app.kubernetes.io/component":"server","app.kubernetes.io/instance":"opentelemetry-demo","app.kubernetes.io/name":"prometheus","app.kubernetes.io/part-of":"prometheus","app.kubernetes.io/version":"v3.6.0"}},"spec":{"containers":[{"args":["--storage.tsdb.retention.time=15d","--config.file=/etc/config/prometheus.yml","--storage.tsdb.path=/data","--web.console.libraries=/etc/prometheus/console_libraries","--web.console.templates=/etc/prometheus/consoles","--enable-feature=exemplar-storage","--web.enable-otlp-receiver"],"image":"quay.io/prometheus/prometheus:v3.6.0","imagePullPolicy":"IfNotPresent","livenessProbe":{"failureThreshold":3,"httpGet":{"path":"/-/healthy","port":9090,"scheme":"HTTP"},"initialDelaySeconds":30,"periodSeconds":15,"successThreshold":1,"timeoutSeconds":10},"name":"prometheus-server","ports":[{"containerPort":9090}],"readinessProbe":{"failureThreshold":3,"httpGet":{"path":"/-/ready","port":9090,"scheme":"HTTP"},"initialDelaySeconds":30,"periodSeconds":5,"successThreshold":1,"timeoutSeconds":4},"resources":{"limits":{"memory":"300Mi"}},"volumeMounts":[{"mountPath":"/etc/config","name":"config-volume"},{"mountPath":"/data","name":"storage-volume","subPath":""}]}],"dnsPolicy":"ClusterFirst","enableServiceLinks":true,"securityContext":{"fsGroup":65534,"runAsGroup":65534,"runAsNonRoot":true,"runAsUser":65534},"serviceAccountName":"prometheus","terminationGracePeriodSeconds":300,"volumes":[{"configMap":{"name":"prometheus"},"name":"config-volume"},{"emptyDir":{},"name":"storage-volume"}]}}}}
+    creationTimestamp: "2026-03-31T11:49:28Z"
+    generation: 1
+    labels:
+      app.kubernetes.io/component: server
+      app.kubernetes.io/instance: opentelemetry-demo
+      app.kubernetes.io/name: prometheus
+      app.kubernetes.io/part-of: prometheus
+      app.kubernetes.io/version: v3.6.0
+    name: prometheus
+    namespace: otel-demo
+    resourceVersion: "34238"
+    uid: 8914bca9-74ce-4e7d-90fb-132bf947a168
+  spec:
+    progressDeadlineSeconds: 600
+    replicas: 1
+    revisionHistoryLimit: 10
+    selector:
+      matchLabels:
+        app.kubernetes.io/component: server
+        app.kubernetes.io/instance: opentelemetry-demo
+        app.kubernetes.io/name: prometheus
+    strategy:
+      type: Recreate
+    template:
+      metadata:
+        creationTimestamp: null
+        labels:
+          app.kubernetes.io/component: server
+          app.kubernetes.io/instance: opentelemetry-demo
+          app.kubernetes.io/name: prometheus
+          app.kubernetes.io/part-of: prometheus
+          app.kubernetes.io/version: v3.6.0
+      spec:
+        containers:
+        - args:
+          - --storage.tsdb.retention.time=15d
+          - --config.file=/etc/config/prometheus.yml
+          - --storage.tsdb.path=/data
+          - --web.console.libraries=/etc/prometheus/console_libraries
+          - --web.console.templates=/etc/prometheus/consoles
+          - --enable-feature=exemplar-storage
+          - --web.enable-otlp-receiver
+          image: quay.io/prometheus/prometheus:v3.6.0
+          imagePullPolicy: IfNotPresent
+          livenessProbe:
+            failureThreshold: 3
+            httpGet:
+              path: /-/healthy
+              port: 9090
+              scheme: HTTP
+            initialDelaySeconds: 30
+            periodSeconds: 15
+            successThreshold: 1
+            timeoutSeconds: 10
+          name: prometheus-server
+          ports:
+          - containerPort: 9090
+            protocol: TCP
+          readinessProbe:
+            failureThreshold: 3
+            httpGet:
+              path: /-/ready
+              port: 9090
+              scheme: HTTP
+            initialDelaySeconds: 30
+            periodSeconds: 5
+            successThreshold: 1
+            timeoutSeconds: 4
+          resources:
+            limits:
+              memory: 300Mi
+          terminationMessagePath: /dev/termination-log
+          terminationMessagePolicy: File
+          volumeMounts:
+          - mountPath: /etc/config
+            name: config-volume
+          - mountPath: /data
+            name: storage-volume
+        dnsPolicy: ClusterFirst
+        enableServiceLinks: true
+        restartPolicy: Always
+        schedulerName: default-scheduler
+        securityContext:
+          fsGroup: 65534
+          runAsGroup: 65534
+          runAsNonRoot: true
+          runAsUser: 65534
+        serviceAccount: prometheus
+        serviceAccountName: prometheus
+        terminationGracePeriodSeconds: 300
+        volumes:
+        - configMap:
+            defaultMode: 420
+            name: prometheus
+          name: config-volume
+        - emptyDir: {}
+          name: storage-volume
+  status:
+    availableReplicas: 1
+    conditions:
+    - lastTransitionTime: "2026-03-31T11:50:03Z"
+      lastUpdateTime: "2026-03-31T11:50:03Z"
+      message: Deployment has minimum availability.
+      reason: MinimumReplicasAvailable
+      status: "True"
+      type: Available
+    - lastTransitionTime: "2026-03-31T11:49:28Z"
+      lastUpdateTime: "2026-03-31T11:50:03Z"
+      message: ReplicaSet "prometheus-9cf9cf87c" has successfully progressed.
+      reason: NewReplicaSetAvailable
+      status: "True"
+      type: Progressing
+    observedGeneration: 1
+    readyReplicas: 1
+    replicas: 1
+    updatedReplicas: 1
+- apiVersion: apps/v1
+  kind: Deployment
+  metadata:
+    annotations:
+      deployment.kubernetes.io/revision: "1"
+      kubectl.kubernetes.io/last-applied-configuration: |
+        {"apiVersion":"apps/v1","kind":"Deployment","metadata":{"annotations":{},"labels":{"app.kubernetes.io/component":"quote","app.kubernetes.io/name":"quote","app.kubernetes.io/part-of":"opentelemetry-demo","app.kubernetes.io/version":"2.1.3","opentelemetry.io/name":"quote"},"name":"quote","namespace":"otel-demo"},"spec":{"replicas":1,"revisionHistoryLimit":10,"selector":{"matchLabels":{"opentelemetry.io/name":"quote"}},"template":{"metadata":{"labels":{"app.kubernetes.io/component":"quote","app.kubernetes.io/name":"quote","opentelemetry.io/name":"quote"}},"spec":{"containers":[{"env":[{"name":"OTEL_SERVICE_NAME","valueFrom":{"fieldRef":{"apiVersion":"v1","fieldPath":"metadata.labels['app.kubernetes.io/component']"}}},{"name":"OTEL_COLLECTOR_NAME","value":"otel-collector"},{"name":"OTEL_EXPORTER_OTLP_METRICS_TEMPORALITY_PREFERENCE","value":"cumulative"},{"name":"QUOTE_PORT","value":"8080"},{"name":"OTEL_PHP_AUTOLOAD_ENABLED","value":"true"},{"name":"OTEL_PHP_INTERNAL_METRICS_ENABLED","value":"true"},{"name":"OTEL_EXPORTER_OTLP_ENDPOINT","value":"http://$(OTEL_COLLECTOR_NAME):4318"},{"name":"OTEL_RESOURCE_ATTRIBUTES","value":"service.name=$(OTEL_SERVICE_NAME),service.namespace=opentelemetry-demo,service.version=2.1.3"}],"image":"ghcr.io/open-telemetry/demo:2.1.3-quote","imagePullPolicy":"IfNotPresent","name":"quote","ports":[{"containerPort":8080,"name":"service"}],"resources":{"limits":{"memory":"40Mi"}},"securityContext":{"runAsGroup":33,"runAsNonRoot":true,"runAsUser":33},"volumeMounts":null}],"serviceAccountName":"opentelemetry-demo","volumes":null}}}}
+    creationTimestamp: "2026-03-31T11:52:35Z"
+    generation: 1
+    labels:
+      app.kubernetes.io/component: quote
+      app.kubernetes.io/name: quote
+      app.kubernetes.io/part-of: opentelemetry-demo
+      app.kubernetes.io/version: 2.1.3
+      opentelemetry.io/name: quote
+    name: quote
+    namespace: otel-demo
+    resourceVersion: "35118"
+    uid: 30457738-9de6-4369-bc58-9df011da030e
+  spec:
+    progressDeadlineSeconds: 600
+    replicas: 1
+    revisionHistoryLimit: 10
+    selector:
+      matchLabels:
+        opentelemetry.io/name: quote
+    strategy:
+      rollingUpdate:
+        maxSurge: 25%
+        maxUnavailable: 25%
+      type: RollingUpdate
+    template:
+      metadata:
+        creationTimestamp: null
+        labels:
+          app.kubernetes.io/component: quote
+          app.kubernetes.io/name: quote
+          opentelemetry.io/name: quote
+      spec:
+        containers:
+        - env:
+          - name: OTEL_SERVICE_NAME
+            valueFrom:
+              fieldRef:
+                apiVersion: v1
+                fieldPath: metadata.labels['app.kubernetes.io/component']
+          - name: OTEL_COLLECTOR_NAME
+            value: otel-collector
+          - name: OTEL_EXPORTER_OTLP_METRICS_TEMPORALITY_PREFERENCE
+            value: cumulative
+          - name: QUOTE_PORT
+            value: "8080"
+          - name: OTEL_PHP_AUTOLOAD_ENABLED
+            value: "true"
+          - name: OTEL_PHP_INTERNAL_METRICS_ENABLED
+            value: "true"
+          - name: OTEL_EXPORTER_OTLP_ENDPOINT
+            value: http://$(OTEL_COLLECTOR_NAME):4318
+          - name: OTEL_RESOURCE_ATTRIBUTES
+            value: service.name=$(OTEL_SERVICE_NAME),service.namespace=opentelemetry-demo,service.version=2.1.3
+          image: ghcr.io/open-telemetry/demo:2.1.3-quote
+          imagePullPolicy: IfNotPresent
+          name: quote
+          ports:
+          - containerPort: 8080
+            name: service
+            protocol: TCP
+          resources:
+            limits:
+              memory: 40Mi
+          securityContext:
+            runAsGroup: 33
+            runAsNonRoot: true
+            runAsUser: 33
+          terminationMessagePath: /dev/termination-log
+          terminationMessagePolicy: File
+        dnsPolicy: ClusterFirst
+        restartPolicy: Always
+        schedulerName: default-scheduler
+        securityContext: {}
+        serviceAccount: opentelemetry-demo
+        serviceAccountName: opentelemetry-demo
+        terminationGracePeriodSeconds: 30
+  status:
+    availableReplicas: 1
+    conditions:
+    - lastTransitionTime: "2026-03-31T11:52:49Z"
+      lastUpdateTime: "2026-03-31T11:52:49Z"
+      message: Deployment has minimum availability.
+      reason: MinimumReplicasAvailable
+      status: "True"
+      type: Available
+    - lastTransitionTime: "2026-03-31T11:52:35Z"
+      lastUpdateTime: "2026-03-31T11:52:49Z"
+      message: ReplicaSet "quote-778f5fb486" has successfully progressed.
+      reason: NewReplicaSetAvailable
+      status: "True"
+      type: Progressing
+    observedGeneration: 1
+    readyReplicas: 1
+    replicas: 1
+    updatedReplicas: 1
+- apiVersion: apps/v1
+  kind: Deployment
+  metadata:
+    annotations:
+      deployment.kubernetes.io/revision: "1"
+      kubectl.kubernetes.io/last-applied-configuration: |
+        {"apiVersion":"apps/v1","kind":"Deployment","metadata":{"annotations":{},"labels":{"app.kubernetes.io/component":"recommendation","app.kubernetes.io/name":"recommendation","app.kubernetes.io/part-of":"opentelemetry-demo","app.kubernetes.io/version":"2.1.3","opentelemetry.io/name":"recommendation"},"name":"recommendation","namespace":"otel-demo"},"spec":{"replicas":1,"revisionHistoryLimit":10,"selector":{"matchLabels":{"opentelemetry.io/name":"recommendation"}},"template":{"metadata":{"labels":{"app.kubernetes.io/component":"recommendation","app.kubernetes.io/name":"recommendation","opentelemetry.io/name":"recommendation"}},"spec":{"containers":[{"env":[{"name":"OTEL_SERVICE_NAME","valueFrom":{"fieldRef":{"apiVersion":"v1","fieldPath":"metadata.labels['app.kubernetes.io/component']"}}},{"name":"OTEL_COLLECTOR_NAME","value":"otel-collector"},{"name":"OTEL_EXPORTER_OTLP_METRICS_TEMPORALITY_PREFERENCE","value":"cumulative"},{"name":"RECOMMENDATION_PORT","value":"8080"},{"name":"PRODUCT_CATALOG_ADDR","value":"product-catalog:8080"},{"name":"OTEL_PYTHON_LOG_CORRELATION","value":"true"},{"name":"PROTOCOL_BUFFERS_PYTHON_IMPLEMENTATION","value":"python"},{"name":"FLAGD_HOST","value":"flagd"},{"name":"FLAGD_PORT","value":"8013"},{"name":"OTEL_EXPORTER_OTLP_ENDPOINT","value":"http://$(OTEL_COLLECTOR_NAME):4317"},{"name":"OTEL_RESOURCE_ATTRIBUTES","value":"service.name=$(OTEL_SERVICE_NAME),service.namespace=opentelemetry-demo,service.version=2.1.3"}],"image":"ghcr.io/open-telemetry/demo:2.1.3-recommendation","imagePullPolicy":"IfNotPresent","name":"recommendation","ports":[{"containerPort":8080,"name":"service"}],"resources":{"limits":{"memory":"500Mi"}},"volumeMounts":null}],"serviceAccountName":"opentelemetry-demo","volumes":null}}}}
+    creationTimestamp: "2026-03-31T11:52:36Z"
+    generation: 1
+    labels:
+      app.kubernetes.io/component: recommendation
+      app.kubernetes.io/name: recommendation
+      app.kubernetes.io/part-of: opentelemetry-demo
+      app.kubernetes.io/version: 2.1.3
+      opentelemetry.io/name: recommendation
+    name: recommendation
+    namespace: otel-demo
+    resourceVersion: "35079"
+    uid: da48c922-d588-4c3e-b77a-5411ef078944
+  spec:
+    progressDeadlineSeconds: 600
+    replicas: 1
+    revisionHistoryLimit: 10
+    selector:
+      matchLabels:
+        opentelemetry.io/name: recommendation
+    strategy:
+      rollingUpdate:
+        maxSurge: 25%
+        maxUnavailable: 25%
+      type: RollingUpdate
+    template:
+      metadata:
+        creationTimestamp: null
+        labels:
+          app.kubernetes.io/component: recommendation
+          app.kubernetes.io/name: recommendation
+          opentelemetry.io/name: recommendation
+      spec:
+        containers:
+        - env:
+          - name: OTEL_SERVICE_NAME
+            valueFrom:
+              fieldRef:
+                apiVersion: v1
+                fieldPath: metadata.labels['app.kubernetes.io/component']
+          - name: OTEL_COLLECTOR_NAME
+            value: otel-collector
+          - name: OTEL_EXPORTER_OTLP_METRICS_TEMPORALITY_PREFERENCE
+            value: cumulative
+          - name: RECOMMENDATION_PORT
+            value: "8080"
+          - name: PRODUCT_CATALOG_ADDR
+            value: product-catalog:8080
+          - name: OTEL_PYTHON_LOG_CORRELATION
+            value: "true"
+          - name: PROTOCOL_BUFFERS_PYTHON_IMPLEMENTATION
+            value: python
+          - name: FLAGD_HOST
+            value: flagd
+          - name: FLAGD_PORT
+            value: "8013"
+          - name: OTEL_EXPORTER_OTLP_ENDPOINT
+            value: http://$(OTEL_COLLECTOR_NAME):4317
+          - name: OTEL_RESOURCE_ATTRIBUTES
+            value: service.name=$(OTEL_SERVICE_NAME),service.namespace=opentelemetry-demo,service.version=2.1.3
+          image: ghcr.io/open-telemetry/demo:2.1.3-recommendation
+          imagePullPolicy: IfNotPresent
+          name: recommendation
+          ports:
+          - containerPort: 8080
+            name: service
+            protocol: TCP
+          resources:
+            limits:
+              memory: 500Mi
+          terminationMessagePath: /dev/termination-log
+          terminationMessagePolicy: File
+        dnsPolicy: ClusterFirst
+        restartPolicy: Always
+        schedulerName: default-scheduler
+        securityContext: {}
+        serviceAccount: opentelemetry-demo
+        serviceAccountName: opentelemetry-demo
+        terminationGracePeriodSeconds: 30
+  status:
+    availableReplicas: 1
+    conditions:
+    - lastTransitionTime: "2026-03-31T11:52:42Z"
+      lastUpdateTime: "2026-03-31T11:52:42Z"
+      message: Deployment has minimum availability.
+      reason: MinimumReplicasAvailable
+      status: "True"
+      type: Available
+    - lastTransitionTime: "2026-03-31T11:52:36Z"
+      lastUpdateTime: "2026-03-31T11:52:42Z"
+      message: ReplicaSet "recommendation-6678666799" has successfully progressed.
+      reason: NewReplicaSetAvailable
+      status: "True"
+      type: Progressing
+    observedGeneration: 1
+    readyReplicas: 1
+    replicas: 1
+    updatedReplicas: 1
+- apiVersion: apps/v1
+  kind: Deployment
+  metadata:
+    annotations:
+      deployment.kubernetes.io/revision: "1"
+      kubectl.kubernetes.io/last-applied-configuration: |
+        {"apiVersion":"apps/v1","kind":"Deployment","metadata":{"annotations":{},"labels":{"app.kubernetes.io/component":"shipping","app.kubernetes.io/name":"shipping","app.kubernetes.io/part-of":"opentelemetry-demo","app.kubernetes.io/version":"2.1.3","opentelemetry.io/name":"shipping"},"name":"shipping","namespace":"otel-demo"},"spec":{"replicas":1,"revisionHistoryLimit":10,"selector":{"matchLabels":{"opentelemetry.io/name":"shipping"}},"template":{"metadata":{"labels":{"app.kubernetes.io/component":"shipping","app.kubernetes.io/name":"shipping","opentelemetry.io/name":"shipping"}},"spec":{"containers":[{"env":[{"name":"OTEL_SERVICE_NAME","valueFrom":{"fieldRef":{"apiVersion":"v1","fieldPath":"metadata.labels['app.kubernetes.io/component']"}}},{"name":"OTEL_COLLECTOR_NAME","value":"otel-collector"},{"name":"OTEL_EXPORTER_OTLP_METRICS_TEMPORALITY_PREFERENCE","value":"cumulative"},{"name":"SHIPPING_PORT","value":"8080"},{"name":"QUOTE_ADDR","value":"http://quote:8080"},{"name":"OTEL_EXPORTER_OTLP_ENDPOINT","value":"http://$(OTEL_COLLECTOR_NAME):4317"},{"name":"OTEL_RESOURCE_ATTRIBUTES","value":"service.name=$(OTEL_SERVICE_NAME),service.namespace=opentelemetry-demo,service.version=2.1.3"}],"image":"ghcr.io/open-telemetry/demo:2.1.3-shipping","imagePullPolicy":"IfNotPresent","name":"shipping","ports":[{"containerPort":8080,"name":"service"}],"resources":{"limits":{"memory":"20Mi"}},"volumeMounts":null}],"serviceAccountName":"opentelemetry-demo","volumes":null}}}}
+    creationTimestamp: "2026-03-31T11:52:37Z"
+    generation: 1
+    labels:
+      app.kubernetes.io/component: shipping
+      app.kubernetes.io/name: shipping
+      app.kubernetes.io/part-of: opentelemetry-demo
+      app.kubernetes.io/version: 2.1.3
+      opentelemetry.io/name: shipping
+    name: shipping
+    namespace: otel-demo
+    resourceVersion: "35066"
+    uid: 6111d1cd-f792-4bba-a901-e1e4cd7f50a3
+  spec:
+    progressDeadlineSeconds: 600
+    replicas: 1
+    revisionHistoryLimit: 10
+    selector:
+      matchLabels:
+        opentelemetry.io/name: shipping
+    strategy:
+      rollingUpdate:
+        maxSurge: 25%
+        maxUnavailable: 25%
+      type: RollingUpdate
+    template:
+      metadata:
+        creationTimestamp: null
+        labels:
+          app.kubernetes.io/component: shipping
+          app.kubernetes.io/name: shipping
+          opentelemetry.io/name: shipping
+      spec:
+        containers:
+        - env:
+          - name: OTEL_SERVICE_NAME
+            valueFrom:
+              fieldRef:
+                apiVersion: v1
+                fieldPath: metadata.labels['app.kubernetes.io/component']
+          - name: OTEL_COLLECTOR_NAME
+            value: otel-collector
+          - name: OTEL_EXPORTER_OTLP_METRICS_TEMPORALITY_PREFERENCE
+            value: cumulative
+          - name: SHIPPING_PORT
+            value: "8080"
+          - name: QUOTE_ADDR
+            value: http://quote:8080
+          - name: OTEL_EXPORTER_OTLP_ENDPOINT
+            value: http://$(OTEL_COLLECTOR_NAME):4317
+          - name: OTEL_RESOURCE_ATTRIBUTES
+            value: service.name=$(OTEL_SERVICE_NAME),service.namespace=opentelemetry-demo,service.version=2.1.3
+          image: ghcr.io/open-telemetry/demo:2.1.3-shipping
+          imagePullPolicy: IfNotPresent
+          name: shipping
+          ports:
+          - containerPort: 8080
+            name: service
+            protocol: TCP
+          resources:
+            limits:
+              memory: 20Mi
+          terminationMessagePath: /dev/termination-log
+          terminationMessagePolicy: File
+        dnsPolicy: ClusterFirst
+        restartPolicy: Always
+        schedulerName: default-scheduler
+        securityContext: {}
+        serviceAccount: opentelemetry-demo
+        serviceAccountName: opentelemetry-demo
+        terminationGracePeriodSeconds: 30
+  status:
+    availableReplicas: 1
+    conditions:
+    - lastTransitionTime: "2026-03-31T11:52:41Z"
+      lastUpdateTime: "2026-03-31T11:52:41Z"
+      message: Deployment has minimum availability.
+      reason: MinimumReplicasAvailable
+      status: "True"
+      type: Available
+    - lastTransitionTime: "2026-03-31T11:52:37Z"
+      lastUpdateTime: "2026-03-31T11:52:41Z"
+      message: ReplicaSet "shipping-995458659" has successfully progressed.
+      reason: NewReplicaSetAvailable
+      status: "True"
+      type: Progressing
+    observedGeneration: 1
+    readyReplicas: 1
+    replicas: 1
+    updatedReplicas: 1
+- apiVersion: apps/v1
+  kind: Deployment
+  metadata:
+    annotations:
+      deployment.kubernetes.io/revision: "1"
+      kubectl.kubernetes.io/last-applied-configuration: |
+        {"apiVersion":"apps/v1","kind":"Deployment","metadata":{"annotations":{},"labels":{"app.kubernetes.io/component":"valkey-cart","app.kubernetes.io/name":"valkey-cart","app.kubernetes.io/part-of":"opentelemetry-demo","app.kubernetes.io/version":"2.1.3","opentelemetry.io/name":"valkey-cart"},"name":"valkey-cart","namespace":"otel-demo"},"spec":{"replicas":1,"revisionHistoryLimit":10,"selector":{"matchLabels":{"opentelemetry.io/name":"valkey-cart"}},"template":{"metadata":{"labels":{"app.kubernetes.io/component":"valkey-cart","app.kubernetes.io/name":"valkey-cart","opentelemetry.io/name":"valkey-cart"}},"spec":{"containers":[{"env":[{"name":"OTEL_SERVICE_NAME","valueFrom":{"fieldRef":{"apiVersion":"v1","fieldPath":"metadata.labels['app.kubernetes.io/component']"}}},{"name":"OTEL_COLLECTOR_NAME","value":"otel-collector"},{"name":"OTEL_EXPORTER_OTLP_METRICS_TEMPORALITY_PREFERENCE","value":"cumulative"},{"name":"OTEL_RESOURCE_ATTRIBUTES","value":"service.name=$(OTEL_SERVICE_NAME),service.namespace=opentelemetry-demo,service.version=2.1.3"}],"image":"valkey/valkey:8.1.3-alpine","imagePullPolicy":"IfNotPresent","name":"valkey-cart","ports":[{"containerPort":6379,"name":"valkey-cart"}],"resources":{"limits":{"memory":"20Mi"}},"securityContext":{"runAsGroup":1000,"runAsNonRoot":true,"runAsUser":999},"volumeMounts":null}],"serviceAccountName":"opentelemetry-demo","volumes":null}}}}
+    creationTimestamp: "2026-03-31T11:52:38Z"
+    generation: 1
+    labels:
+      app.kubernetes.io/component: valkey-cart
+      app.kubernetes.io/name: valkey-cart
+      app.kubernetes.io/part-of: opentelemetry-demo
+      app.kubernetes.io/version: 2.1.3
+      opentelemetry.io/name: valkey-cart
+    name: valkey-cart
+    namespace: otel-demo
+    resourceVersion: "35094"
+    uid: fc0f68c3-24a2-4f1b-90fe-6e958284267a
+  spec:
+    progressDeadlineSeconds: 600
+    replicas: 1
+    revisionHistoryLimit: 10
+    selector:
+      matchLabels:
+        opentelemetry.io/name: valkey-cart
+    strategy:
+      rollingUpdate:
+        maxSurge: 25%
+        maxUnavailable: 25%
+      type: RollingUpdate
+    template:
+      metadata:
+        creationTimestamp: null
+        labels:
+          app.kubernetes.io/component: valkey-cart
+          app.kubernetes.io/name: valkey-cart
+          opentelemetry.io/name: valkey-cart
+      spec:
+        containers:
+        - env:
+          - name: OTEL_SERVICE_NAME
+            valueFrom:
+              fieldRef:
+                apiVersion: v1
+                fieldPath: metadata.labels['app.kubernetes.io/component']
+          - name: OTEL_COLLECTOR_NAME
+            value: otel-collector
+          - name: OTEL_EXPORTER_OTLP_METRICS_TEMPORALITY_PREFERENCE
+            value: cumulative
+          - name: OTEL_RESOURCE_ATTRIBUTES
+            value: service.name=$(OTEL_SERVICE_NAME),service.namespace=opentelemetry-demo,service.version=2.1.3
+          image: valkey/valkey:8.1.3-alpine
+          imagePullPolicy: IfNotPresent
+          name: valkey-cart
+          ports:
+          - containerPort: 6379
+            name: valkey-cart
+            protocol: TCP
+          resources:
+            limits:
+              memory: 20Mi
+          securityContext:
+            runAsGroup: 1000
+            runAsNonRoot: true
+            runAsUser: 999
+          terminationMessagePath: /dev/termination-log
+          terminationMessagePolicy: File
+        dnsPolicy: ClusterFirst
+        restartPolicy: Always
+        schedulerName: default-scheduler
+        securityContext: {}
+        serviceAccount: opentelemetry-demo
+        serviceAccountName: opentelemetry-demo
+        terminationGracePeriodSeconds: 30
+  status:
+    availableReplicas: 1
+    conditions:
+    - lastTransitionTime: "2026-03-31T11:52:45Z"
+      lastUpdateTime: "2026-03-31T11:52:45Z"
+      message: Deployment has minimum availability.
+      reason: MinimumReplicasAvailable
+      status: "True"
+      type: Available
+    - lastTransitionTime: "2026-03-31T11:52:38Z"
+      lastUpdateTime: "2026-03-31T11:52:45Z"
+      message: ReplicaSet "valkey-cart-768dc9b6d4" has successfully progressed.
+      reason: NewReplicaSetAvailable
+      status: "True"
+      type: Progressing
+    observedGeneration: 1
+    readyReplicas: 1
+    replicas: 1
+    updatedReplicas: 1
+kind: List
+metadata:
+  resourceVersion: ""
