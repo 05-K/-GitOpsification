@@ -1,0 +1,25 @@
+name: CI/CD Pipeline
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      
+      - name: Check Kubernetes manifests
+        run: |
+          echo "Checking Kubernetes manifests..."
+          ls -la kubernetes/
+          echo "Total manifests: $(ls kubernetes/*.yaml | wc -l)"
+      
+      - name: Validate Terraform
+        run: |
+          cd terraform
+          terraform fmt -check
+          terraform validate
