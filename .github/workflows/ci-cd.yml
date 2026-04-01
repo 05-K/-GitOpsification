@@ -12,6 +12,11 @@ jobs:
     steps:
       - uses: actions/checkout@v3
       
+      - name: Setup Terraform
+        uses: hashicorp/setup-terraform@v2
+        with:
+          terraform_version: 1.7.0
+      
       - name: Check Kubernetes manifests
         run: |
           echo "Checking Kubernetes manifests..."
@@ -22,4 +27,12 @@ jobs:
         run: |
           cd terraform
           terraform fmt -check
+          terraform init -backend=false
           terraform validate
+      
+      - name: Verify URLs
+        run: |
+          echo "Demo URLs:"
+          echo "Web Store: https://crewhive.site"
+          echo "Grafana: https://crewhive.site/grafana"
+          echo "Jaeger: https://crewhive.site/jaeger"
